@@ -5,52 +5,61 @@
   <project_license>GPL-3.0-or-later</project_license>
 
   <name>Commodus</name>
-  <summary>Generate Schedules</summary>
+  <summary>Generate conflict-free university schedules</summary>
   <description>
-    <p>Commodus allows you to generate schedules for Nile University that adapt to you rather than having to adapt to your schedules</p>
+    <p>
+      Commodus is a modern desktop application designed to solve the complexities of university scheduling.
+      Built specifically for Nile University, it enables students to generate complete, conflict-free schedules
+      based on their chosen courses, letting the timetable adapt to your lifestyle rather than making you adapt to it.
+    </p>
+    <p>Features include:</p>
+    <ul>
+      <li>Blazing-fast backtrack-matching schedule solver.</li>
+      <li>Custom filters for time boundaries, specific weekdays, and seat availability.</li>
+      <li>Intuitive, interactive timeline grid with auto-scaling high-density cards.</li>
+      <li>Granular comparative tools to lock, unlock, or swap specific sections and instructors on the fly.</li>
+    </ul>
   </description>
 
-  <developer id="tld.vendor">
+  <developer id="io.github.Epoch5427">
     <name>Epoch</name>
   </developer>
 
-  <!-- Required: Should be a link to the upstream homepage for the component -->
-  <url type="homepage">https://example.org/</url>
-  <!-- Recommended: It is highly recommended for open-source projects to display the source code repository -->
-  <url type="vcs-browser">https://example.org/repository</url>
-  <!-- Should point to the software's bug tracking system, for users to report new bugs -->
-  <url type="bugtracker">https://example.org/issues</url>
-  <!-- All graphical applications having a desktop file must have this tag in the MetaInfo.
-     If this is present, appstreamcli compose will pull icons, keywords and categories from the desktop file. -->
+  <url type="homepage">https://github.com/Epoch5427/Commodus</url>
+  <url type="vcs-browser">https://github.com/Epoch5427/Commodus</url>
+  <url type="bugtracker">https://github.com/Epoch5427/Commodus/issues</url>
+
   <launchable type="desktop-id">io.github.Epoch5427.Commodus.desktop</launchable>
-  <!-- Use the OARS website (https://hughsie.github.io/oars/generate.html) to generate these and make sure to use oars-1.1 -->
   <content_rating type="oars-1.1" />
 
-  <!-- Applications should set a brand color in both light and dark variants like so -->
   <branding>
-    <color type="primary" scheme_preference="light">#ff00ff</color>
-    <color type="primary" scheme_preference="dark">#993d3d</color>
+    <color type="primary" scheme_preference="light">#2e2939</color>
+    <color type="primary" scheme_preference="dark">#2e2939</color>
   </branding>
 
   <screenshots>
     <screenshot type="default">
-      <image>https://example.org/example1.png</image>
-      <caption>A caption</caption>
+      <image>https://raw.githubusercontent.com/Epoch5427/Commodus/main/screenshots/schedule_view.png</image>
+      <caption>Interactive timeline showing a generated schedule with detailed course overlays.</caption>
     </screenshot>
     <screenshot>
-      <image>https://example.org/example2.png</image>
-      <caption>A caption</caption>
+      <image>https://raw.githubusercontent.com/Epoch5427/Commodus/main/screenshots/configuration_view.png</image>
+      <caption>Granular constraint filtering, including day exclusions and time boundaries.</caption>
     </screenshot>
   </screenshots>
 
   <releases>
-    <release version="0.9" date="2024-01-18">
-      <url type="details">https://example.org/changelog.html#version_1.0.1</url>
+    <release version="0.9.0" date="2026-06-26">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.0</url>
       <description translate="no">
-        <p>Initial Release</p>
+        <p>Initial Release of Commodus</p>
         <ul>
-          <li>List of changes</li>
-          <li>List of changes</li>
+          <li>Blazing-fast C++ backtrack-based scheduling solver backend.</li>
+          <li>Modern GTK4 and Libadwaita user interface.</li>
+          <li>Interactive, highly polished timeline with horizontal card expanding and smart height-scaling.</li>
+          <li>On-the-fly "Compare and Reschedule" dialog to selectively lock down sections.</li>
+          <li>Automatic, asynchronous remote database downloading from GitHub with local caching.</li>
+          <li>Comprehensive, persistent offline state saving and configuration.</li>
         </ul>
       </description>
     </release>

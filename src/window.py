@@ -166,7 +166,7 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         def fetch_task():
             # TODO: Replace this URL with your actual raw GitHub link
-            url = "https://raw.githubusercontent.com/YourUsername/Commodus/database/database.json"
+            url = "https://raw.githubusercontent.com/Epoch5427/Commodus/app-data/NU_course_data.json"
             try:
                 # Add a dummy User-Agent as some raw hosts block vanilla python urllib
                 req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -183,6 +183,7 @@ class CommodusWindow(Adw.ApplicationWindow):
 
                     # Update UI on main thread
                     GLib.idle_add(self._on_fetch_success, local_path, content)
+                    self.fpickerbutton.set_sensitive(True)
             except Exception as e:
                 print(f"Failed to download database: {e}")
                 GLib.idle_add(self._on_fetch_error, str(e))
@@ -194,9 +195,10 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         # Turn into a checkmark by injecting an icon next to it
         if not hasattr(self, "check_icon"):
-            self.check_icon = Gtk.Image.new_from_icon_name("emblem-ok-symbolic")
+            self.check_icon = Gtk.Image.new_from_icon_name("circle-checkmark-symbolic")
             self.check_icon.set_pixel_size(24)
             self.check_icon.set_margin_top(18)
+            self.check_icon.set_tooltip_text("Online Database Retrieved Successfully")
             self.check_icon.add_css_class("success") # Makes it green if your theme supports it
             self.network_status.get_parent().append(self.check_icon)
 
@@ -214,6 +216,7 @@ class CommodusWindow(Adw.ApplicationWindow):
     def _on_fetch_error(self, err_msg):
         self.network_status.set_opacity(0)
         self.show_error_dialog(f"Failed to automatically fetch database from GitHub: {err_msg}")
+        self.fpickerbutton.set_sensitive(True)
         return False
 
     def on_alt_gen_clicked(self, btn):
@@ -1643,3 +1646,4 @@ class CommodusWindow(Adw.ApplicationWindow):
                     lastbuttonchild.set_sensitive(False)
                 elif self.current_schedule_idx == len(self.schedules) -2:
                     lastbuttonchild.set_sensitive(True)
+

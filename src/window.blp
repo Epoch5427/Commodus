@@ -80,7 +80,9 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
       Button fpickerbutton {
         name: "fpickerbutton";
-        label: _("Load JSON File");
+        label: _("Offline Load");
+        sensitive: false;
+        tooltip-text: _("Load a JSON file from storage. This overrides the online database and isn't recommended");
         styles [
         "pill",
       ]
@@ -88,6 +90,8 @@ template $CommodusWindow: Adw.ApplicationWindow {
       Adw.Spinner network_status{
         halign: center;
         margin-top: 18;
+        height-request: 24;
+        width-request: 24;
         tooltip-text: _("Network Status");
         opacity: 0;
       }
