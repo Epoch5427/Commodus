@@ -1,0 +1,596 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $CommodusWindow: Adw.ApplicationWindow {
+  title: _("Commodus");
+  default-width: 720;
+  default-height: 540;
+
+  content: Adw.ToolbarView {
+    [top]
+    Box container {
+    orientation: vertical;
+    Adw.HeaderBar {
+    ToggleButton show_sidebar_button {
+        icon-name: "sidebar-show-symbolic";
+        tooltip-text: _("Toggle Sidebar");
+        //active: bind split_view.show-sidebar;
+        //visible: bind start_toggle.active;
+      }
+      ToggleButton search_toggle {
+        icon-name: "system-search-symbolic";
+        tooltip-text: _("Search Courses");
+        visible: false;
+      }
+      [end]
+      MenuButton {
+        primary: true;
+        icon-name: "open-menu-symbolic";
+        tooltip-text: _("Main Menu");
+        menu-model: primary_menu;
+      }
+    }
+    SearchBar searchbar {
+      key-capture-widget: root_box;
+
+      SearchEntry searchentry {
+        search-delay: 0;
+        placeholder-text: _("Search Courses");
+        width-request: 400;
+      }
+    }
+    }
+
+    Adw.NavigationView nav_view{
+
+    Adw.NavigationPage configuration_view{
+    title: _("Configuration View");
+
+
+
+    child: Box {
+      orientation: vertical;
+      valign: fill;
+      halign: fill;
+      spacing: 0;
+
+      Box root_box {
+      orientation: horizontal;
+      valign: center;
+      halign: center;
+      spacing: 0;
+      margin-start: 12;
+      margin-end: 12;
+
+      Adw.Carousel carousel {
+        orientation: vertical;
+        halign: center;
+        valign: center;
+        allow-long-swipes: true;
+        allow-scroll-wheel: true;
+        margin-start: 20;
+        spacing: 12;
+
+        Adw.StatusPage data_page {
+          title: _("Data");
+          halign: center;
+          Box {
+          margin-bottom: 24;
+          orientation: vertical;
+
+      Button fpickerbutton {
+        name: "fpickerbutton";
+        label: _("Load JSON File");
+        styles [
+        "pill",
+      ]
+      }
+      Adw.Spinner network_status{
+        halign: center;
+        margin-top: 18;
+        tooltip-text: _("Network Status");
+        opacity: 0;
+      }
+        }
+         }
+
+         Box{
+         orientation: vertical;
+
+         Stack stack {
+      transition-type: over_up;
+      transition-duration: 500;
+
+      Adw.StatusPage main_page {
+        title: _("Courses");
+        description: _("Start Typing To Search");
+        vexpand: true;
+      }
+
+      ScrolledWindow search_page {
+      kinetic-scrolling: true;
+      vscrollbar-policy: external;
+      margin-start: 24;
+      margin-end: 24;
+        Adw.Clamp {
+          margin-top: 1;
+          margin-bottom: 1;
+
+          ListBox listbox {
+            valign: center;
+            hexpand: true;
+            selection-mode: none;
+            margin-start: 1;
+            margin-end: 1;
+            margin-top: 1;
+            margin-bottom: 1;
+
+            styles [
+              "boxed-list",
+            ]
+          }
+        }
+      }
+
+      Adw.StatusPage status_page {
+        title: _("No Results Founds");
+        description: _("Try a different search");
+        vexpand: true;
+      }
+    }
+    ProgressBar numcourses {
+      fraction: 0.0;
+      text: _("0/7");
+      show-text: true;
+      margin-top: 20;
+    }
+    }
+
+        Adw.Clamp filters_page {
+        orientation: vertical;
+          //width-request: 500;
+          //maximum-size: 2;
+          halign: center;
+          valign: center;
+          Box {
+          orientation: vertical;
+          Label {
+            label: _("Filters");
+            margin-bottom: 20;
+            styles ["title-1"]
+          }
+          Revealer revealer_slide{
+          transition-duration: 500;
+          transition-type: slide_down;
+          margin-end: 10;
+          margin-start: 10;
+          margin-top: 10;
+          margin-bottom: 10;
+          Adw.PreferencesGroup constraints {
+          halign: center;
+          valign: center;
+          margin-top: 1;
+          margin-bottom: 1;
+          margin-end: 1;
+          margin-start: 1;
+
+            Adw.ExpanderRow {
+          title: _("Exclude Days");
+          show-enable-switch: false;
+            Grid {
+            column-spacing: 10;
+            row-spacing: 10;
+            margin-top: 10;
+            margin-bottom: 10;
+            margin-end: 10;
+            margin-start: 10;
+            focusable: false;
+              Label {
+                label: _("Sun");
+                layout {
+                  row: 0;
+                  column: 0;
+                }
+                    }
+              Label {
+                label: _("Mon");
+                layout {
+                  row: 0;
+                  column: 1;
+                }
+                    }
+              Label {
+                label: _("Tue");
+                layout {
+                  row: 0;
+                  column: 2;
+                }
+                    }
+              Label {
+                label: _("Wed");
+                layout {
+                  row: 0;
+                  column: 3;
+                }
+                    }
+              Label {
+                label: _("Thu");
+                layout {
+                  row: 0;
+                  column: 4;
+                }
+                    }
+              Label {
+                label: _("Fri");
+                layout {
+                  row: 0;
+                  column: 5;
+                }
+                    }
+              Label {
+                label: _("Sat");
+                layout {
+                  row: 0;
+                  column: 6;
+                }
+                    }
+                CheckButton checksun { halign: center;
+                layout {
+                  row: 1;
+                  column: 0;
+                       }
+                                     }
+                CheckButton checkmon { halign: center;
+                layout {
+                  row: 1;
+                  column: 1;
+                       }
+                                     }
+                CheckButton checktue { halign: center;
+                layout {
+                  row: 1;
+                  column: 2;
+                       }
+                                     }
+                CheckButton checkwed { halign: center;
+                layout {
+                  row: 1;
+                  column: 3;
+                       }
+                                     }
+                CheckButton checkthu { halign: center;
+                layout {
+                  row: 1;
+                  column: 4;
+                       }
+                                     }
+                CheckButton checkfri { halign: center;
+                layout {
+                  row: 1;
+                  column: 5;
+                       }
+                                     }
+                CheckButton checksat { halign: center;
+                layout {
+                  row: 1;
+                  column: 6;
+                       }
+                                     }
+                 }
+
+                            }
+
+
+            Adw.ExpanderRow time {
+              title: _("Time Boundary");
+              Grid {
+              column-spacing: 50;
+              halign: center;
+              margin-top: 15;
+
+              Label {
+                label: _("Start Time");
+                margin-bottom: 10;
+                layout {
+                  row: 0;
+                  column: 0;
+                       }
+              }
+
+              Label {
+                label: _("End Time");
+                margin-bottom: 10;
+                wrap-mode: word_char;
+                layout {
+                  row: 0;
+                  column: 1;
+                       }
+              }
+
+                Box {
+                  orientation: vertical;
+                  spacing: 12;
+                  layout {
+                  row: 1;
+                  column: 0;
+                       }
+
+    Box {
+      halign: center;
+      spacing: 6;
+
+      SpinButton start_hours {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        value: 0;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 23;
+          step-increment: 1;
+          value: 0;
+        };
+      }
+
+      Label {
+        label: ":";
+      }
+
+      SpinButton start_minutes {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 59;
+          step-increment: 15;
+          value: 0;
+        };
+      }
+    }
+
+    Box {
+      orientation: vertical;
+    }
+  }
+  Box {
+    orientation: vertical;
+    spacing: 12;
+    layout {
+        row: 1;
+        column: 1;
+           }
+
+    Box {
+      halign: center;
+      spacing: 6;
+
+      SpinButton end_hours {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        value: 0;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 23;
+          step-increment: 1;
+          value: 0;
+        };
+      }
+
+      Label {
+        label: ":";
+      }
+
+      SpinButton end_minutes {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 59;
+          step-increment: 15;
+          value: 0;
+        };
+      }
+    }
+
+    Box {
+      orientation: vertical;
+    }
+  }
+
+
+              }
+            }
+
+            Adw.SwitchRow ls_switch {
+              title: _("Exclude Full Classes");
+            }
+          }
+        }
+       }
+      }
+
+        Adw.StatusPage tuning_page {
+          title: _("Tuning");
+          ListBox {
+          halign: center;
+          selection-mode: none;
+          hexpand: false;
+          width-request: 261;
+          styles[
+          "boxed-list"
+          ]
+          Adw.ComboRow tuner {
+          title: _("Prioritize");
+          model: StringList list {
+            strings [
+              "Compact Days",
+              "Fewer Days",
+              "Shorter Days",
+              "Consistent Days",
+            ]
+          };
+          }
+          Adw.ButtonRow generate {
+        title: _("Generate Schedule");
+        height-request: 50;
+        styles [
+        "suggested-action"
+      ]
+      }
+        }
+        }
+      }
+      Adw.CarouselIndicatorDots {
+            orientation: vertical;
+            carousel: carousel;
+            halign: end;
+          }
+    }
+    ActionBar action_bar {
+    revealed: false;
+    valign: end;
+
+    [center]
+    Button alt_gen{
+      label: _("Generate Schedule");
+      styles ["pill","suggested-action"]
+    }
+  }
+    };
+    }
+
+    Adw.NavigationPage schedule_view{
+          title: _("Schedule View");
+          Adw.OverlaySplitView split_view {
+      show-sidebar: bind show_sidebar_button.active;
+      min-sidebar-width: 300; // Give it a bit more space
+
+      sidebar: ScrolledWindow {
+      hscrollbar-policy: never;
+      Adw.Clamp {
+        Box schedule_sidebar_content{
+          orientation: vertical;
+          spacing: 0;
+          margin-top: 12;
+          margin-bottom: 12;
+          margin-start: 6;
+          margin-end: 6;
+          Box schedule_sidebar_buttons{
+           orientation: horizontal;
+           spacing: 6;
+           margin-top: 0;
+           halign: center;
+          }
+        }
+      }
+    };
+
+      content: Adw.StatusPage schedule_view_inner{
+        title: _("Schedule 1");
+        Grid schedule{
+          margin-top: 0;
+          margin-bottom: 10;
+          margin-end: 10;
+          margin-start: 10;
+          focusable: false;
+        }
+      };
+    }
+
+        }
+
+    }
+  };
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("_Preferences");
+      action: "app.preferences";
+    }
+    item {
+      label: _("_About Commodus");
+      action: "app.about";
+    }
+  }
+}
+
+
+
+Button button_error {
+      label: _("Error Dialog");
+      margin-bottom: 30;
+
+      styles [
+        "pill",
+      ]
+    }
+
+
+
+
+Adw.PreferencesDialog prefs_dialog {
+  content-width: 800;
+  content-height: 400;
+  title: _("Preferences");
+  presentation-mode: auto;
+
+  Adw.PreferencesPage appearance_page {
+    title: _("Appearance");
+    icon-name: "applications-graphics-symbolic";
+
+    Adw.PreferencesGroup {
+      title: _("Color Settings");
+      description: _("Change the color-scheme of the application");
+
+      Adw.SwitchRow dm_switch {
+        title: _("Force Dark Mode");
+      }
+    }
+  }
+
+  Adw.PreferencesPage {
+    title: _("Behavior");
+    icon-name: "applications-system-symbolic";
+
+    Adw.PreferencesGroup {
+      title: _("Interaction Settings");
+      description: _("Change how the app behaves during user interaction");
+      // Adw.PreferencesGroup can have suffix widgets like Adw.ActionRows
+
+      Adw.SwitchRow wrap_switch{
+        title: _("Schedule View Wrap");
+      }
+      Adw.SwitchRow global_generate{
+        title: _("Global Generate");
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Data Settings");
+      description: _("Manage user data related settings");
+
+      Adw.ButtonRow delete_save{
+        title: _("Delete Configuration");
+        styles ["destructive-action"]
+      }
+      }
+      }
+      }
+
+
+MenuButton menufilterbutton {
+
+}

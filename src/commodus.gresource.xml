@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/io/github/Epoch5427/Commodus">
+    <file preprocess="xml-stripblanks">window.ui</file>
+    <file preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
+  </gresource>
+  <gresource prefix="/io/github/Epoch5427/Commodus/icons/scalable/actions">
+    <file alias="funnel-outline-symbolic.svg">../data/icons/scalable/actions/funnel-outline-symbolic.svg</file>
+  </gresource>
+  <gresource prefix="/io/github/Epoch5427/Commodus/icons/scalable/actions">
+    <file alias="funnel-symbolic.svg">../data/icons/scalable/actions/funnel-symbolic.svg</file>
+  </gresource>
+  <gresource prefix="/io/github/Epoch5427/Commodus/icons/scalable/actions">
+    <file alias="filter-symbolic.svg">../data/icons/scalable/actions/filter-symbolic.svg</file>
+  </gresource>
+  <gresource prefix="/io/github/Epoch5427/Commodus/icons/scalable/actions">
+    <file alias="clipboard-symbolic.svg">../data/icons/scalable/actions/clipboard-symbolic.svg</file>
+  </gresource>
+  <gresource prefix="/io/github/Epoch5427/Commodus/icons/scalable/actions">
+    <file alias="loop-arrow-symbolic.svg">../data/icons/scalable/actions/loop-arrow-symbolic.svg</file>
+  </gresource>
+  <gresource prefix="/io/github/Epoch5427/Commodus/icons/scalable/actions">
+    <file alias="checkmark-symbolic.svg">../data/icons/scalable/actions/checkmark-symbolic.svg</file>
+  </gresource>
+</gresources>
