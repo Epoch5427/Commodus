@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="data/icons/hicolor/scalable/apps/io.github.Epoch5427.Commodus.svg" width="128" height="128" alt="Commodus Icon">
+</p>
+
+<h1 align="center">Commodus</h1>
+
+<p align="center">
+  <strong>Generate conflict-free university schedules</strong>
+</p>
+
 # Commodus
 
 An elegant, modern university schedule generator and optimizer built for **Nile University**, powered by **GTK4/Libadwaita** and a blazing-fast **C++ backtracking solver** [1].
