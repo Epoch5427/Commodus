@@ -41,8 +41,8 @@
             "buildsystem" : "meson",
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "file:///home/epoch/Projects"
+                    "type" : "dir",
+                    "url" : "."
                 }
             ]
         }
