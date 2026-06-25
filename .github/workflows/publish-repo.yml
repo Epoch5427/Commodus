@@ -1,0 +1,66 @@
+name: Build and Publish Flatpak Repo
+
+on:
+  push:
+    tags:
+      - 'v*' # This triggers the build when you push a tag like 'v1.0'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Flatpak & Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder elfutils appstream appstream-compose
+          flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+      - name: Checkout existing repo history (to keep update deltas)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+        continue-on-error: true # It's okay if the gh-pages branch doesn't exist yet!
+
+      - name: Prepare Repo Directory
+        run: |
+          mkdir -p gh-pages
+
+          # If the OSTree database doesn't exist, initialize it cleanly
+          if [ ! -d "gh-pages/repo/objects" ]; then
+            ostree init --mode=archive-z2 --repo=gh-pages/repo
+          fi
+
+          echo "Commodus Flatpak Repository" > gh-pages/index.html
+          touch gh-pages/.nojekyll
+          cp data/icons/hicolor/symbolic/apps/io.github.Epoch5427.Commodus-symbolic.png gh-pages/repo/logo.png
+
+      - name: Import GPG Key
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        if: env.GPG_PRIVATE_KEY != ''
+        run: |
+          echo "$GPG_PRIVATE_KEY" | gpg --import
+          # Dynamically extract the Key ID we imported
+          KEYID=$(gpg --list-keys --with-colons | awk -F: '/^pub:/ { print $5; exit }')
+          echo "SIGNING_KEY=$KEYID" >> $GITHUB_ENV
+
+      - name: Build App and Export to Repo
+        run: |
+          if [ -n "$SIGNING_KEY" ]; then
+            flatpak-builder --user --install-deps-from=flathub --force-clean build-dir io.github.Epoch5427.Commodus.json --repo=gh-pages/repo --gpg-sign=$SIGNING_KEY
+            flatpak build-update-repo --gpg-sign=$SIGNING_KEY gh-pages/repo
+          else
+            flatpak-builder --user --install-deps-from=flathub --force-clean build-dir io.github.Epoch5427.Commodus.json --repo=gh-pages/repo
+            flatpak build-update-repo gh-pages/repo
+          fi
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          publish_branch: gh-pages
