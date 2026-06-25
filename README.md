@@ -37,7 +37,7 @@ Commodus helps you take control of your academic calendar. Instead of spending h
 
 | Schedule View | Compare & Reschedule |
 | :---: | :---: |
-| <img src="screenshots/schedule_view.png" width="400" alt="Schedule View"/> | <img src="screenshots/compare_reschedule.png" width="400" alt="Compare Dialog"/> |
+| ![Uploading Screenshot From 2026-06-26 02-27-35.png…]() | <img src="screenshots/compare_reschedule.png" width="400" alt="Compare Dialog"/> |
 
 ---
 
