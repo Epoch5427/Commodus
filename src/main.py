@@ -56,7 +56,7 @@ class CommodusApplication(Adw.Application):
         about = Adw.AboutDialog(application_name='Commodus',
                                 application_icon='io.github.Epoch5427.Commodus',
                                 developer_name='Epoch',
-                                version='0.9.1',
+                                version='0.9.2',
                                 developers=['Epoch'],
                                 copyright='© 2026 Epoch')
         # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
