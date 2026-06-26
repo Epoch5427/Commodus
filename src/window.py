@@ -22,6 +22,7 @@ class CommodusWindow(Adw.ApplicationWindow):
     searchbar = Gtk.Template.Child()
     searchentry = Gtk.Template.Child()
     stack = Gtk.Template.Child()
+    courses_page = Gtk.Template.Child()
     main_page = Gtk.Template.Child()
     search_page = Gtk.Template.Child()
     status_page = Gtk.Template.Child()
@@ -203,6 +204,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.network_status.get_parent().append(self.check_icon)
 
         self.check_icon.set_visible(True)
+        self.carousel.scroll_to(self.courses_page, True)
 
         try:
             self.data = json.loads(content)
@@ -1056,7 +1058,7 @@ class CommodusWindow(Adw.ApplicationWindow):
 
     def on_course_toggled(self, checkbox, course_code):
         if checkbox.get_active():
-            if len(self.selected_courses) < 7:
+            if len(self.selected_courses) < 9:
                 self.selected_courses.add(course_code)
             else:
                 checkbox.set_active(False)
