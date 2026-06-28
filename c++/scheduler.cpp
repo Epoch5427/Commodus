@@ -327,108 +327,6 @@ bool isValid(const std::vector<Meeting> &pack, const Constraints &constraints)
     return true;
 }
 
-void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting> &chosen, std::vector<ScheduleResult> &validSchedules, const Constraints &constraints)
-{
-    if (idx == (int)courses.size())
-    {
-        validSchedules.push_back({chosen});
-        return;
-    }
-    const Course &course = courses[idx];
-    const std::set<std::string> *specificSectionsForCourse = constraints.specificSections.count(course.name) ? &constraints.specificSections.at(course.name) : nullptr;
-    for (const auto &opt : course.options)
-    {
-        if (constraints.filterZeroSeats)
-        {
-            bool is_full = false;
-            for (const auto &lm : opt.lectureMeetings)
-                if (lm.seats == 0)
-                {
-                    is_full = true;
-                    break;
-                }
-            if (is_full)
-                continue;
-        }
-        if (specificSectionsForCourse && any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
-                                                { return !s.empty() && (isdigit(s[0])); }))
-        {
-            if (specificSectionsForCourse->find(opt.lectureId) == specificSectionsForCourse->end())
-                continue;
-        }
-
-        std::vector<Meeting> availableLabs = opt.labs;
-        if (specificSectionsForCourse)
-        {
-            availableLabs.erase(remove_if(availableLabs.begin(), availableLabs.end(), [&](const Meeting &m)
-                                          { return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
-                                                          { return !s.empty() && toupper(s[0]) == 'L'; }) &&
-                                                   specificSectionsForCourse->find(m.id) == specificSectionsForCourse->end(); }),
-                                availableLabs.end());
-        }
-        std::vector<Meeting> availableTutorials = opt.tutorials;
-        if (specificSectionsForCourse)
-        {
-            availableTutorials.erase(remove_if(availableTutorials.begin(), availableTutorials.end(), [&](const Meeting &m)
-                                               { return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
-                                                               { return !s.empty() && toupper(s[0]) == 'T'; }) &&
-                                                        specificSectionsForCourse->find(m.id) == specificSectionsForCourse->end(); }),
-                                     availableTutorials.end());
-        }
-        int labsN = std::max(1, (int)availableLabs.size());
-        int tutsN = std::max(1, (int)availableTutorials.size());
-        for (int li = 0; li < labsN; ++li)
-        {
-            for (int ti = 0; ti < tutsN; ++ti)
-            {
-                std::vector<Meeting> pack;
-                pack.insert(pack.end(), opt.lectureMeetings.begin(), opt.lectureMeetings.end());
-                if (!availableLabs.empty())
-                    pack.push_back(availableLabs[li]);
-                if (!availableTutorials.empty())
-                    pack.push_back(availableTutorials[ti]);
-
-                // Moved check here: Evaluates entire pack (lecture+lab+tutorial)
-                if (!meetsInstructorPreference(pack, constraints))
-                    continue;
-
-                if (!isValid(pack, constraints))
-                    continue;
-
-                bool has_conflict = false;
-                for (size_t i = 0; i < pack.size(); ++i)
-                {
-                    for (size_t j = i + 1; j < pack.size(); ++j)
-                    {
-                        if (conflict(pack[i], pack[j]))
-                        {
-                            has_conflict = true;
-                            break;
-                        }
-                    }
-                    if (has_conflict)
-                        break;
-                    for (const auto &mOld : chosen)
-                    {
-                        if (conflict(pack[i], mOld))
-                        {
-                            has_conflict = true;
-                            break;
-                        }
-                    }
-                    if (has_conflict)
-                        break;
-                }
-                if (has_conflict)
-                    continue;
-                chosen.insert(chosen.end(), pack.begin(), pack.end());
-                backtrack(courses, idx + 1, chosen, validSchedules, constraints);
-                chosen.resize(chosen.size() - pack.size());
-            }
-        }
-    }
-}
-
 double calculateStdDev(const std::vector<int> &v)
 {
     if (v.size() < 2)
@@ -496,6 +394,113 @@ void calculateScheduleMetrics(ScheduleResult &result, const std::string &optimiz
         result.score = result.timeConsistencyScore;
     else
         result.score = 0;
+}
+
+void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting> &chosen, const Constraints &constraints, const std::string &opt_metric)
+{
+    if (idx == (int)courses.size())
+    {
+        ScheduleResult r;
+        r.meetings = chosen;
+        calculateScheduleMetrics(r, opt_metric);
+        json j = r;
+        std::cout << j.dump() << "\n";
+        std::cout.flush();
+        return;
+    }
+    const Course &course = courses[idx];
+    const std::set<std::string> *specificSectionsForCourse = constraints.specificSections.count(course.name) ? &constraints.specificSections.at(course.name) : nullptr;
+    for (const auto &opt : course.options)
+    {
+        if (constraints.filterZeroSeats)
+        {
+            bool is_full = false;
+            for (const auto &lm : opt.lectureMeetings)
+                if (lm.seats == 0)
+                {
+                    is_full = true;
+                    break;
+                }
+            if (is_full)
+                continue;
+        }
+        if (specificSectionsForCourse && any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
+                                                { return !s.empty() && (isdigit(s[0])); }))
+        {
+            if (specificSectionsForCourse->find(opt.lectureId) == specificSectionsForCourse->end())
+                continue;
+        }
+
+        std::vector<Meeting> availableLabs = opt.labs;
+        if (specificSectionsForCourse)
+        {
+            availableLabs.erase(remove_if(availableLabs.begin(), availableLabs.end(), [&](const Meeting &m)
+                                          { return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
+                                                          { return !s.empty() && toupper(s[0]) == 'L'; }) &&
+                                                   specificSectionsForCourse->find(m.id) == specificSectionsForCourse->end(); }),
+                                availableLabs.end());
+        }
+        std::vector<Meeting> availableTutorials = opt.tutorials;
+        if (specificSectionsForCourse)
+        {
+            availableTutorials.erase(remove_if(availableTutorials.begin(), availableTutorials.end(), [&](const Meeting &m)
+                                               { return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
+                                                               { return !s.empty() && toupper(s[0]) == 'T'; }) &&
+                                                        specificSectionsForCourse->find(m.id) == specificSectionsForCourse->end(); }),
+                                     availableTutorials.end());
+        }
+        int labsN = std::max(1, (int)availableLabs.size());
+        int tutsN = std::max(1, (int)availableTutorials.size());
+        for (int li = 0; li < labsN; ++li)
+        {
+            for (int ti = 0; ti < tutsN; ++ti)
+            {
+                std::vector<Meeting> pack;
+                pack.insert(pack.end(), opt.lectureMeetings.begin(), opt.lectureMeetings.end());
+                if (!availableLabs.empty())
+                    pack.push_back(availableLabs[li]);
+                if (!availableTutorials.empty())
+                    pack.push_back(availableTutorials[ti]);
+
+                // Evaluates entire pack (lecture+lab+tutorial)
+                if (!meetsInstructorPreference(pack, constraints))
+                    continue;
+
+                if (!isValid(pack, constraints))
+                    continue;
+
+                bool has_conflict = false;
+                for (size_t i = 0; i < pack.size(); ++i)
+                {
+                    for (size_t j = i + 1; j < pack.size(); ++j)
+                    {
+                        if (conflict(pack[i], pack[j]))
+                        {
+                            has_conflict = true;
+                            break;
+                        }
+                    }
+                    if (has_conflict)
+                        break;
+                    for (const auto &mOld : chosen)
+                    {
+                        if (conflict(pack[i], mOld))
+                        {
+                            has_conflict = true;
+                            break;
+                        }
+                    }
+                    if (has_conflict)
+                        break;
+                }
+                if (has_conflict)
+                    continue;
+                chosen.insert(chosen.end(), pack.begin(), pack.end());
+                backtrack(courses, idx + 1, chosen, constraints, opt_metric);
+                chosen.resize(chosen.size() - pack.size());
+            }
+        }
+    }
 }
 
 
@@ -576,16 +581,7 @@ int main(int argc, char* argv[]) {
         }
 
         std::vector<Meeting> chosen;
-        std::vector<ScheduleResult> validSchedules;
-        backtrack(courses_to_schedule, 0, chosen, validSchedules, constraints);
-
-        for (auto &r : validSchedules) {
-            calculateScheduleMetrics(r, opt_metric);
-        }
-        std::sort(validSchedules.begin(), validSchedules.end());
-
-        json output_json = validSchedules;
-        std::cout << output_json.dump(4) << std::endl;
+        backtrack(courses_to_schedule, 0, chosen, constraints, opt_metric);
 
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;

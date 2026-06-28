@@ -11,11 +11,15 @@ template $CommodusWindow: Adw.ApplicationWindow {
     Box container {
     orientation: vertical;
     Adw.HeaderBar {
-    ToggleButton show_sidebar_button {
+      Button back_button {
+        icon-name: "go-previous-symbolic";
+        tooltip-text: _("Go Back");
+        visible: false;
+      }
+      ToggleButton show_sidebar_button {
         icon-name: "sidebar-show-symbolic";
         tooltip-text: _("Toggle Sidebar");
-        //active: bind split_view.show-sidebar;
-        //visible: bind start_toggle.active;
+        active: bind split_view.show-sidebar;
       }
       ToggleButton search_toggle {
         icon-name: "system-search-symbolic";
@@ -29,6 +33,11 @@ template $CommodusWindow: Adw.ApplicationWindow {
         tooltip-text: _("Main Menu");
         menu-model: primary_menu;
       }
+    }
+    Adw.Banner network_banner {
+      title: _("Failed to connect to the online database.");
+      //button-label: _("Retry");
+      revealed: false;
     }
     SearchBar searchbar {
       key-capture-widget: root_box;
@@ -76,12 +85,14 @@ template $CommodusWindow: Adw.ApplicationWindow {
           halign: center;
           Box {
           margin-bottom: 24;
+          width-request: 300;
           orientation: vertical;
 
       Button fpickerbutton {
         name: "fpickerbutton";
         label: _("Offline Load");
         sensitive: false;
+        visible: false;
         tooltip-text: _("Load a JSON file from storage. This overrides the online database and isn't recommended");
         styles [
         "pill",
@@ -475,44 +486,50 @@ template $CommodusWindow: Adw.ApplicationWindow {
     }
 
     Adw.NavigationPage schedule_view{
-          title: _("Schedule View");
-          Adw.OverlaySplitView split_view {
-      show-sidebar: bind show_sidebar_button.active;
-      min-sidebar-width: 300; // Give it a bit more space
+      title: _("Schedule View");
+      Adw.OverlaySplitView split_view {
+        collapsed: true;
+        show-sidebar: bind show_sidebar_button.active;
+        min-sidebar-width: 300;
 
-      sidebar: ScrolledWindow {
-      hscrollbar-policy: never;
-      Adw.Clamp {
-        Box schedule_sidebar_content{
-          orientation: vertical;
-          spacing: 0;
-          margin-top: 12;
-          margin-bottom: 12;
-          margin-start: 6;
-          margin-end: 6;
-          Box schedule_sidebar_buttons{
-           orientation: horizontal;
-           spacing: 6;
-           margin-top: 0;
-           halign: center;
+        sidebar: ScrolledWindow {
+          hscrollbar-policy: never;
+          Adw.Clamp {
+            Box schedule_sidebar_content{
+              orientation: vertical;
+              spacing: 0;
+              margin-top: 12;
+              margin-bottom: 12;
+              margin-start: 6;
+              margin-end: 6;
+              Box schedule_sidebar_buttons{
+                orientation: horizontal;
+                spacing: 6;
+                margin-top: 0;
+                halign: center;
+              }
+            }
           }
-        }
+        };
+
+        content: Adw.StatusPage schedule_view_inner{
+          title: _("Schedule 1");
+          ScrolledWindow {
+            hscrollbar-policy: automatic;
+            vscrollbar-policy: never;
+            hexpand: true;
+            vexpand: true;
+            Grid schedule{
+              margin-top: 0;
+              margin-bottom: 10;
+              margin-end: 10;
+              margin-start: 10;
+              focusable: false;
+            }
+          }
+        };
       }
-    };
-
-      content: Adw.StatusPage schedule_view_inner{
-        title: _("Schedule 1");
-        Grid schedule{
-          margin-top: 0;
-          margin-bottom: 10;
-          margin-end: 10;
-          margin-start: 10;
-          focusable: false;
-        }
-      };
     }
-
-        }
 
     }
   };
@@ -592,6 +609,17 @@ Adw.PreferencesDialog prefs_dialog {
       }
       }
       }
+      Adw.PreferencesPage {
+        title: _("Debug");
+        icon-name: "dialog-warning-symbolic";
+        Adw.PreferencesGroup {
+          title: _("Debugging");
+          description: _("Options not intended for general use");
+          Adw.SwitchRow local_load_switch{
+        title: _("Local Load");
+      }
+          }
+          }
       }
 
 

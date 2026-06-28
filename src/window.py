@@ -6,6 +6,7 @@ import os
 import shutil
 import urllib.request
 import threading
+import time
 
 
 @Gtk.Template(resource_path='/io/github/Epoch5427/Commodus/window.ui')
@@ -15,6 +16,9 @@ class CommodusWindow(Adw.ApplicationWindow):
     root_box = Gtk.Template.Child()
     carousel = Gtk.Template.Child()
     show_sidebar_button = Gtk.Template.Child()
+    back_button = Gtk.Template.Child()
+    network_banner = Gtk.Template.Child()
+    split_view = Gtk.Template.Child()
     search_toggle = Gtk.Template.Child() # Mapped Search Toggle
     ls_switch = Gtk.Template.Child()
     constraints = Gtk.Template.Child()
@@ -39,6 +43,7 @@ class CommodusWindow(Adw.ApplicationWindow):
     wrap_switch = Gtk.Template.Child()
     global_generate = Gtk.Template.Child()
     delete_save = Gtk.Template.Child()
+    local_load_switch = Gtk.Template.Child()
     fpickerbutton = Gtk.Template.Child()
     generate = Gtk.Template.Child()
     action_bar = Gtk.Template.Child()
@@ -73,6 +78,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self._saved_selected_courses = set()
         self.course_preferences = {}
         self._sidebar_course_rows = []
+        self.generation_process = None
 
         self.searchbar.set_visible(False)
         self.show_sidebar_button.set_visible(False)
@@ -91,7 +97,9 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.end_hours.connect("value-changed", self._update_time_opacity)
         self.end_minutes.connect("value-changed", self._update_time_opacity)
 
-        self.nav_view.connect("popped", lambda *_: self.show_sidebar_button.set_visible(False))
+        self.nav_view.connect("popped", self._on_nav_popped)
+        self.back_button.connect("clicked", lambda *_: self.nav_view.pop())
+        #self.network_banner.connect("button-clicked", lambda *_: self._fetch_database_async())
 
         # Search Toggle Sync
         self.search_toggle.connect("toggled", lambda btn: self.searchbar.set_search_mode(btn.get_active()))
@@ -156,17 +164,25 @@ class CommodusWindow(Adw.ApplicationWindow):
         # Apply visual updates, load saved settings, and build sidebar
         self._update_time_opacity()
         self.load_settings()
+        if self.local_load_switch.get_active():
+            self.fpickerbutton.set_visible(True)
+
         self._build_sidebar_controls()
 
         # Trigger automatic database download from GitHub
         self._fetch_database_async()
 
+    def _on_nav_popped(self, *args):
+        self.show_sidebar_button.set_visible(False)
+        self.show_sidebar_button.set_active(False)
+        self.back_button.set_visible(False)
+
     def _fetch_database_async(self):
+        self.network_banner.set_revealed(False)
         self.network_status.set_opacity(1)
         self.network_status.set_visible(True)
 
         def fetch_task():
-            # TODO: Replace this URL with your actual raw GitHub link
             url = "https://raw.githubusercontent.com/Epoch5427/Commodus/app-data/NU_course_data.json"
             try:
                 # Add a dummy User-Agent as some raw hosts block vanilla python urllib
@@ -182,9 +198,8 @@ class CommodusWindow(Adw.ApplicationWindow):
                     with open(local_path, 'w', encoding='utf-8') as f:
                         f.write(content)
 
-                    # Update UI on main thread
+                    # Update UI on main thread safely
                     GLib.idle_add(self._on_fetch_success, local_path, content)
-                    self.fpickerbutton.set_sensitive(True)
             except Exception as e:
                 print(f"Failed to download database: {e}")
                 GLib.idle_add(self._on_fetch_error, str(e))
@@ -193,18 +208,24 @@ class CommodusWindow(Adw.ApplicationWindow):
 
     def _on_fetch_success(self, local_path, content):
         self.network_status.set_visible(False)
+        self.fpickerbutton.set_sensitive(True) # Moved safely to the main thread!
 
-        # Turn into a checkmark by injecting an icon next to it
+        # Create the icon if it doesn't exist yet
         if not hasattr(self, "check_icon"):
-            self.check_icon = Gtk.Image.new_from_icon_name("circle-checkmark-symbolic")
+            self.check_icon = Gtk.Image()
             self.check_icon.set_pixel_size(24)
             self.check_icon.set_margin_top(18)
-            self.check_icon.set_tooltip_text("Online Database Retrieved Successfully")
-            self.check_icon.add_css_class("success") # Makes it green if your theme supports it
             self.network_status.get_parent().append(self.check_icon)
 
+        # Always update its properties so it switches properly on a retry
+        self.check_icon.set_from_icon_name("circle-checkmark-symbolic")
+        self.check_icon.set_tooltip_text("Online Database Retrieved Successfully")
+        self.check_icon.remove_css_class("error")
+        self.check_icon.remove_css_class("warning")
+        self.check_icon.add_css_class("success")
+
         self.check_icon.set_visible(True)
-        self.carousel.scroll_to(self.courses_page, True)
+        GLib.timeout_add(1000, lambda: self.carousel.scroll_to(self.courses_page, True))
 
         try:
             self.data = json.loads(content)
@@ -216,9 +237,35 @@ class CommodusWindow(Adw.ApplicationWindow):
         return False # Removes the idle callback
 
     def _on_fetch_error(self, err_msg):
-        self.network_status.set_opacity(0)
-        self.show_error_dialog(f"Failed to automatically fetch database from GitHub: {err_msg}")
-        self.fpickerbutton.set_sensitive(True)
+        self.network_status.set_visible(False)
+        self.network_banner.set_revealed(True)
+
+        # Create the icon if it doesn't exist yet
+        if not hasattr(self, "check_icon"):
+            self.check_icon = Gtk.Image()
+            self.check_icon.set_pixel_size(24)
+            self.check_icon.set_margin_top(18)
+            self.network_status.get_parent().append(self.check_icon)
+
+        self.check_icon.remove_css_class("success")
+
+        if self.json_path == None:
+            self.check_icon.set_from_icon_name("circle-x-symbolic")
+            self.check_icon.set_tooltip_text("Failed To Retrieve Online Database")
+            self.check_icon.remove_css_class("warning")
+            self.check_icon.add_css_class("error")
+
+            self.network_banner.set_title("Failed to retrieve online database")
+            self.fpickerbutton.set_sensitive(True)
+        else:
+            self.check_icon.set_from_icon_name("circle-checkmark-symbolic")
+            self.check_icon.set_tooltip_text("Failed To Retrieve Online Database. Using Cached Version")
+            self.check_icon.remove_css_class("error")
+            self.check_icon.add_css_class("warning")
+
+            self.network_banner.set_title("Failed to retrieve online database. Using Cached Version")
+
+        self.check_icon.set_visible(True)
         return False
 
     def on_alt_gen_clicked(self, btn):
@@ -269,7 +316,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.schedule_sidebar_buttons.append(copy_btn)
 
         compare_btn = Gtk.Button(icon_name="loop-arrow-symbolic")
-        compare_btn.set_tooltip_text("Compare and Reschedule")
+        compare_btn.set_tooltip_text("Compare and Reschedule. This feature helps you create schedules that align with your friends even if you don't take the same courses")
         compare_btn.add_css_class("linked")
         compare_btn.connect("clicked", self.on_compare_clicked)
         self.schedule_sidebar_buttons.append(compare_btn)
@@ -637,6 +684,11 @@ class CommodusWindow(Adw.ApplicationWindow):
         return True
 
     def on_close_request(self, *args):
+        if hasattr(self, 'generation_process') and self.generation_process:
+            try:
+                self.generation_process.terminate()
+            except Exception:
+                pass
         self.save_settings()
         return False
 
@@ -654,6 +706,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             "dark_mode": self.dm_switch.get_active(),
             "wrap_mode": self.wrap_switch.get_active(),
             "global_mode": self.global_generate.get_active(),
+            "local_load": self.local_load_switch.get_active(),
             "checksun": self.checksun.get_active(),
             "checkmon": self.checkmon.get_active(),
             "checktue": self.checktue.get_active(),
@@ -690,6 +743,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.dm_switch.set_active(settings.get("dark_mode", False))
             self.wrap_switch.set_active(settings.get("wrap_mode", False))
             self.global_generate.set_active(settings.get("global_mode", False))
+            self.local_load_switch.set_active(settings.get("local_load", False))
 
             self.checksun.set_active(settings.get("checksun", False))
             self.checkmon.set_active(settings.get("checkmon", False))
@@ -1158,33 +1212,11 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         print(f"Running command: {' '.join(cmd)}")
 
-        result = subprocess.run(cmd, capture_output=True, text=True)
+        target_width = max(self.get_width(), 1175)
+        target_height = max(self.get_height(), 750)
+        self.set_default_size(target_width, target_height)
 
-        if result.returncode != 0:
-            self.show_error_dialog(f"Error running scheduler: {result.stderr}")
-            return
-
-        try:
-            parsed = json.loads(result.stdout)
-
-            # Expand the window dynamically to prevent sidebar allocation glitches
-            # Scaled down to 750px vertically since the grid is much more compact!
-            target_width = max(self.get_width(), 1175)
-            target_height = max(self.get_height(), 750)
-            self.set_default_size(target_width, target_height)
-
-            self.draw_schedules(parsed)
-
-            try:
-                if self.nav_view.get_visible_page() != self.schedule_view:
-                    self.nav_view.push(self.schedule_view)
-            except AttributeError:
-                self.nav_view.push(self.schedule_view)
-
-            self.show_sidebar_button.set_visible(True)
-
-        except json.JSONDecodeError:
-            self.show_error_dialog(f"Error parsing JSON output from scheduler: {result.stdout}")
+        self.start_scheduler_thread(cmd)
 
     # --- COMPARE & RESCHEDULE LOGIC ---
     def on_compare_clicked(self, _button):
@@ -1385,26 +1417,113 @@ class CommodusWindow(Adw.ApplicationWindow):
         cmd.extend(['--optimize-by', opt_metric])
 
         print(f"Running command: {' '.join(cmd)}")
-        result = subprocess.run(cmd, capture_output=True, text=True)
+        self.start_scheduler_thread(cmd)
 
-        if result.returncode != 0:
-            self.show_error_dialog(f"Error running scheduler: {result.stderr}")
-            return
+    def start_scheduler_thread(self, cmd):
+        self.schedules = []
+        self.current_schedule_idx = 0
+
+        if self.generation_process:
+            try:
+                self.generation_process.terminate()
+                self.generation_process.wait(timeout=1.0)
+            except Exception:
+                pass
+
+        child = self.schedule.get_first_child()
+        while child:
+            self.schedule.remove(child)
+            child = self.schedule.get_first_child()
+
+        spinner = Gtk.Spinner(spinning=True)
+        spinner.set_size_request(48, 48)
+        spinner.set_halign(Gtk.Align.CENTER)
+        spinner.set_valign(Gtk.Align.CENTER)
+        spinner.set_hexpand(True)
+        spinner.set_vexpand(True)
+        self.schedule.attach(spinner, 0, 0, 1, 1)
+
+        self.schedule_view_inner.set_title("Generating Schedules...")
 
         try:
-            parsed = json.loads(result.stdout)
-            if not parsed:
-                self.show_error_dialog("No schedules found for this combination.")
-            else:
-                self.draw_schedules(parsed)
-        except json.JSONDecodeError:
-            self.show_error_dialog(f"Error parsing JSON output from scheduler: {result.stdout}")
+            if self.nav_view.get_visible_page() != self.schedule_view:
+                self.nav_view.push(self.schedule_view)
+        except AttributeError:
+            self.nav_view.push(self.schedule_view)
 
-    def draw_schedules(self, schedules):
-        self.schedules = schedules
-        self.current_schedule_idx = 0
-        self.draw_schedule_index(0)
+        self.show_sidebar_button.set_visible(True)
+        self.back_button.set_visible(True)
+
         self._update_sidebar_course_filters()
+
+        threading.Thread(target=self._run_scheduler_async, args=(cmd,), daemon=True).start()
+
+    def _run_scheduler_async(self, cmd):
+        self.generation_process = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+        )
+
+        batch = []
+        last_update = time.time()
+
+        for line in self.generation_process.stdout:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                parsed = json.loads(line)
+                batch.append(parsed)
+
+                now = time.time()
+                if now - last_update > 0.1: # Max 10 updates per second to protect rendering
+                    GLib.idle_add(self._on_schedules_batch_received, list(batch))
+                    batch.clear()
+                    last_update = now
+            except json.JSONDecodeError:
+                pass
+
+        if batch:
+            GLib.idle_add(self._on_schedules_batch_received, list(batch))
+
+        self.generation_process.wait()
+        ret_code = self.generation_process.returncode
+        stderr = self.generation_process.stderr.read()
+
+        GLib.idle_add(self._on_generation_complete, ret_code, stderr)
+
+    def _on_schedules_batch_received(self, batch):
+        if not batch: return
+
+        old_top = self.schedules[0] if self.schedules else None
+
+        self.schedules.extend(batch)
+        self.schedules.sort(key=lambda s: s.get('score', 0))
+
+        new_top = self.schedules[0]
+
+        # Swap top schedule visually only if there is a score improvement
+        if self.current_schedule_idx == 0 and old_top != new_top:
+            self.draw_schedule_index(0)
+
+        self.schedule_view_inner.set_title(f"Found {len(self.schedules)} Schedules...")
+
+        if len(self.schedules) > 1 and not self.wrap_switch.get_active() and self.current_schedule_idx == 0:
+            lastbuttonchild = self.schedule_sidebar_buttons.get_last_child()
+            if lastbuttonchild:
+                lastbuttonchild.set_sensitive(True)
+
+    def _on_generation_complete(self, ret_code, stderr):
+        if ret_code != 0:
+            self.show_error_dialog(f"Error running scheduler: {stderr}")
+            self.schedule_view_inner.set_title("Generation Failed")
+            return
+
+        if not self.schedules:
+            self.draw_schedule_index(0)
+        else:
+            self.schedule_view_inner.set_title(f"Schedule {self.current_schedule_idx + 1} of {len(self.schedules)}")
+
+        self.generation_process = None
 
     def draw_schedule_index(self, index):
         # Clear previous schedule view
@@ -1648,4 +1767,3 @@ class CommodusWindow(Adw.ApplicationWindow):
                     lastbuttonchild.set_sensitive(False)
                 elif self.current_schedule_idx == len(self.schedules) -2:
                     lastbuttonchild.set_sensitive(True)
-
