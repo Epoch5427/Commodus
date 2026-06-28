@@ -49,10 +49,11 @@
   </screenshots>
 
   <releases>
+    <releases>
     <release version="0.9.3" date="2026-06-28">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.3</url>
       <description translate="no">
-        <p>Quality Of Life Update</p>
+        <p>Quality of Life Update</p>
         <ul>
           <li>Added a new state for the network status indicator to explicitly show that the app is using a cached version of the DB</li>
           <li>Removed the load data button and made it a debug option in the preferences in order not to confuse users</li>
@@ -60,6 +61,20 @@
           <li>Added a back button to the schedules page</li>
           <li>Replaced connection failed popups with a banner</li>
           <li>reworked the backend to make it return schedules in batches removing any lag prior experienced from clicking generate</li>
+        </ul>
+      </description>
+    </release>
+    <release version="0.9.2" date="2026-06-26">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.2</url>
+      <description translate="no">
+        <p>Initial Release of Commodus</p>
+        <ul>
+          <li>Blazing-fast C++ backtrack-based scheduling solver backend.</li>
+          <li>Modern GTK4 and Libadwaita user interface.</li>
+          <li>Interactive, highly polished timeline with horizontal card expanding and smart height-scaling.</li>
+          <li>On-the-fly "Compare and Reschedule" dialog to selectively lock down sections.</li>
+          <li>Automatic, asynchronous remote database downloading from GitHub with local caching.</li>
+          <li>Comprehensive, persistent offline state saving and configuration.</li>
         </ul>
       </description>
     </release>
