@@ -542,6 +542,10 @@ menu primary_menu {
       action: "app.preferences";
     }
     item {
+      label: _("Keyboard Shortcuts");
+      action: "app.shortcuts";
+    }
+    item {
       label: _("_About Commodus");
       action: "app.about";
     }
@@ -560,6 +564,8 @@ Button button_error {
     }
 
 
+Adw.ShortcutsDialog shortcuts_dialog{
+    }
 
 
 Adw.PreferencesDialog prefs_dialog {

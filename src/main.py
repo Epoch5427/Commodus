@@ -56,7 +56,7 @@ class CommodusApplication(Adw.Application):
         about = Adw.AboutDialog(application_name='Commodus',
                                 application_icon='io.github.Epoch5427.Commodus',
                                 developer_name='Epoch',
-                                version='0.9.3',
+                                version='0.9.4',
                                 developers=['Epoch'],
                                 copyright='© 2026 Epoch')
         # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
@@ -67,6 +67,9 @@ class CommodusApplication(Adw.Application):
         """Callback for the app.preferences action."""
         #self.prefs_dialog.present(self.props.active_window)
         self.props.active_window.prefs_dialog.present(self.props.active_window)
+
+    def on_shortcuts_action(self, widget, _):
+        self.props.active_window.shortcuts_dialog.present(self.props.active.window)
 
     def create_action(self, name, callback, shortcuts=None):
         """Add an application action.

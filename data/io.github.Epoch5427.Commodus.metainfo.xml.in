@@ -49,6 +49,19 @@
   </screenshots>
 
     <releases>
+      <release version="0.9.4" date="2026-06-29">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.4</url>
+      <description translate="no">
+        <p>UX reworks + some minor bug fixes + shortcuts</p>
+        <ul>
+          <li>Fixed the no schedules found screen</li>
+          <li>The first time you open the app now shows the "start typing to search" screen and not the "no results found" screen</li>
+          <li>The searchbar opens automatically when entering the courses page now</li>
+          <li>Implemented a couple of changes to accommodate the windows port</li>
+          <li>Added shortcuts for a lot of functions as well as a shortcuts dialog</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.9.3" date="2026-06-28">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.3</url>
       <description translate="no">

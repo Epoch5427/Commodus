@@ -48,6 +48,7 @@ class CommodusWindow(Adw.ApplicationWindow):
     generate = Gtk.Template.Child()
     action_bar = Gtk.Template.Child()
     alt_gen = Gtk.Template.Child()
+    tuning_page = Gtk.Template.Child()
     tuner = Gtk.Template.Child()
     checksun = Gtk.Template.Child()
     checkmon = Gtk.Template.Child()
@@ -114,24 +115,43 @@ class CommodusWindow(Adw.ApplicationWindow):
 
 
         def filter(row):
-            match = re.search(self.searchentry.get_text(), row.get_title(), re.IGNORECASE)
+            query = self.searchentry.get_text()
+
+            # Treat '*' as a wildcard matching all courses
+            if query == "*":
+                self.results_count += 1
+                return True
+
+            try:
+                match = re.search(query, row.get_title(), re.IGNORECASE)
+            except re.error:
+                # Catch syntax errors from invalid regex patterns (like naked *, +, ?, etc.)
+                match = None
+
             if match:
                 self.results_count += 1
-            return match
-
+            return bool(match)
 
         self.listbox.set_filter_func(filter)
 
 
         def on_search_changed(_search_widget):
+            text = self.searchentry.get_text()
+
+            # If search text is empty, reset back to the default "Start Typing To Search" view
+            if not text:
+                self.stack.set_visible_child(self.main_page)
+                self.listbox.set_opacity(0.0)
+                return
+
             self.results_count = -1
             self.listbox.invalidate_filter()
             if self.results_count == -1:
                 self.stack.set_visible_child(self.status_page)
-                self.listbox.set_opacity(0)
+                self.listbox.set_opacity(0.0)
             elif self.searchbar.get_search_mode():
                 self.stack.set_visible_child(self.search_page)
-                self.listbox.set_opacity(100)
+                self.listbox.set_opacity(1.0) # 1.0 represents fully opaque in GTK4
 
 
         style_manager = Adw.StyleManager.get_default()
@@ -177,6 +197,14 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.show_sidebar_button.set_active(False)
         self.back_button.set_visible(False)
 
+    def _ensure_check_icon(self):
+        """Helper to safely construct the check icon on demand."""
+        if not hasattr(self, "check_icon"):
+            self.check_icon = Gtk.Image()
+            self.check_icon.set_pixel_size(24)
+            self.check_icon.set_margin_top(18)
+            self.network_status.get_parent().append(self.check_icon)
+
     def _fetch_database_async(self):
         self.network_banner.set_revealed(False)
         self.network_status.set_opacity(1)
@@ -185,71 +213,73 @@ class CommodusWindow(Adw.ApplicationWindow):
         def fetch_task():
             url = "https://raw.githubusercontent.com/Epoch5427/Commodus/app-data/NU_course_data.json"
             try:
-                # Add a dummy User-Agent as some raw hosts block vanilla python urllib
                 req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                with urllib.request.urlopen(req, timeout=10) as response:
+
+                # Setup SSL context conditionally to keep code DRY
+                context = None
+                if os.name == 'nt':
+                    import ssl
+                    context = ssl._create_unverified_context()
+
+                with urllib.request.urlopen(req, context=context, timeout=10) as response:
                     content = response.read().decode('utf-8')
 
-                    # Cache the downloaded JSON locally so the C++ backend can read it
-                    cache_dir = os.path.join(GLib.get_user_cache_dir(), "commodus")
-                    os.makedirs(cache_dir, exist_ok=True)
-                    local_path = os.path.join(cache_dir, "database.json")
+                # 1. Validate JSON first so we don't cache corrupted data
+                parsed_data = json.loads(content)
 
-                    with open(local_path, 'w', encoding='utf-8') as f:
-                        f.write(content)
+                # 2. Cache only after validation succeeds
+                cache_dir = os.path.join(GLib.get_user_cache_dir(), "commodus")
+                os.makedirs(cache_dir, exist_ok=True)
+                local_path = os.path.join(cache_dir, "database.json")
 
-                    # Update UI on main thread safely
-                    GLib.idle_add(self._on_fetch_success, local_path, content)
+                with open(local_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+
+                # Send the pre-parsed data to the main thread to avoid parsing it again
+                GLib.idle_add(self._on_fetch_success, local_path, parsed_data)
+
             except Exception as e:
                 print(f"Failed to download database: {e}")
                 GLib.idle_add(self._on_fetch_error, str(e))
 
         threading.Thread(target=fetch_task, daemon=True).start()
 
-    def _on_fetch_success(self, local_path, content):
+    def _on_fetch_success(self, local_path, parsed_data):
         self.network_status.set_visible(False)
-        self.fpickerbutton.set_sensitive(True) # Moved safely to the main thread!
+        self.fpickerbutton.set_sensitive(True)
 
-        # Create the icon if it doesn't exist yet
-        if not hasattr(self, "check_icon"):
-            self.check_icon = Gtk.Image()
-            self.check_icon.set_pixel_size(24)
-            self.check_icon.set_margin_top(18)
-            self.network_status.get_parent().append(self.check_icon)
+        self._ensure_check_icon()
 
-        # Always update its properties so it switches properly on a retry
+        # Update styling
         self.check_icon.set_from_icon_name("circle-checkmark-symbolic")
         self.check_icon.set_tooltip_text("Online Database Retrieved Successfully")
         self.check_icon.remove_css_class("error")
         self.check_icon.remove_css_class("warning")
         self.check_icon.add_css_class("success")
-
         self.check_icon.set_visible(True)
-        GLib.timeout_add(1000, lambda: self.carousel.scroll_to(self.courses_page, True))
 
-        try:
-            self.data = json.loads(content)
-            self.json_path = local_path
-            self.populate_listbox()
-        except json.JSONDecodeError:
-            self.show_error_dialog("The downloaded database is corrupted or invalid JSON.")
+        # Transition helper to ensure the timeout removes itself properly
+        def transition_to_courses():
+            self.carousel.scroll_to(self.courses_page, True)
+            return False
 
-        return False # Removes the idle callback
+        GLib.timeout_add(1000, transition_to_courses)
+
+        self.data = parsed_data
+        self.json_path = local_path
+        self.populate_listbox()
+
+        return False
 
     def _on_fetch_error(self, err_msg):
         self.network_status.set_visible(False)
         self.network_banner.set_revealed(True)
 
-        # Create the icon if it doesn't exist yet
-        if not hasattr(self, "check_icon"):
-            self.check_icon = Gtk.Image()
-            self.check_icon.set_pixel_size(24)
-            self.check_icon.set_margin_top(18)
-            self.network_status.get_parent().append(self.check_icon)
-
+        self._ensure_check_icon()
         self.check_icon.remove_css_class("success")
 
-        if self.json_path == None:
+        # Safely check json_path using getattr to prevent AttributeError
+        if getattr(self, "json_path", None) is None:
             self.check_icon.set_from_icon_name("circle-x-symbolic")
             self.check_icon.set_tooltip_text("Failed To Retrieve Online Database")
             self.check_icon.remove_css_class("warning")
@@ -266,7 +296,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.network_banner.set_title("Failed to retrieve online database. Using Cached Version")
 
         self.check_icon.set_visible(True)
-        return False
+        return False # Removes the idle callback
 
     def on_alt_gen_clicked(self, btn):
         if self.carousel.get_position() == 1.0:
@@ -849,14 +879,42 @@ class CommodusWindow(Adw.ApplicationWindow):
         dialog.present()
 
     def on_key_pressed(self, controller, keyval, keycode, state):
-        # Only allow cycling if the user is actively viewing the schedules page
+        # Determine if we are actively viewing the schedules page
+        is_schedule_view = False
         try:
-            if self.nav_view.get_visible_page() != self.schedule_view:
-                return False
+            is_schedule_view = (self.nav_view.get_visible_page() == self.schedule_view)
         except AttributeError:
             pass
 
-        if keyval == Gdk.KEY_Right:
+        # 1. Consolidated Navigation Shortcuts (Ctrl + 1/2/3/4)
+        if state & Gdk.ModifierType.CONTROL_MASK:
+            pages_map = {
+                Gdk.KEY_1: getattr(self, "data_page", None),
+                Gdk.KEY_2: getattr(self, "courses_page", None),
+                Gdk.KEY_3: getattr(self, "filters_page", None),
+                Gdk.KEY_4: getattr(self, "tuning_page", None),
+            }
+
+            if keyval in pages_map and pages_map[keyval] is not None:
+                if is_schedule_view:
+                    self.nav_view.pop()
+                self.carousel.scroll_to(pages_map[keyval], True)
+                return True
+
+        # 2. Handlers for Non-Schedule Views
+        if not is_schedule_view:
+            if keyval in (Gdk.KEY_g, Gdk.KEY_G):
+                self.on_generate_clicked(self)
+                return True
+            return False
+
+        # 3. Handlers for Schedule-Only View
+        if keyval in (Gdk.KEY_s, Gdk.KEY_S):
+            is_active = self.show_sidebar_button.get_active()
+            self.show_sidebar_button.set_active(not is_active)
+            return True
+
+        elif keyval == Gdk.KEY_Right:
             if self.schedules and self.current_schedule_idx < len(self.schedules) - 1:
                 self.current_schedule_idx += 1
                 self.draw_schedule_index(self.current_schedule_idx)
@@ -864,6 +922,7 @@ class CommodusWindow(Adw.ApplicationWindow):
                 self.current_schedule_idx = 0
                 self.draw_schedule_index(self.current_schedule_idx)
                 return True
+
         elif keyval == Gdk.KEY_Left:
             if self.schedules and self.current_schedule_idx > 0:
                 self.current_schedule_idx -= 1
@@ -872,6 +931,11 @@ class CommodusWindow(Adw.ApplicationWindow):
                 self.current_schedule_idx = len(self.schedules) - 1
                 self.draw_schedule_index(self.current_schedule_idx)
                 return True
+
+        elif keyval in (Gdk.KEY_c, Gdk.KEY_C) and (state & Gdk.ModifierType.CONTROL_MASK):
+            self.on_copy_schedule_clicked(self)
+            return True
+
         return False
 
     def _update_time_opacity(self, *args):
@@ -902,6 +966,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.revealer_slide.set_reveal_child(False)
             self.searchbar.set_visible(True)
             self.search_toggle.set_visible(True)
+            self.search_toggle.set_active(True)
             self.searchbar.set_key_capture_widget(self) # Typing ANYWHERE opens search instantly!
             self.show_sidebar_button.set_visible(False)
             self.action_bar.set_revealed(True)
@@ -1151,7 +1216,8 @@ class CommodusWindow(Adw.ApplicationWindow):
         # Fallback for local, uninstalled development environments
         if not scheduler_path:
             project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            scheduler_path = os.path.join(project_root, 'build', 'c++', 'scheduler')
+            exe_name = 'scheduler.exe' if os.name == 'nt' else 'scheduler'
+            scheduler_path = os.path.join(project_root, 'build', 'c++', exe_name)
             if not os.path.exists(scheduler_path):
                 self.show_error_dialog(f"Error: Could not find 'scheduler' executable at {scheduler_path}.")
                 return
@@ -1363,7 +1429,8 @@ class CommodusWindow(Adw.ApplicationWindow):
         scheduler_path = shutil.which('scheduler')
         if not scheduler_path:
             project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            scheduler_path = os.path.join(project_root, 'build', 'c++', 'scheduler')
+            exe_name = 'scheduler.exe' if os.name == 'nt' else 'scheduler'
+            scheduler_path = os.path.join(project_root, 'build', 'c++', exe_name)
 
         cmd = [
             scheduler_path,
@@ -1459,8 +1526,11 @@ class CommodusWindow(Adw.ApplicationWindow):
         threading.Thread(target=self._run_scheduler_async, args=(cmd,), daemon=True).start()
 
     def _run_scheduler_async(self, cmd):
+        kwargs = {}
+        if os.name == 'nt':
+            kwargs['creationflags'] = subprocess.CREATE_NO_WINDOW
         self.generation_process = subprocess.Popen(
-            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, **kwargs
         )
 
         batch = []
@@ -1534,7 +1604,7 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         if not self.schedules or index >= len(self.schedules):
             # Update Title if no schedules
-            self.schedule_view_inner.set_title("No Schedules Found")
+            self.schedule_view_inner.set_title("")
 
             # If no schedules were generated, show a helpful status page instead of a blank screen
             self.schedule.set_margin_top(0)
@@ -1549,6 +1619,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             status.set_icon_name("system-search-symbolic")
             status.set_hexpand(True)
             status.set_vexpand(True)
+            status.set_size_request(-1,330)
 
             self.schedule.attach(status, 0, 0, 1, 1)
             return
@@ -1767,3 +1838,5 @@ class CommodusWindow(Adw.ApplicationWindow):
                     lastbuttonchild.set_sensitive(False)
                 elif self.current_schedule_idx == len(self.schedules) -2:
                     lastbuttonchild.set_sensitive(True)
+
+
