@@ -9,7 +9,7 @@
       "location": "N/A",
       "instructor": "Sahar Selim Fouad Soussa",
       "credits": "2.00",
-      "seatsLeft": "48"
+      "seatsLeft": "37"
     }
   ],
   "AIS490": [
@@ -22,7 +22,7 @@
       "location": "N/A",
       "instructor": "Sahar Selim Fouad Soussa",
       "credits": "2.00",
-      "seatsLeft": "48"
+      "seatsLeft": "41"
     }
   ],
   "APBI307": [
@@ -35,7 +35,7 @@
       "location": "N/A",
       "instructor": "Asmaa Mohamed Abushady",
       "credits": "3.00",
-      "seatsLeft": "55"
+      "seatsLeft": "41"
     }
   ],
   "APBI409": [
@@ -44,11 +44,11 @@
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Tuesday, 10:30 AM - 4:29 PM",
-      "location": "Nile University, UB1, SUB1, Room 301",
+      "schedule": "Tuesday, 8:30 AM - 2:29 PM",
+      "location": "145",
       "instructor": "Nour Fathi Shehata Attia",
       "credits": "2.00",
-      "seatsLeft": "56"
+      "seatsLeft": "46"
     }
   ],
   "ARC251": [
@@ -61,18 +61,18 @@
         {
           "day": "Sunday",
           "time": "10:30 AM - 1:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 333"
+          "location": "333"
         },
         {
           "day": "Tuesday",
           "time": "10:30 AM - 1:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 333"
+          "location": "333"
         }
       ],
       "location": "Not specified",
       "instructor": "Maha Mohamed Elgwhry",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "59"
     },
     {
       "fullTitle": "ARC251: Building PhysicsI:TheThermal Environment",
@@ -83,64 +83,18 @@
         {
           "day": "Sunday",
           "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 333"
+          "location": "333"
         },
         {
           "day": "Tuesday",
           "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 333"
+          "location": "333"
         }
       ],
       "location": "Not specified",
       "instructor": "Sara Yasser Abdulhamid",
       "credits": "0.00",
-      "seatsLeft": "60"
-    }
-  ],
-  "ARC371": [
-    {
-      "fullTitle": "ARC371: Color and Art",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Monday",
-          "time": "10:30 AM - 12:00 PM",
-          "location": "Nile University, UB1, SUB1, Room 316"
-        },
-        {
-          "day": "Wednesday",
-          "time": "10:30 AM - 12:00 PM",
-          "location": "Nile University, UB1, SUB1, Room 316"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Ebtisam Mohamed Elgizawy",
-      "credits": "2.00",
-      "seatsLeft": "60"
-    },
-    {
-      "fullTitle": "ARC371: Color and Art",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedules": [
-        {
-          "day": "Monday",
-          "time": "12:00 PM - 1:00 PM",
-          "location": "Nile University, UB1, SUB1, Room 316"
-        },
-        {
-          "day": "Wednesday",
-          "time": "12:00 PM - 1:00 PM",
-          "location": "Nile University, UB1, SUB1, Room 316"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "60"
+      "seatsLeft": "59"
     }
   ],
   "ARC372": [
@@ -152,19 +106,19 @@
       "schedules": [
         {
           "day": "Sunday",
-          "time": "10:30 AM - 12:00 PM",
-          "location": "Nile University, UB1, Room 347"
+          "time": "10:30 AM - 11:59 AM",
+          "location": "347"
         },
         {
           "day": "Thursday",
-          "time": "10:30 AM - 12:00 PM",
-          "location": "Nile University, UB1, Room 347"
+          "time": "10:30 AM - 11:59 AM",
+          "location": "347"
         }
       ],
       "location": "Not specified",
       "instructor": "Not Assigned",
       "credits": "2.00",
-      "seatsLeft": "60"
+      "seatsLeft": "19"
     },
     {
       "fullTitle": "ARC372: Architecture Photography",
@@ -174,19 +128,19 @@
       "schedules": [
         {
           "day": "Sunday",
-          "time": "12:00 PM - 1:00 PM",
-          "location": "Nile University, UB1, Room 347"
+          "time": "12:00 PM - 3:00 PM",
+          "location": "347"
         },
         {
           "day": "Thursday",
-          "time": "12:00 PM - 1:00 PM",
-          "location": "Nile University, UB1, Room 347"
+          "time": "12:00 PM - 3:00 PM",
+          "location": "347"
         }
       ],
       "location": "Not specified",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "60"
+      "seatsLeft": "19"
     }
   ],
   "ARTS-201": [
@@ -199,18 +153,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F45"
+          "location": "F45"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F45"
+          "location": "F45"
         }
       ],
       "location": "Not specified",
       "instructor": "Galal Raafat Elmissary",
       "credits": "3.00",
-      "seatsLeft": "42"
+      "seatsLeft": "0"
     }
   ],
   "ARTS-205": [
@@ -223,18 +177,18 @@
         {
           "day": "Sunday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F45"
+          "location": "F45"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F45"
+          "location": "F45"
         }
       ],
       "location": "Not specified",
       "instructor": "Ibrahim Yousry Ibrahim",
       "credits": "3.00",
-      "seatsLeft": "56"
+      "seatsLeft": "1"
     }
   ],
   "BIO102": [
@@ -247,18 +201,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 104"
+          "location": "104"
         },
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "location": "101"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Maged Mohamed",
       "credits": "4.00",
-      "seatsLeft": "60"
+      "seatsLeft": "54"
     },
     {
       "fullTitle": "BIO102: Biology(General Cell&Developmental Bio.)",
@@ -267,25 +221,25 @@
       "subtype": "Lab",
       "schedules": [
         {
-          "day": "Monday",
-          "time": "2:30 PM - 6:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 249"
+          "day": "Sunday",
+          "time": "12:30 PM - 4:29 PM",
+          "location": "249"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 249"
+          "location": "249"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 1:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 249"
+          "location": "249"
         }
       ],
       "location": "Not specified",
-      "instructor": "Mahmoud Mohsen Omran & Howaida Mohamed Youssef",
+      "instructor": "Mahmoud Mohsen Omran, Howaida Mohamed Youssef",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "24"
     }
   ],
   "BIO204": [
@@ -297,19 +251,19 @@
       "schedules": [
         {
           "day": "Thursday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "106"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 116"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "116"
         }
       ],
       "location": "Not specified",
       "instructor": "Ahmed Abdelaziz Bayoumi",
       "credits": "3.00",
-      "seatsLeft": "54"
+      "seatsLeft": "41"
     },
     {
       "fullTitle": "BIO204: Histology",
@@ -318,20 +272,20 @@
       "subtype": "Lab",
       "schedules": [
         {
-          "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 249"
+          "day": "Thursday",
+          "time": "2:30 PM - 5:29 PM",
+          "location": "249"
         },
         {
           "day": "Wednesday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 249"
+          "time": "2:30 PM - 5:29 PM",
+          "location": "249"
         }
       ],
       "location": "Not specified",
-      "instructor": "Mayar Mostafa Hamdy & Mahmoud Mohsen Omran",
+      "instructor": "Mayar Mostafa Hamdy, Mahmoud Mohsen Omran",
       "credits": "0.00",
-      "seatsLeft": "24"
+      "seatsLeft": "10"
     }
   ],
   "BIO206": [
@@ -344,18 +298,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "location": "101"
         },
         {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "location": "101"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Maged Mohamed",
       "credits": "4.00",
-      "seatsLeft": "55"
+      "seatsLeft": "52"
     },
     {
       "fullTitle": "BIO206: Molecular Biology",
@@ -366,23 +320,23 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 4:29 PM",
-          "location": ", 0, Room 118"
+          "location": "118"
         },
         {
           "day": "Thursday",
           "time": "12:30 PM - 4:29 PM",
-          "location": ", 0, Room 118"
+          "location": "118"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 1:29 PM",
-          "location": ", 0, Room 118"
+          "location": "118"
         }
       ],
       "location": "Not specified",
-      "instructor": "Aya Ali Elsharqawy & Marina Akram Youssef",
+      "instructor": "Aya Ali Elsharqawy, Marina Akram Youssef",
       "credits": "0.00",
-      "seatsLeft": "25"
+      "seatsLeft": "22"
     }
   ],
   "BIO308": [
@@ -393,14 +347,14 @@
       "subtype": "Lecture",
       "schedules": [
         {
-          "day": "Monday",
-          "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 106"
+          "day": "Thursday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "111"
         },
         {
-          "day": "Sunday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 104"
+          "day": "Tuesday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "111"
         }
       ],
       "location": "Not specified",
@@ -417,12 +371,12 @@
         {
           "day": "Thursday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 121"
+          "location": "121"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 121"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "121"
         }
       ],
       "location": "Not specified",
@@ -440,19 +394,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 104"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "104"
         },
         {
           "day": "Sunday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 106"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "104"
         }
       ],
       "location": "Not specified",
       "instructor": "Raghda Abdelsattar Ramadan",
       "credits": "4.00",
-      "seatsLeft": "59"
+      "seatsLeft": "56"
     },
     {
       "fullTitle": "BIO409: Animal Tissue Culture",
@@ -461,25 +415,30 @@
       "subtype": "Lab",
       "schedules": [
         {
-          "day": "Monday",
-          "time": "12:30 PM - 4:29 PM",
-          "location": ", 0, Room 119"
+          "day": "Sunday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "235"
         },
         {
           "day": "Thursday",
-          "time": "12:30 PM - 4:29 PM",
-          "location": ", 0, Room 119"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "235"
         },
         {
-          "day": "Wednesday",
-          "time": "9:30 AM - 1:29 PM",
-          "location": ", 0, Room 119"
+          "day": "Tuesday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "235"
+        },
+        {
+          "day": "Tuesday",
+          "time": "2:30 PM - 5:29 PM",
+          "location": "235"
         }
       ],
       "location": "Not specified",
       "instructor": "Silvia George Makkar",
       "credits": "0.00",
-      "seatsLeft": "29"
+      "seatsLeft": "26"
     }
   ],
   "BMD490": [
@@ -492,7 +451,7 @@
       "location": "N/A",
       "instructor": "Mohamed Mysara Abdelwahab",
       "credits": "2.00",
-      "seatsLeft": "56"
+      "seatsLeft": "50"
     }
   ],
   "BSAD499": [
@@ -505,18 +464,31 @@
         {
           "day": "Sunday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 139"
+          "location": "139"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 139"
+          "location": "139"
         }
       ],
       "location": "Not specified",
       "instructor": "Vasilya Sultanova",
       "credits": "3.00",
-      "seatsLeft": "44"
+      "seatsLeft": "25"
+    }
+  ],
+  "BSAD704": [
+    {
+      "fullTitle": "BSAD704: Corporate Strategy & Intl Competitivenes",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Lecture",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Aliaa Soliman",
+      "credits": "3.00",
+      "seatsLeft": "17"
     }
   ],
   "CBIO202": [
@@ -528,30 +500,30 @@
       "schedules": [
         {
           "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 150"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "150"
         },
         {
           "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 150"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "150"
         }
       ],
       "location": "Not specified",
       "instructor": "Ebrahim Zaghloul Abdelbaky",
       "credits": "3.00",
-      "seatsLeft": "57"
+      "seatsLeft": "44"
     },
     {
       "fullTitle": "CBIO202: Introduction to Programming",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Saturday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 052",
+      "schedule": "Wednesday, 8:30 AM - 11:29 AM",
+      "location": "052",
       "instructor": "Salma Khaled Hegazy",
       "credits": "0.00",
-      "seatsLeft": "27"
+      "seatsLeft": "13"
     }
   ],
   "CBIO204": [
@@ -561,10 +533,10 @@
       "session": "Session 01",
       "subtype": "Lecture",
       "schedule": "Sunday, 8:30 AM - 2:29 PM",
-      "location": "Nile University, UB1, F1, Room 110",
+      "location": "110",
       "instructor": "Mohamed Mahmoud Elsayeh",
       "credits": "3.00",
-      "seatsLeft": "53"
+      "seatsLeft": "40"
     },
     {
       "fullTitle": "CBIO204: Fundamentals of Databases",
@@ -574,19 +546,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 052"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "264"
         },
         {
-          "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 052"
+          "day": "Saturday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "264"
         }
       ],
       "location": "Not specified",
       "instructor": "Esraa Magdy Anwar",
       "credits": "0.00",
-      "seatsLeft": "23"
+      "seatsLeft": "10"
     }
   ],
   "CBIO306": [
@@ -599,18 +571,18 @@
         {
           "day": "Monday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "location": "144"
         },
         {
           "day": "Tuesday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "111"
         }
       ],
       "location": "Not specified",
       "instructor": "Nasser Eldin Abdelrazek Ebrahim",
       "credits": "3.00",
-      "seatsLeft": "53"
+      "seatsLeft": "42"
     },
     {
       "fullTitle": "CBIO306: Next Generation Sequencing Analysis",
@@ -620,19 +592,19 @@
       "schedules": [
         {
           "day": "Thursday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 052"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "01"
         },
         {
           "day": "Wednesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 052"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "01"
         }
       ],
       "location": "Not specified",
-      "instructor": "Amr Mohamed Alhefnawy & Howida Samir Fathy",
+      "instructor": "Amr Mohamed Alhefnawy, Howida Samir Fathy",
       "credits": "0.00",
-      "seatsLeft": "23"
+      "seatsLeft": "12"
     }
   ],
   "CBIO313": [
@@ -642,10 +614,10 @@
       "session": "Session 01",
       "subtype": "Lecture",
       "schedule": "Sunday, 2:30 PM - 8:29 PM",
-      "location": "Nile University, UB1, F1, Room 110",
+      "location": "110",
       "instructor": "Mohamed Mahmoud Elsayeh",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "55"
     },
     {
       "fullTitle": "CBIO313: Data Mining and Machine Learning",
@@ -656,18 +628,18 @@
         {
           "day": "Saturday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 052"
+          "location": "052"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 052"
+          "location": "052"
         }
       ],
       "location": "Not specified",
       "instructor": "Nadeen Nassef Shrab",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "25"
     }
   ],
   "CBIO407": [
@@ -678,20 +650,20 @@
       "subtype": "Lecture",
       "schedules": [
         {
-          "day": "Sunday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "day": "Monday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "106"
         },
         {
-          "day": "Tuesday",
-          "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 104"
+          "day": "Sunday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "104"
         }
       ],
       "location": "Not specified",
       "instructor": "Sameh Elsayed Ibrahem",
       "credits": "3.00",
-      "seatsLeft": "56"
+      "seatsLeft": "49"
     },
     {
       "fullTitle": "CBIO407: Omics-II",
@@ -700,20 +672,20 @@
       "subtype": "Lab",
       "schedules": [
         {
-          "day": "Thursday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 053"
+          "day": "Monday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "216-B"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 052"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "216-B"
         }
       ],
       "location": "Not specified",
-      "instructor": "Fares Islam Mansour & Nourine Mamdouh Sabry",
+      "instructor": "Fares Islam Mansour, Nourine Mamdouh Sabry",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "18"
     }
   ],
   "CBIO416": [
@@ -726,7 +698,7 @@
       "location": "N/A",
       "instructor": "Asmaa Mohamed Abushady",
       "credits": "3.00",
-      "seatsLeft": "59"
+      "seatsLeft": "55"
     }
   ],
   "CHM203": [
@@ -738,19 +710,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "10:30 AM - 1:29 PM",
-          "location": "Nile University, UB1, F1, Room 110"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "132"
         },
         {
           "day": "Sunday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 111"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "132"
         }
       ],
       "location": "Not specified",
       "instructor": "Sobhy Ahmed Elsohimy",
       "credits": "4.00",
-      "seatsLeft": "38"
+      "seatsLeft": "32"
     },
     {
       "fullTitle": "CHM203: Biochemistry",
@@ -759,25 +731,30 @@
       "subtype": "Lab",
       "schedules": [
         {
-          "day": "Thursday",
-          "time": "12:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, RUB1, Room 365"
+          "day": "Monday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "365"
         },
         {
-          "day": "Tuesday",
-          "time": "12:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, RUB1, Room 365"
+          "day": "Sunday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "365"
+        },
+        {
+          "day": "Thursday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "365"
         },
         {
           "day": "Wednesday",
-          "time": "12:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, RUB1, Room 365"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "365"
         }
       ],
       "location": "Not specified",
-      "instructor": "Abdelhamid Mahmoud Abdelhamid & Rafayel Remon Eshak",
+      "instructor": "Abdelhamid Mahmoud Abdelhamid, Rafayel Remon Eshak",
       "credits": "0.00",
-      "seatsLeft": "8"
+      "seatsLeft": "2"
     }
   ],
   "COMM401": [
@@ -788,9 +765,9 @@
       "subtype": "Practical",
       "schedule": "N/A, N/A",
       "location": "N/A",
-      "instructor": "Walaa Medhat Asal",
+      "instructor": "Walaa Medhat Asal, Ahmed Fathy Elnokrashy, Mai Mohammed Said Mabrouk",
       "credits": "3.00",
-      "seatsLeft": "167"
+      "seatsLeft": "137"
     },
     {
       "fullTitle": "COMM401: Internship & Service Learning(BBA)",
@@ -801,7 +778,7 @@
       "location": "N/A",
       "instructor": "Mohamed Sayed Abed",
       "credits": "3.00",
-      "seatsLeft": "39"
+      "seatsLeft": "35"
     },
     {
       "fullTitle": "COMM401: Internship & Service Learning(MENG)",
@@ -810,9 +787,44 @@
       "subtype": "Practical",
       "schedule": "N/A, N/A",
       "location": "N/A",
-      "instructor": "Mohamed Mohamed Elshabrawy & Mohamed Ahmed Sayed Afifi & Mahmoud Emam Ragab Nasr Shaaban",
+      "instructor": "Mohamed Mohamed Elshabrawy, Mohamed Ahmed Sayed Afifi, Mahmoud Emam Ragab Nasr Shaaban",
       "credits": "3.00",
       "seatsLeft": "60"
+    }
+  ],
+  "CSC101": [
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Thursday, 9:30 AM - 3:29 PM",
+      "location": "139",
+      "instructor": "Samar Mahmoud Noureldin",
+      "credits": "3.00",
+      "seatsLeft": "60"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Monday, 9:30 AM - 12:29 PM",
+      "location": "052",
+      "instructor": "Nadine Abdelaleem Mahmoud",
+      "credits": "0.00",
+      "seatsLeft": "30"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 12:30 PM - 3:29 PM",
+      "location": "",
+      "instructor": "Nadine Abdelaleem Mahmoud",
+      "credits": "0.00",
+      "seatsLeft": "30"
     }
   ],
   "CSC102": [
@@ -825,18 +837,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 145"
+          "location": "145"
         },
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 145"
+          "location": "145"
         }
       ],
       "location": "Not specified",
       "instructor": "Samar Mahmoud Noureldin",
       "credits": "4.00",
-      "seatsLeft": "60"
+      "seatsLeft": "50"
     },
     {
       "fullTitle": "CSC102: Fundamentals of Computing I",
@@ -844,10 +856,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Sunday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 052",
+      "location": "052",
       "instructor": "Ahmed Khaled Saber",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "20"
     },
     {
       "fullTitle": "CSC102: Fundamentals of Computing I",
@@ -855,10 +867,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Tuesday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, F1, Room 110",
+      "location": "110",
       "instructor": "Ahmed Khaled Saber",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "20"
     }
   ],
   "CSC103": [
@@ -871,18 +883,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 145"
+          "location": "145"
         },
         {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 145"
+          "location": "145"
         }
       ],
       "location": "Not specified",
       "instructor": "Ahmed Mahmoud Elshafee",
       "credits": "4.00",
-      "seatsLeft": "60"
+      "seatsLeft": "45"
     },
     {
       "fullTitle": "CSC103: Fundamentals of Computing II",
@@ -890,10 +902,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Wednesday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 053",
+      "location": "053",
       "instructor": "Zeinab Mostafa Omran",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "15"
     },
     {
       "fullTitle": "CSC103: Fundamentals of Computing II",
@@ -901,10 +913,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Monday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, FUB1, Room 232",
+      "location": "232",
       "instructor": "Zeinab Mostafa Omran",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "15"
     }
   ],
   "CSC111": [
@@ -914,10 +926,10 @@
       "session": "Session 01",
       "subtype": "Lecture",
       "schedule": "Thursday, 9:30 AM - 3:29 PM",
-      "location": "Nile University, UB1, GUB1, Room 139",
+      "location": "139",
       "instructor": "Samar Mahmoud Noureldin",
       "credits": "3.00",
-      "seatsLeft": "58"
+      "seatsLeft": "54"
     },
     {
       "fullTitle": "CSC111: Computer and Information Skills",
@@ -925,10 +937,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Monday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 052",
+      "location": "052",
       "instructor": "Nadine Abdelaleem Mahmoud",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "24"
     },
     {
       "fullTitle": "CSC111: Computer and Information Skills",
@@ -936,10 +948,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Sunday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB2, F, Room F23",
+      "location": "F23",
       "instructor": "Nadine Abdelaleem Mahmoud",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "24"
     }
   ],
   "CSCI112": [
@@ -952,18 +964,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 145"
+          "location": "145"
         },
         {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 145"
+          "location": "145"
         }
       ],
       "location": "Not specified",
       "instructor": "Ahmed Mahmoud Elshafee",
       "credits": "3.00",
-      "seatsLeft": "56"
+      "seatsLeft": "54"
     },
     {
       "fullTitle": "CSCI112: Intermediate Programming",
@@ -971,10 +983,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Wednesday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 053",
+      "location": "053",
       "instructor": "Zeinab Mostafa Omran",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "24"
     }
   ],
   "CSCI207": [
@@ -987,18 +999,18 @@
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 134"
+          "location": "134"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 134"
+          "location": "134"
         }
       ],
       "location": "Not specified",
       "instructor": "Ahmed Mahmoud Elshafee",
       "credits": "3.00",
-      "seatsLeft": "52"
+      "seatsLeft": "49"
     },
     {
       "fullTitle": "CSCI207: Data Structures and Algorithms",
@@ -1006,10 +1018,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Monday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 053",
+      "location": "053",
       "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
-      "seatsLeft": "22"
+      "seatsLeft": "19"
     }
   ],
   "CSCI217": [
@@ -1022,18 +1034,18 @@
         {
           "day": "Saturday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 111"
+          "location": "111"
         },
         {
           "day": "Saturday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 111"
+          "location": "111"
         }
       ],
       "location": "Not specified",
       "instructor": "Not Assigned",
       "credits": "3.00",
-      "seatsLeft": "30"
+      "seatsLeft": "27"
     },
     {
       "fullTitle": "CSCI217: Advanced Computer Programming & Concept",
@@ -1044,12 +1056,12 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 01"
+          "location": "01"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 053"
+          "location": "053"
         }
       ],
       "location": "Not specified",
@@ -1065,10 +1077,10 @@
       "session": "Session 01",
       "subtype": "Lecture",
       "schedule": "Wednesday, 9:30 AM - 3:29 PM",
-      "location": "Nile University, UB1, GUB1, Room 144",
+      "location": "144",
       "instructor": "Ebrahim Zaghloul Abdelbaky",
       "credits": "3.00",
-      "seatsLeft": "47"
+      "seatsLeft": "42"
     },
     {
       "fullTitle": "CSCI467: Data Mining and Analytics",
@@ -1076,10 +1088,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Monday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 01",
+      "location": "01",
       "instructor": "Salma Said Ramadan",
       "credits": "0.00",
-      "seatsLeft": "17"
+      "seatsLeft": "12"
     }
   ],
   "CSCI469": [
@@ -1090,20 +1102,20 @@
       "subtype": "Lecture",
       "schedules": [
         {
-          "day": "Monday",
+          "day": "Saturday",
           "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "location": "F38"
         },
         {
-          "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 104"
+          "day": "Thursday",
+          "time": "1:30 PM - 4:29 PM",
+          "location": "F38"
         }
       ],
       "location": "Not specified",
-      "instructor": "Not Assigned",
+      "instructor": "Shaimaa Mohamed Awad",
       "credits": "3.00",
-      "seatsLeft": "47"
+      "seatsLeft": "39"
     },
     {
       "fullTitle": "CSCI469: Selected Topics in Big Data and Data Sci",
@@ -1111,10 +1123,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Thursday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 052",
+      "location": "052",
       "instructor": "Abdelrahman Mahmoud Lotfy",
       "credits": "0.00",
-      "seatsLeft": "17"
+      "seatsLeft": "9"
     }
   ],
   "CSCI490": [
@@ -1125,9 +1137,9 @@
       "subtype": "Practical",
       "schedule": "N/A, N/A",
       "location": "N/A",
-      "instructor": "Walaa Medhat Asal",
+      "instructor": "Walaa Medhat Asal, Ahmed Fathy Elnokrashy, Mai Mohammed Said Mabrouk",
       "credits": "2.00",
-      "seatsLeft": "185"
+      "seatsLeft": "172"
     }
   ],
   "CVL211": [
@@ -1140,18 +1152,18 @@
         {
           "day": "Sunday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F44"
+          "location": "F44"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F44"
+          "location": "F44"
         }
       ],
       "location": "Not specified",
       "instructor": "Nouran Mahmoud Tawfik Essmat",
       "credits": "3.00",
-      "seatsLeft": "58"
+      "seatsLeft": "54"
     },
     {
       "fullTitle": "CVL211: Structural Analysis 1",
@@ -1159,10 +1171,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Thursday, 8:30 AM - 11:29 AM",
-      "location": "Nile University, UB1, F1, Room 110",
+      "location": "110",
       "instructor": "Mohamed Nasr Mohamed Emadeldin Osman",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "24"
     }
   ],
   "CVL213": [
@@ -1175,12 +1187,12 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 330"
+          "location": "330"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 330"
+          "location": "330"
         }
       ],
       "location": "Not specified",
@@ -1197,12 +1209,12 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 330"
+          "location": "330"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, SUB1, Room 330"
+          "location": "330"
         }
       ],
       "location": "Not specified",
@@ -1221,7 +1233,7 @@
       "location": "N/A",
       "instructor": "Sherif Elsaied Abdelsalam",
       "credits": "0.00",
-      "seatsLeft": "55"
+      "seatsLeft": "53"
     }
   ],
   "CVL392": [
@@ -1234,7 +1246,7 @@
       "location": "N/A",
       "instructor": "Emad Shaker Bakhoum",
       "credits": "0.00",
-      "seatsLeft": "58"
+      "seatsLeft": "56"
     }
   ],
   "ECE121": [
@@ -1247,23 +1259,23 @@
         {
           "day": "Monday",
           "time": "8:30 AM - 10:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "location": "F48"
         },
         {
           "day": "Tuesday",
           "time": "10:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "location": "F48"
         },
         {
           "day": "Wednesday",
           "time": "8:30 AM - 10:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "location": "F48"
         }
       ],
       "location": "Not specified",
       "instructor": "Noha Younes Zaky",
       "credits": "3.00",
-      "seatsLeft": "57"
+      "seatsLeft": "26"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1271,10 +1283,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Sunday, 11:30 AM - 2:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F48",
+      "location": "F48",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "29"
+      "seatsLeft": "8"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1282,10 +1294,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Sunday, 8:30 AM - 11:29 AM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "20"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1293,10 +1305,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Wednesday, 10:30 AM - 1:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "18"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1304,10 +1316,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Monday, 1:30 PM - 4:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F48",
+      "location": "F48",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "17"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1315,10 +1327,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Monday, 10:30 AM - 1:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "19"
+      "seatsLeft": "10"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1329,23 +1341,23 @@
         {
           "day": "Monday",
           "time": "10:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "location": "F48"
         },
         {
           "day": "Tuesday",
           "time": "8:30 AM - 10:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "location": "F48"
         },
         {
           "day": "Wednesday",
           "time": "10:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "location": "F48"
         }
       ],
       "location": "Not specified",
       "instructor": "Noha Younes Zaky",
       "credits": "3.00",
-      "seatsLeft": "58"
+      "seatsLeft": "43"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1353,10 +1365,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Tuesday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F48",
+      "location": "F48",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "14"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1364,10 +1376,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Sunday, 2:30 PM - 5:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "19"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "ECE121: Digital Logic Design",
@@ -1375,10 +1387,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Wednesday, 1:30 PM - 4:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
-      "seatsLeft": "19"
+      "seatsLeft": "10"
     }
   ],
   "ECE151": [
@@ -1391,18 +1403,18 @@
         {
           "day": "Monday",
           "time": "10:30 AM - 1:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 148"
+          "location": "148"
         },
         {
           "day": "Tuesday",
           "time": "10:30 AM - 1:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "location": "144"
         }
       ],
       "location": "Not specified",
       "instructor": "Zeinab Hassan",
       "credits": "3.00",
-      "seatsLeft": "58"
+      "seatsLeft": "54"
     },
     {
       "fullTitle": "ECE151: Introduction to Programming",
@@ -1413,18 +1425,18 @@
         {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 01"
+          "location": "01"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 053"
+          "location": "053"
         }
       ],
       "location": "Not specified",
       "instructor": "Aliaa Islam Zayd",
       "credits": "0.00",
-      "seatsLeft": "18"
+      "seatsLeft": "14"
     }
   ],
   "ECE211": [
@@ -1437,18 +1449,18 @@
         {
           "day": "Saturday",
           "time": "8:30 AM - 11:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         },
         {
           "day": "Sunday",
           "time": "8:30 AM - 11:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Anwar Sayed Ahmed",
       "credits": "3.00",
-      "seatsLeft": "35"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ECE211: Electrical Circuits I",
@@ -1456,10 +1468,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Sunday, 11:30 AM - 2:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F46",
+      "location": "F46",
       "instructor": "Sarah Abdelnasser Ahmed",
       "credits": "0.00",
-      "seatsLeft": "5"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ECE211: Electrical Circuits I",
@@ -1467,10 +1479,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Tuesday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "G25",
       "instructor": "Aliaa Islam Zayd",
       "credits": "0.00",
-      "seatsLeft": "15"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "ECE211: Electrical Circuits I",
@@ -1478,15 +1490,15 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Tuesday, 3:30 PM - 6:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "G25",
       "instructor": "Aliaa Islam Zayd",
       "credits": "0.00",
-      "seatsLeft": "20"
+      "seatsLeft": "3"
     }
   ],
   "ECE213": [
     {
-      "fullTitle": "ECE213: Electrical Circuits II\r",
+      "fullTitle": "ECE213: Electrical Circuits II\n",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -1494,56 +1506,56 @@
         {
           "day": "Saturday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         },
         {
           "day": "Sunday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Anwar Sayed Ahmed",
       "credits": "3.00",
-      "seatsLeft": "39"
+      "seatsLeft": "33"
     },
     {
-      "fullTitle": "ECE213: Electrical Circuits II\r",
+      "fullTitle": "ECE213: Electrical Circuits II\n",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Monday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F46",
+      "location": "F46",
       "instructor": "Sarah Abdelnasser Ahmed",
       "credits": "0.00",
-      "seatsLeft": "9"
+      "seatsLeft": "3"
     },
     {
-      "fullTitle": "ECE213: Electrical Circuits II\r",
+      "fullTitle": "ECE213: Electrical Circuits II\n",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Monday, 1:30 PM - 4:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Sarah Abdelnasser Ahmed",
       "credits": "0.00",
-      "seatsLeft": "4"
+      "seatsLeft": "3"
     },
     {
-      "fullTitle": "ECE213: Electrical Circuits II\r",
+      "fullTitle": "ECE213: Electrical Circuits II\n",
       "section": "01B",
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Tuesday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Sarah Abdelnasser Ahmed",
       "credits": "0.00",
-      "seatsLeft": "15"
+      "seatsLeft": "10"
     }
   ],
   "ECE233": [
     {
-      "fullTitle": "ECE233: Fundamentals of Communications\r",
+      "fullTitle": "ECE233: Fundamentals of Communications\n",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -1551,51 +1563,73 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 9"
+          "location": "9"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 9"
+          "location": "9"
         }
       ],
       "location": "Not specified",
       "instructor": "Yasmine Aly Fahmy",
       "credits": "3.00",
-      "seatsLeft": "30"
+      "seatsLeft": "4"
     },
     {
-      "fullTitle": "ECE233: Fundamentals of Communications\r",
+      "fullTitle": "ECE233: Fundamentals of Communications\n",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Monday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F43",
-      "instructor": "Magda Yousef Mohamed",
+      "location": "F43",
+      "instructor": "Mohamed Adel Milad",
       "credits": "0.00",
       "seatsLeft": "0"
     },
     {
-      "fullTitle": "ECE233: Fundamentals of Communications\r",
+      "fullTitle": "ECE233: Fundamentals of Communications\n",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Wednesday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB2, GUB2, Room G18",
-      "instructor": "Magda Yousef Mohamed",
+      "location": "G18",
+      "instructor": "Mohamed Adel Milad",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "0"
     },
     {
-      "fullTitle": "ECE233: Fundamentals of Communications\r",
+      "fullTitle": "ECE233: Fundamentals of Communications\n",
       "section": "01B",
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Tuesday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB2, GUB2, Room G18",
-      "instructor": "Magda Yousef Mohamed",
+      "location": "G18",
+      "instructor": "Mohamed Adel Milad",
       "credits": "0.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ECE233: Fundamentals of Communications\n",
+      "section": "01B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 12:30 PM - 3:29 PM",
+      "location": "101",
+      "instructor": "Mohamed Adel Milad",
+      "credits": "0.00",
+      "seatsLeft": "4"
+    },
+    {
+      "fullTitle": "ECE233: Fundamentals of Communications\n",
+      "section": "01C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 11:30 AM - 1:29 PM",
+      "location": "G18",
+      "instructor": "Mohamed Adel Milad",
+      "credits": "0.00",
+      "seatsLeft": "5"
     }
   ],
   "ECE291": [
@@ -1608,7 +1642,7 @@
       "location": "N/A",
       "instructor": "Mohamed Saeed Darweesh",
       "credits": "0.00",
-      "seatsLeft": "48"
+      "seatsLeft": "46"
     }
   ],
   "ECE334": [
@@ -1621,18 +1655,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 9"
+          "location": "9"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 9"
+          "location": "9"
         }
       ],
       "location": "Not specified",
       "instructor": "Yasmine Aly Fahmy",
       "credits": "3.00",
-      "seatsLeft": "41"
+      "seatsLeft": "40"
     },
     {
       "fullTitle": "ECE334: Digital Communications",
@@ -1640,10 +1674,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Thursday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F46",
+      "location": "F46",
       "instructor": "Magda Yousef Mohamed",
       "credits": "0.00",
-      "seatsLeft": "11"
+      "seatsLeft": "10"
     },
     {
       "fullTitle": "ECE334: Digital Communications",
@@ -1651,10 +1685,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Wednesday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB2, GUB2, Room G18",
+      "location": "G18",
       "instructor": "Magda Yousef Mohamed",
       "credits": "0.00",
-      "seatsLeft": "23"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "ECE334: Digital Communications",
@@ -1662,10 +1696,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Thursday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB2, GUB2, Room G18",
+      "location": "G18",
       "instructor": "Magda Yousef Mohamed",
       "credits": "0.00",
-      "seatsLeft": "18"
+      "seatsLeft": "7"
     }
   ],
   "ECE336": [
@@ -1678,18 +1712,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "location": "8"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "location": "8"
         }
       ],
       "location": "Not specified",
       "instructor": "Tamer Mostafa Abulfadl",
       "credits": "3.00",
-      "seatsLeft": "44"
+      "seatsLeft": "45"
     },
     {
       "fullTitle": "ECE336: Applied Electromagnetics",
@@ -1700,18 +1734,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F43"
+          "location": "F43"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F45"
+          "location": "F45"
         }
       ],
       "location": "Not specified",
       "instructor": "Ahmed Hamouda Abdelhafeez Elsayed",
       "credits": "0.00",
-      "seatsLeft": "14"
+      "seatsLeft": "15"
     }
   ],
   "ECE392": [
@@ -1724,7 +1758,7 @@
       "location": "N/A",
       "instructor": "Ahmed Hassan Madian",
       "credits": "0.00",
-      "seatsLeft": "57"
+      "seatsLeft": "56"
     }
   ],
   "ECEN101C": [
@@ -1737,18 +1771,18 @@
         {
           "day": "Saturday",
           "time": "8:30 AM - 11:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         },
         {
           "day": "Sunday",
           "time": "8:30 AM - 11:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Anwar Sayed Ahmed",
       "credits": "3.00",
-      "seatsLeft": "47"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ECEN101C: Electric Circuits (CS)",
@@ -1756,10 +1790,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Sunday, 11:30 AM - 2:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F46",
-      "instructor": "Sarah Abdelnasser Ahmed",
+      "location": "F48",
+      "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
-      "seatsLeft": "17"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ECEN101C: Electric Circuits (CS)",
@@ -1767,10 +1801,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Tuesday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
-      "instructor": "Aliaa Islam Zayd",
+      "location": "28",
+      "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
-      "seatsLeft": "12"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ECEN101C: Electric Circuits (CS)",
@@ -1778,10 +1812,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Tuesday, 3:30 PM - 6:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
-      "instructor": "Aliaa Islam Zayd",
+      "location": "28",
+      "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
-      "seatsLeft": "15"
+      "seatsLeft": "10"
     }
   ],
   "ECEN111": [
@@ -1794,18 +1828,18 @@
         {
           "day": "Monday",
           "time": "8:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         },
         {
           "day": "Thursday",
           "time": "3:00 PM - 5:00 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Mahmoud Abdelrahman Abdallah",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "35"
     },
     {
       "fullTitle": "ECEN111: Electronics and Electrical Circuits",
@@ -1813,10 +1847,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Saturday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F46",
+      "location": "F46",
       "instructor": "Hana Haitham Abdelrahim",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "5"
     },
     {
       "fullTitle": "ECEN111: Electronics and Electrical Circuits",
@@ -1824,10 +1858,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Saturday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Hana Haitham Abdelrahim",
       "credits": "0.00",
-      "seatsLeft": "20"
+      "seatsLeft": "2"
     },
     {
       "fullTitle": "ECEN111: Electronics and Electrical Circuits",
@@ -1835,10 +1869,10 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Sunday, 11:30 AM - 2:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "location": "28",
       "instructor": "Hana Haitham Abdelrahim",
       "credits": "0.00",
-      "seatsLeft": "20"
+      "seatsLeft": "13"
     }
   ],
   "ECEN391": [
@@ -1851,7 +1885,7 @@
       "location": "N/A",
       "instructor": "Ahmed Hassan Madian",
       "credits": "3.00",
-      "seatsLeft": "57"
+      "seatsLeft": "54"
     }
   ],
   "ENGL003": [
@@ -1864,23 +1898,23 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, F, Room F26"
+          "location": "F26"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F26"
+          "location": "F26"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F26"
+          "location": "F26"
         }
       ],
       "location": "Not specified",
       "instructor": "Aliaa Mostafa Abdelbarr",
       "credits": "0.00",
-      "seatsLeft": "24"
+      "seatsLeft": "19"
     }
   ],
   "ENGL-102": [
@@ -1893,23 +1927,23 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F26"
+          "location": "F26"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, F, Room F26"
+          "location": "F26"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, F, Room F26"
+          "location": "F26"
         }
       ],
       "location": "Not specified",
       "instructor": "Aliaa Mostafa Abdelbarr",
       "credits": "3.00",
-      "seatsLeft": "12"
+      "seatsLeft": "7"
     }
   ],
   "ENGL201": [
@@ -1922,23 +1956,23 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F27"
+          "location": "F27"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F27"
+          "location": "F27"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F27"
+          "location": "F27"
         }
       ],
       "location": "Not specified",
       "instructor": "Meral Mohamed Hussein",
       "credits": "3.00",
-      "seatsLeft": "22"
+      "seatsLeft": "10"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -1949,23 +1983,23 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F27"
+          "location": "F27"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F27"
+          "location": "F27"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F27"
+          "location": "F27"
         }
       ],
       "location": "Not specified",
       "instructor": "Meral Mohamed Hussein",
       "credits": "3.00",
-      "seatsLeft": "15"
+      "seatsLeft": "0"
     }
   ],
   "ENGL202": [
@@ -1978,17 +2012,17 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F28"
+          "location": "F28"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F28"
+          "location": "F28"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F28"
+          "location": "F28"
         }
       ],
       "location": "Not specified",
@@ -2005,23 +2039,50 @@
         {
           "day": "Monday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F29"
+          "location": "F29"
         },
         {
           "day": "Tuesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F29"
+          "location": "F29"
         },
         {
           "day": "Wednesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F29"
+          "location": "F29"
         }
       ],
       "location": "Not specified",
       "instructor": "Jomana Alaa Abdelhady",
       "credits": "3.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ENGL202: Communication & Presentation Skills",
+      "section": "03",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Monday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F31"
+        },
+        {
+          "day": "Tuesday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F31"
+        },
+        {
+          "day": "Wednesday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F31"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Yasmine Mahmoud Shahin",
+      "credits": "3.00",
+      "seatsLeft": "5"
     }
   ],
   "FINC402": [
@@ -2034,18 +2095,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 139"
+          "location": "139"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 139"
+          "location": "139"
         }
       ],
       "location": "Not specified",
       "instructor": "Vasilya Sultanova",
       "credits": "3.00",
-      "seatsLeft": "55"
+      "seatsLeft": "54"
     },
     {
       "fullTitle": "FINC402: Advanced Corporate Finance",
@@ -2056,7 +2117,7 @@
       "location": "N/A",
       "instructor": "Mariam Alaa Zaki Othman",
       "credits": "0.00",
-      "seatsLeft": "55"
+      "seatsLeft": "54"
     }
   ],
   "HUMA001/101": [
@@ -2069,18 +2130,18 @@
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F46"
+          "location": "F46"
         },
         {
           "day": "Tuesday",
           "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F46"
+          "location": "F46"
         }
       ],
       "location": "Not specified",
       "instructor": "Magd Elias Kahil",
       "credits": "2.00",
-      "seatsLeft": "56"
+      "seatsLeft": "38"
     }
   ],
   "HUMA102": [
@@ -2090,10 +2151,10 @@
       "session": "Session 01",
       "subtype": "Lecture",
       "schedule": "Tuesday, 11:30 AM - 2:29 PM",
-      "location": "Nile University, UB1, SUB1, Room 307",
+      "location": "307",
       "instructor": "Muhammad Maher Abdulghaffar",
       "credits": "1.00",
-      "seatsLeft": "61"
+      "seatsLeft": "56"
     }
   ],
   "IENG391": [
@@ -2119,18 +2180,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, BUB2, Room B10"
+          "location": "B10"
         },
         {
           "day": "Sunday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, BUB2, Room B10"
+          "location": "B10"
         }
       ],
       "location": "Not specified",
       "instructor": "Sherif Abdelrahman Elatriby",
       "credits": "3.00",
-      "seatsLeft": "56"
+      "seatsLeft": "52"
     },
     {
       "fullTitle": "IND252: Operations Research 1",
@@ -2138,10 +2199,10 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Tuesday, 11:30 AM - 2:29 PM",
-      "location": "Nile University, UB2, BUB2, Room B10",
+      "location": "B10",
       "instructor": "Yousef Hassan Abdelwahab",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "22"
     }
   ],
   "IND291": [
@@ -2154,7 +2215,7 @@
       "location": "N/A",
       "instructor": "Irene Samy Gibreel",
       "credits": "0.00",
-      "seatsLeft": "59"
+      "seatsLeft": "58"
     }
   ],
   "IND392": [
@@ -2167,7 +2228,7 @@
       "location": "N/A",
       "instructor": "Irene Samy Gibreel",
       "credits": "0.00",
-      "seatsLeft": "60"
+      "seatsLeft": "58"
     }
   ],
   "MATH100": [
@@ -2180,18 +2241,18 @@
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
       "instructor": "Ivan Garbis Miskdjian",
       "credits": "0.00",
-      "seatsLeft": "60"
+      "seatsLeft": "49"
     },
     {
       "fullTitle": "MATH100: Pre-calculus",
@@ -2202,18 +2263,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         },
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
       "instructor": "Hager Mohamed Eldaadaa",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "18"
     }
   ],
   "MATH111": [
@@ -2225,19 +2286,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "8"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "8"
         }
       ],
       "location": "Not specified",
       "instructor": "Hany Abdelghafar Abdelatty",
       "credits": "4.00",
-      "seatsLeft": "60"
+      "seatsLeft": "57"
     },
     {
       "fullTitle": "MATH111: Analytical Geometry & Calculus I",
@@ -2246,20 +2307,20 @@
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Monday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "day": "Thursday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F23"
         },
         {
           "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F23"
         }
       ],
       "location": "Not specified",
       "instructor": "Habeba Elrahman Ashraf Mohamed",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "28"
     },
     {
       "fullTitle": "MATH111: Analytical Geometry & Calculus I",
@@ -2269,59 +2330,59 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F23"
         },
         {
           "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F23"
         }
       ],
       "location": "Not specified",
       "instructor": "Habeba Elrahman Ashraf Mohamed",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "29"
     }
   ],
-  "MATH111I": [
+  "MATH111i": [
     {
-      "fullTitle": "MATH111I: Analytical Geometry & Calculus I",
+      "fullTitle": "MATH111i: Analytical Geometry & Calculus I",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
       "schedules": [
         {
           "day": "Monday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "8"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "8"
         }
       ],
       "location": "Not specified",
       "instructor": "Hany Abdelghafar Abdelatty",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "58"
     },
     {
-      "fullTitle": "MATH111I: Analytical Geometry & Calculus I",
+      "fullTitle": "MATH111i: Analytical Geometry & Calculus I",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Monday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "day": "Thursday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F23"
         },
         {
           "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F23"
         }
       ],
       "location": "Not specified",
@@ -2330,26 +2391,26 @@
       "seatsLeft": "30"
     },
     {
-      "fullTitle": "MATH111I: Analytical Geometry & Calculus I",
+      "fullTitle": "MATH111i: Analytical Geometry & Calculus I",
       "section": "01B",
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedules": [
         {
           "day": "Monday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F23"
         },
         {
           "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F23"
         }
       ],
       "location": "Not specified",
       "instructor": "Habeba Elrahman Ashraf Mohamed",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "28"
     }
   ],
   "MATH112": [
@@ -2362,18 +2423,18 @@
         {
           "day": "Sunday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         },
         {
           "day": "Wednesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         }
       ],
       "location": "Not specified",
       "instructor": "Sameh Abdelrahman Sadek Mohamed",
       "credits": "4.00",
-      "seatsLeft": "52"
+      "seatsLeft": "46"
     },
     {
       "fullTitle": "MATH112: Analytical Geometry & Calculus II",
@@ -2384,18 +2445,18 @@
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         }
       ],
       "location": "Not specified",
       "instructor": "Afaf Mohamed Mokhtar",
       "credits": "4.00",
-      "seatsLeft": "60"
+      "seatsLeft": "59"
     },
     {
       "fullTitle": "MATH112: Analytical Geometry & Calculus II",
@@ -2406,18 +2467,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
       "instructor": "Rana Tarek Imarh",
       "credits": "0.00",
-      "seatsLeft": "23"
+      "seatsLeft": "19"
     },
     {
       "fullTitle": "MATH112: Analytical Geometry & Calculus II",
@@ -2428,18 +2489,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         },
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Rana Tarek Imarh",
       "credits": "0.00",
-      "seatsLeft": "29"
+      "seatsLeft": "26"
     },
     {
       "fullTitle": "MATH112: Analytical Geometry & Calculus II",
@@ -2450,23 +2511,23 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Yasmien Emad Younis",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "29"
     }
   ],
-  "MATH112I": [
+  "MATH112i": [
     {
-      "fullTitle": "MATH112I: Analytical Geometry & Calculus II",
+      "fullTitle": "MATH112i: Analytical Geometry & Calculus II",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -2474,21 +2535,21 @@
         {
           "day": "Sunday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         },
         {
           "day": "Wednesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         }
       ],
       "location": "Not specified",
       "instructor": "Sameh Abdelrahman Sadek Mohamed",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "58"
     },
     {
-      "fullTitle": "MATH112I: Analytical Geometry & Calculus II",
+      "fullTitle": "MATH112i: Analytical Geometry & Calculus II",
       "section": "02",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -2496,21 +2557,21 @@
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         }
       ],
       "location": "Not specified",
       "instructor": "Afaf Mohamed Mokhtar",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "58"
     },
     {
-      "fullTitle": "MATH112I: Analytical Geometry & Calculus II",
+      "fullTitle": "MATH112i: Analytical Geometry & Calculus II",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -2518,12 +2579,12 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
@@ -2532,7 +2593,7 @@
       "seatsLeft": "30"
     },
     {
-      "fullTitle": "MATH112I: Analytical Geometry & Calculus II",
+      "fullTitle": "MATH112i: Analytical Geometry & Calculus II",
       "section": "01B",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -2540,21 +2601,21 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         },
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Rana Tarek Imarh",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "28"
     },
     {
-      "fullTitle": "MATH112I: Analytical Geometry & Calculus II",
+      "fullTitle": "MATH112i: Analytical Geometry & Calculus II",
       "section": "02A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -2562,18 +2623,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Yasmien Emad Younis",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "28"
     }
   ],
   "MATH120": [
@@ -2586,18 +2647,18 @@
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
       "instructor": "Ivan Garbis Miskdjian",
       "credits": "0.00",
-      "seatsLeft": "60"
+      "seatsLeft": "53"
     },
     {
       "fullTitle": "MATH120: Pre-calculus Mathematics",
@@ -2608,18 +2669,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         },
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
       "instructor": "Hager Mohamed Eldaadaa",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "23"
     }
   ],
   "MATH121": [
@@ -2631,19 +2692,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "8"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 8"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "8"
         }
       ],
       "location": "Not specified",
       "instructor": "Hany Abdelghafar Abdelatty",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "25"
     },
     {
       "fullTitle": "MATH121: Calculus I and Analytical Geometry",
@@ -2652,20 +2713,20 @@
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Monday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "day": "Thursday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F23"
         },
         {
           "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F23"
         }
       ],
       "location": "Not specified",
       "instructor": "Habeba Elrahman Ashraf Mohamed",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MATH121: Calculus I and Analytical Geometry",
@@ -2675,19 +2736,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F23"
         },
         {
           "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, F, Room F23"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F23"
         }
       ],
       "location": "Not specified",
       "instructor": "Habeba Elrahman Ashraf Mohamed",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "24"
     }
   ],
   "MATH122": [
@@ -2700,18 +2761,18 @@
         {
           "day": "Sunday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         },
         {
           "day": "Wednesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         }
       ],
       "location": "Not specified",
       "instructor": "Sameh Abdelrahman Sadek Mohamed",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "46"
     },
     {
       "fullTitle": "MATH122: Calculus II",
@@ -2722,18 +2783,18 @@
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 232"
+          "location": "232"
         }
       ],
       "location": "Not specified",
       "instructor": "Afaf Mohamed Mokhtar",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "49"
     },
     {
       "fullTitle": "MATH122: Calculus II",
@@ -2744,18 +2805,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
       "instructor": "Rana Tarek Imarh",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "20"
     },
     {
       "fullTitle": "MATH122: Calculus II",
@@ -2766,18 +2827,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         },
         {
           "day": "Thursday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Rana Tarek Imarh",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "26"
     },
     {
       "fullTitle": "MATH122: Calculus II",
@@ -2788,18 +2849,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Yasmien Emad Younis",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "19"
     }
   ],
   "MATH201": [
@@ -2812,18 +2873,18 @@
         {
           "day": "Tuesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "location": "S44"
         },
         {
           "day": "Wednesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "location": "S41"
         }
       ],
       "location": "Not specified",
       "instructor": "Rawhy Ismail Madbouly",
       "credits": "3.00",
-      "seatsLeft": "56"
+      "seatsLeft": "54"
     },
     {
       "fullTitle": "MATH201: Introduction to Probability & Statistics",
@@ -2834,18 +2895,18 @@
         {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Gamal Rizk",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "24"
     }
   ],
   "MATH203": [
@@ -2858,18 +2919,18 @@
         {
           "day": "Thursday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 159"
+          "location": "159"
         },
         {
           "day": "Tuesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Sameh Abdelrahman Sadek Mohamed",
       "credits": "4.00",
-      "seatsLeft": "40"
+      "seatsLeft": "33"
     },
     {
       "fullTitle": "MATH203: Differential Equations",
@@ -2880,23 +2941,23 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F37"
+          "location": "F37"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Eman Khalid Ibrahim",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "2"
     }
   ],
-  "MATH203I": [
+  "MATH203i": [
     {
-      "fullTitle": "MATH203I: Differential Equations",
+      "fullTitle": "MATH203i: Differential Equations",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -2904,21 +2965,21 @@
         {
           "day": "Thursday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 159"
+          "location": "159"
         },
         {
           "day": "Tuesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Sameh Abdelrahman Sadek Mohamed",
       "credits": "3.00",
-      "seatsLeft": "52"
+      "seatsLeft": "56"
     },
     {
-      "fullTitle": "MATH203I: Differential Equations",
+      "fullTitle": "MATH203i: Differential Equations",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -2926,18 +2987,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F37"
+          "location": "F37"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F36"
+          "location": "F36"
         }
       ],
       "location": "Not specified",
       "instructor": "Eman Khalid Ibrahim",
       "credits": "0.00",
-      "seatsLeft": "22"
+      "seatsLeft": "26"
     }
   ],
   "MATH210": [
@@ -2950,18 +3011,18 @@
         {
           "day": "Tuesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 233"
+          "location": "233"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 233"
+          "location": "233"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Abdelaziz Elbeltagy",
       "credits": "3.00",
-      "seatsLeft": "38"
+      "seatsLeft": "31"
     },
     {
       "fullTitle": "MATH210: Calculus III",
@@ -2972,18 +3033,18 @@
         {
           "day": "Saturday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "location": "155"
         },
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 159"
+          "location": "159"
         }
       ],
       "location": "Not specified",
       "instructor": "Reem Ahmed Ali",
       "credits": "0.00",
-      "seatsLeft": "8"
+      "seatsLeft": "1"
     }
   ],
   "MATH301": [
@@ -2996,18 +3057,18 @@
         {
           "day": "Tuesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 233"
+          "location": "233"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 233"
+          "location": "233"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Abdelaziz Elbeltagy",
       "credits": "4.00",
-      "seatsLeft": "29"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "MATH301: Linear Algebra",
@@ -3018,18 +3079,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 159"
+          "location": "159"
         },
         {
           "day": "Thursday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "location": "144"
         }
       ],
       "location": "Not specified",
       "instructor": "Nour Mohamed Ibrahim",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MATH301: Linear Algebra",
@@ -3040,23 +3101,23 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 230"
+          "location": "230"
         },
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 230"
+          "location": "230"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Gamal Rizk",
       "credits": "0.00",
-      "seatsLeft": "19"
+      "seatsLeft": "6"
     }
   ],
-  "MATH301I": [
+  "MATH301i": [
     {
-      "fullTitle": "MATH301I: Linear Algebra",
+      "fullTitle": "MATH301i: Linear Algebra",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -3064,21 +3125,21 @@
         {
           "day": "Tuesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 233"
+          "location": "233"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 233"
+          "location": "233"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Abdelaziz Elbeltagy",
       "credits": "3.00",
-      "seatsLeft": "45"
+      "seatsLeft": "36"
     },
     {
-      "fullTitle": "MATH301I: Linear Algebra",
+      "fullTitle": "MATH301i: Linear Algebra",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -3086,21 +3147,21 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 159"
+          "location": "159"
         },
         {
           "day": "Thursday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "location": "144"
         }
       ],
       "location": "Not specified",
       "instructor": "Nour Mohamed Ibrahim",
       "credits": "0.00",
-      "seatsLeft": "17"
+      "seatsLeft": "14"
     },
     {
-      "fullTitle": "MATH301I: Linear Algebra",
+      "fullTitle": "MATH301i: Linear Algebra",
       "section": "01B",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -3108,18 +3169,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 230"
+          "location": "230"
         },
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 230"
+          "location": "230"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Gamal Rizk",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "22"
     }
   ],
   "MEC111": [
@@ -3131,41 +3192,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "time": "4:30 PM - 6:29 PM",
+          "location": "S41"
         },
         {
           "day": "Sunday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "time": "2:30 PM - 6:29 PM",
+          "location": "S44"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Mohamed Elshabrawy",
       "credits": "3.00",
-      "seatsLeft": "54"
-    },
-    {
-      "fullTitle": "MEC111: Engineering Mechanics I",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Monday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
-        },
-        {
-          "day": "Tuesday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Mohamed Mohamed Elshabrawy",
-      "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "3"
     },
     {
       "fullTitle": "MEC111: Engineering Mechanics I",
@@ -3175,19 +3214,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "4:30 PM - 7:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F42"
+          "time": "11:30 AM - 1:29 PM",
+          "location": "S41"
         },
         {
           "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "time": "11:30 AM - 3:29 PM",
+          "location": "F37"
         }
       ],
       "location": "Not specified",
-      "instructor": "Mariam Hamdy Abdelhamid",
+      "instructor": "Iman Ali Shalabi",
       "credits": "0.00",
-      "seatsLeft": "25"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MEC111: Engineering Mechanics I",
@@ -3196,42 +3235,20 @@
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Sunday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F42"
+          "day": "Monday",
+          "time": "2:30 PM - 4:29 PM",
+          "location": "S41"
         },
         {
-          "day": "Wednesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "day": "Sunday",
+          "time": "8:30 AM - 12:29 PM",
+          "location": "148"
         }
       ],
       "location": "Not specified",
       "instructor": "Mariam Hamdy Abdelhamid",
       "credits": "0.00",
-      "seatsLeft": "29"
-    },
-    {
-      "fullTitle": "MEC111: Engineering Mechanics I",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedules": [
-        {
-          "day": "Sunday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F42"
-        },
-        {
-          "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Mariam Hamdy Abdelhamid",
-      "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "4"
     }
   ],
   "MEC112": [
@@ -3243,19 +3260,19 @@
       "schedules": [
         {
           "day": "Sunday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "S41"
         },
         {
           "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "S41"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Elshafei Awad",
       "credits": "3.00",
-      "seatsLeft": "59"
+      "seatsLeft": "48"
     },
     {
       "fullTitle": "MEC112: Engineering Mechanics II",
@@ -3266,18 +3283,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         },
         {
           "day": "Wednesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 111"
+          "location": "111"
         }
       ],
       "location": "Not specified",
       "instructor": "Mariam Khaled Sabry",
       "credits": "0.00",
-      "seatsLeft": "29"
+      "seatsLeft": "18"
     }
   ],
   "MENG391": [
@@ -3288,9 +3305,22 @@
       "subtype": "Practical",
       "schedule": "N/A, N/A",
       "location": "N/A",
-      "instructor": "Mahmoud Emam Ragab Nasr Shaaban & Mohamed Ahmed Sayed Afifi & Mohamed Mohamed Elshabrawy",
+      "instructor": "Mahmoud Emam Ragab Nasr Shaaban, Mohamed Ahmed Sayed Afifi, Mohamed Mohamed Elshabrawy",
       "credits": "3.00",
-      "seatsLeft": "57"
+      "seatsLeft": "52"
+    }
+  ],
+  "MGMT703": [
+    {
+      "fullTitle": "MGMT703: Entrepreneurship & SMEâs Management",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Lecture",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Ahmed Mohamed Dahy",
+      "credits": "3.00",
+      "seatsLeft": "13"
     }
   ],
   "MICR404": [
@@ -3302,19 +3332,19 @@
       "schedules": [
         {
           "day": "Sunday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 159"
+          "time": "2:30 PM - 5:29 PM",
+          "location": "148"
         },
         {
           "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 159"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "148"
         }
       ],
       "location": "Not specified",
       "instructor": "Marwa Nabil Abdelaziz",
       "credits": "3.00",
-      "seatsLeft": "55"
+      "seatsLeft": "47"
     },
     {
       "fullTitle": "MICR404: Industrial Microbiology",
@@ -3323,20 +3353,20 @@
       "subtype": "Lab",
       "schedules": [
         {
-          "day": "Thursday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, RUB1, Room 366"
+          "day": "Monday",
+          "time": "2:30 PM - 5:29 PM",
+          "location": "366"
         },
         {
-          "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, RUB1, Room 366"
+          "day": "Thursday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "366"
         }
       ],
       "location": "Not specified",
-      "instructor": "Ahmed Hamdy Fatouh Elmowafy & Yomna Youssef Ismail",
+      "instructor": "Ahmed Hamdy Fatouh Elmowafy, Yomna Youssef Ismail",
       "credits": "0.00",
-      "seatsLeft": "25"
+      "seatsLeft": "17"
     }
   ],
   "MICR405": [
@@ -3345,11 +3375,11 @@
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "N/A, N/A",
-      "location": "N/A",
+      "schedule": "Tuesday, 8:30 AM - 11:29 AM",
+      "location": "106",
       "instructor": "Mohamed Maged Mohamed",
       "credits": "1.00",
-      "seatsLeft": "46"
+      "seatsLeft": "32"
     }
   ],
   "MNG231": [
@@ -3362,40 +3392,40 @@
         {
           "day": "Monday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "location": "S44"
         },
         {
-          "day": "Tuesday",
+          "day": "Sunday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "S41"
         }
       ],
       "location": "Not specified",
       "instructor": "Raafat Elsayed Shalaby",
       "credits": "3.00",
-      "seatsLeft": "53"
+      "seatsLeft": "47"
     },
     {
       "fullTitle": "MNG231: Electrical Engineering",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
-      "schedule": "Sunday, 11:30 AM - 2:29 PM",
-      "location": "Nile University, UB2, FUB2, Room F37",
+      "schedule": "Tuesday, 11:30 AM - 2:29 PM",
+      "location": "F47",
       "instructor": "Marwa Mohamed Albadawy",
       "credits": "0.00",
-      "seatsLeft": "23"
+      "seatsLeft": "17"
     },
     {
       "fullTitle": "MNG231: Electrical Engineering",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Thursday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 28",
+      "schedule": "Thursday, 11:30 AM - 2:29 PM",
+      "location": "28",
       "instructor": "Marwa Mohamed Albadawy",
       "credits": "0.00",
-      "seatsLeft": "23"
+      "seatsLeft": "17"
     }
   ],
   "MNG291": [
@@ -3406,9 +3436,9 @@
       "subtype": "Practical",
       "schedule": "N/A, N/A",
       "location": "N/A",
-      "instructor": "Mohamed Mohamed Elshabrawy & Mohamed Ahmed Sayed Afifi & Mahmoud Emam Ragab Nasr Shaaban",
+      "instructor": "Mohamed Mohamed Elshabrawy, Mohamed Ahmed Sayed Afifi, Mahmoud Emam Ragab Nasr Shaaban",
       "credits": "0.00",
-      "seatsLeft": "34"
+      "seatsLeft": "4"
     }
   ],
   "MNG392": [
@@ -3421,7 +3451,306 @@
       "location": "N/A",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "48"
+      "seatsLeft": "37"
+    }
+  ],
+  "MOT649A": [
+    {
+      "fullTitle": "MOT649A: Master's Research Project",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Project",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Project .",
+      "credits": "1.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT649B": [
+    {
+      "fullTitle": "MOT649B: Master's Research Project",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Project",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Project .",
+      "credits": "2.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT649C": [
+    {
+      "fullTitle": "MOT649C: Master's Research Project",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Project",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Project .",
+      "credits": "3.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT650A": [
+    {
+      "fullTitle": "MOT650A: Masterâs Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Thesis .",
+      "credits": "1.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT650B": [
+    {
+      "fullTitle": "MOT650B: Masterâs Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Thesis .",
+      "credits": "2.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT650C": [
+    {
+      "fullTitle": "MOT650C: Masterâs Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Thesis .",
+      "credits": "3.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT650D": [
+    {
+      "fullTitle": "MOT650D: Masterâs Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Thesis .",
+      "credits": "4.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT650E": [
+    {
+      "fullTitle": "MOT650E: Master's Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Thesis .",
+      "credits": "5.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT650F": [
+    {
+      "fullTitle": "MOT650F: Master's Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Thesis .",
+      "credits": "6.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT672": [
+    {
+      "fullTitle": "MOT672: Research Seminars",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Research .",
+      "credits": "2.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690B": [
+    {
+      "fullTitle": "MOT690B: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "2.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690C": [
+    {
+      "fullTitle": "MOT690C: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "3.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690D": [
+    {
+      "fullTitle": "MOT690D: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "4.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690E": [
+    {
+      "fullTitle": "MOT690E: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "5.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690F": [
+    {
+      "fullTitle": "MOT690F: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "6.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690G": [
+    {
+      "fullTitle": "MOT690G: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "7.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690H": [
+    {
+      "fullTitle": "MOT690H: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "8.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690I": [
+    {
+      "fullTitle": "MOT690I: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "9.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690J": [
+    {
+      "fullTitle": "MOT690J: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "10.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690K": [
+    {
+      "fullTitle": "MOT690K: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "11.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MOT690L": [
+    {
+      "fullTitle": "MOT690L: Ph. D. Dissertation",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Dissertation .",
+      "credits": "12.00",
+      "seatsLeft": "60"
+    }
+  ],
+  "MSD699C": [
+    {
+      "fullTitle": "MSD699C: Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Lobna Ahmed Said",
+      "credits": "2.00",
+      "seatsLeft": "59"
+    }
+  ],
+  "MSD700A": [
+    {
+      "fullTitle": "MSD700A: Master Thesis",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Thesis",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Lobna Ahmed Said",
+      "credits": "1.00",
+      "seatsLeft": "60"
     }
   ],
   "MTH111": [
@@ -3434,18 +3763,18 @@
         {
           "day": "Sunday",
           "time": "8:30 AM - 11:29 AM",
-          "location": "Nile University, UB2, FUB2, Room F46"
+          "location": "F46"
         },
         {
           "day": "Thursday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F48"
         }
       ],
       "location": "Not specified",
       "instructor": "Ahmed Sayed Etman",
       "credits": "3.00",
-      "seatsLeft": "58"
+      "seatsLeft": "30"
     },
     {
       "fullTitle": "MTH111: Analytical Geometry & Calculus I",
@@ -3455,19 +3784,19 @@
       "schedules": [
         {
           "day": "Thursday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F47"
         },
         {
           "day": "Wednesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Zeyad Ahmed Hadhood",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "0"
     }
   ],
   "MTH112": [
@@ -3478,20 +3807,20 @@
       "subtype": "Lecture",
       "schedules": [
         {
-          "day": "Saturday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "day": "Monday",
+          "time": "1:30 PM - 4:29 PM",
+          "location": "F46"
         },
         {
           "day": "Wednesday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "S44"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Ibrahim Wafa",
       "credits": "3.00",
-      "seatsLeft": "56"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MTH112: Calculus II",
@@ -3502,18 +3831,18 @@
         {
           "day": "Tuesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "location": "S44"
         },
         {
           "day": "Wednesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "location": "S41"
         }
       ],
       "location": "Not specified",
       "instructor": "Rawhy Ismail Madbouly",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "41"
     },
     {
       "fullTitle": "MTH112: Calculus II",
@@ -3522,20 +3851,20 @@
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Saturday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "day": "Sunday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "150"
         },
         {
-          "day": "Sunday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "day": "Thursday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F45"
         }
       ],
       "location": "Not specified",
       "instructor": "Doaa Kamal Abdelrahman Hussien",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MTH112: Calculus II",
@@ -3544,20 +3873,20 @@
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Tuesday",
+          "day": "Saturday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 106"
+          "location": "150"
         },
         {
-          "day": "Wednesday",
+          "day": "Tuesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 106"
+          "location": "106"
         }
       ],
       "location": "Not specified",
       "instructor": "Sama Mohamed Abdelmalik",
       "credits": "0.00",
-      "seatsLeft": "29"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MTH112: Calculus II",
@@ -3567,19 +3896,19 @@
       "schedules": [
         {
           "day": "Saturday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "155"
         },
         {
           "day": "Tuesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "location": "155"
         }
       ],
       "location": "Not specified",
       "instructor": "Sama Mohamed Abdelmalik",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "11"
     }
   ],
   "MTH113": [
@@ -3591,19 +3920,19 @@
       "schedules": [
         {
           "day": "Thursday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F48"
         },
         {
           "day": "Wednesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F47"
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Ahmed Sayed Etman",
       "credits": "3.00",
-      "seatsLeft": "54"
+      "seatsLeft": "18"
     },
     {
       "fullTitle": "MTH113: Probability and Statistics",
@@ -3613,19 +3942,19 @@
       "schedules": [
         {
           "day": "Sunday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "S44"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "S44"
         }
       ],
       "location": "Not specified",
       "instructor": "Osama Khaled Abdelmoneim",
       "credits": "3.00",
-      "seatsLeft": "55"
+      "seatsLeft": "34"
     },
     {
       "fullTitle": "MTH113: Probability and Statistics",
@@ -3636,18 +3965,18 @@
         {
           "day": "Monday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 116"
+          "location": "116"
         },
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "location": "144"
         }
       ],
       "location": "Not specified",
       "instructor": "Engy Adham Abolwafa",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "17"
     },
     {
       "fullTitle": "MTH113: Probability and Statistics",
@@ -3656,20 +3985,20 @@
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Monday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 116"
-        },
-        {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "location": "F43"
+        },
+        {
+          "day": "Thursday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F42"
         }
       ],
       "location": "Not specified",
       "instructor": "Engy Adham Abolwafa",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MTH113: Probability and Statistics",
@@ -3679,19 +4008,19 @@
       "schedules": [
         {
           "day": "Thursday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "155"
         },
         {
           "day": "Wednesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, FUB1, Room 230"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "230"
         }
       ],
       "location": "Not specified",
       "instructor": "Alaa Salah Khalil Salam",
       "credits": "0.00",
-      "seatsLeft": "25"
+      "seatsLeft": "4"
     }
   ],
   "MTH214": [
@@ -3704,18 +4033,18 @@
         {
           "day": "Saturday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "location": "S41"
         },
         {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F38"
+          "location": "F38"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Elshafei Awad",
       "credits": "3.00",
-      "seatsLeft": "50"
+      "seatsLeft": "37"
     },
     {
       "fullTitle": "MTH214: Linear Algebra&Intro.to Machine Learning",
@@ -3726,18 +4055,18 @@
         {
           "day": "Tuesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "location": "154"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "location": "155"
         }
       ],
       "location": "Not specified",
       "instructor": "Tasneem Tarek Mahmoud Hassan Abdelkareem",
       "credits": "0.00",
-      "seatsLeft": "20"
+      "seatsLeft": "7"
     }
   ],
   "MTH215": [
@@ -3750,18 +4079,18 @@
         {
           "day": "Monday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S44"
+          "location": "S44"
         },
         {
           "day": "Thursday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F45"
+          "location": "F45"
         }
       ],
       "location": "Not specified",
       "instructor": "Sameh Abdelrahman Sadek Mohamed",
       "credits": "3.00",
-      "seatsLeft": "52"
+      "seatsLeft": "29"
     },
     {
       "fullTitle": "MTH215: Differential Equations",
@@ -3772,18 +4101,18 @@
         {
           "day": "Sunday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "location": "154"
         },
         {
           "day": "Wednesday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "location": "154"
         }
       ],
       "location": "Not specified",
       "instructor": "Abdelrahman Mohamed Mahran",
       "credits": "0.00",
-      "seatsLeft": "22"
+      "seatsLeft": "0"
     }
   ],
   "MTH216": [
@@ -3796,18 +4125,18 @@
         {
           "day": "Saturday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F48"
+          "location": "F48"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "location": "S41"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Elshafei Awad",
       "credits": "3.00",
-      "seatsLeft": "50"
+      "seatsLeft": "44"
     },
     {
       "fullTitle": "MTH216: Numerical Methods",
@@ -3818,18 +4147,18 @@
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "location": "155"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 150"
+          "location": "150"
         }
       ],
       "location": "Not specified",
       "instructor": "Maryam Saied Mostafa",
       "credits": "0.00",
-      "seatsLeft": "20"
+      "seatsLeft": "14"
     }
   ],
   "NSCI102": [
@@ -3842,18 +4171,18 @@
         {
           "day": "Monday",
           "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 148"
+          "location": "148"
         },
         {
           "day": "Tuesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 148"
+          "location": "148"
         }
       ],
       "location": "Not specified",
       "instructor": "Fatma Ibrahim Barakat",
       "credits": "3.00",
-      "seatsLeft": "50"
+      "seatsLeft": "38"
     }
   ],
   "NSCI103": [
@@ -3866,29 +4195,29 @@
         {
           "day": "Sunday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 139"
+          "location": "139"
         },
         {
           "day": "Wednesday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 145"
+          "location": "145"
         }
       ],
       "location": "Not specified",
       "instructor": "Mostafa Ahmed Abdeen",
       "credits": "3.00",
-      "seatsLeft": "49"
+      "seatsLeft": "32"
     },
     {
       "fullTitle": "NSCI103: Selected Topics in Natural Sciences",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Monday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 32",
-      "instructor": "Not Assigned",
+      "schedule": "Sunday, 8:30 AM - 11:29 AM",
+      "location": "33",
+      "instructor": "Doaa Kamal Abdelrahman Hussien",
       "credits": "0.00",
-      "seatsLeft": "16"
+      "seatsLeft": "0"
     }
   ],
   "PHY102": [
@@ -3899,20 +4228,20 @@
       "subtype": "Lecture",
       "schedules": [
         {
-          "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "day": "Sunday",
+          "time": "2:30 PM - 5:29 PM",
+          "location": "159"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "155"
         }
       ],
       "location": "Not specified",
       "instructor": "Said Abdelfattah Taha",
       "credits": "4.00",
-      "seatsLeft": "52"
+      "seatsLeft": "42"
     },
     {
       "fullTitle": "PHY102: Biophysics",
@@ -3922,19 +4251,19 @@
       "schedules": [
         {
           "day": "Thursday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 011"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "011"
         },
         {
-          "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 011"
+          "day": "Wednesday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "011"
         }
       ],
       "location": "Not specified",
-      "instructor": "Mayar Mostafa Hamdy & Eissa Grace Mickheal",
+      "instructor": "Mayar Mostafa Hamdy, Eissa Grace Mickheal",
       "credits": "0.00",
-      "seatsLeft": "22"
+      "seatsLeft": "12"
     },
     {
       "fullTitle": "PHY102: Biophysics",
@@ -3944,19 +4273,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "154"
         },
         {
           "day": "Thursday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "154"
         }
       ],
       "location": "Not specified",
-      "instructor": "Mayar Mostafa Hamdy & Eissa Grace Mickheal",
+      "instructor": "Mayar Mostafa Hamdy, Eissa Grace Mickheal",
       "credits": "0.00",
-      "seatsLeft": "22"
+      "seatsLeft": "12"
     }
   ],
   "PHY111": [
@@ -3968,19 +4297,19 @@
       "schedules": [
         {
           "day": "Sunday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F9"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F9"
         },
         {
           "day": "Tuesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F9"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F9"
         }
       ],
       "location": "Not specified",
       "instructor": "Sahar Ahmed Mohamed Elnaggar",
       "credits": "3.00",
-      "seatsLeft": "57"
+      "seatsLeft": "6"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -3990,19 +4319,19 @@
       "schedules": [
         {
           "day": "Sunday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F9"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F9"
         },
         {
           "day": "Tuesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F9"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F9"
         }
       ],
       "location": "Not specified",
       "instructor": "Sahar Ahmed Mohamed Elnaggar",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "47"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -4011,20 +4340,20 @@
       "subtype": "Tutorial",
       "schedules": [
         {
-          "day": "Thursday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "day": "Saturday",
+          "time": "11:30 AM - 2:29 PM",
+          "location": "104"
         },
         {
           "day": "Wednesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Mira Sameh Elsoukary",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "6"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -4034,19 +4363,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 155"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "111"
         },
         {
-          "day": "Thursday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 101"
+          "day": "Wednesday",
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F47"
         }
       ],
       "location": "Not specified",
       "instructor": "Mira Sameh Elsoukary",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -4056,52 +4385,52 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F44"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "106"
         },
         {
           "day": "Sunday",
-          "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F46"
+          "time": "2:30 PM - 5:29 PM",
+          "location": "150"
         }
       ],
       "location": "Not specified",
       "instructor": "Sara Mansour Ali",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "17"
     },
     {
       "fullTitle": "PHY111: Physics I",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Thursday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 32",
+      "schedule": "Thursday, 2:30 PM - 5:29 PM",
+      "location": "32",
       "instructor": "Farah Ahmed Anwar",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "PHY111: Physics I",
       "section": "01B",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Wednesday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 32",
+      "schedule": "Thursday, 11:30 AM - 2:29 PM",
+      "location": "32",
       "instructor": "Farah Ahmed Anwar",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "6"
     },
     {
       "fullTitle": "PHY111: Physics I",
       "section": "02A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Wednesday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 33",
+      "schedule": "Saturday, 2:30 PM - 5:29 PM",
+      "location": "32",
       "instructor": "Mohamed Mostafa Kamal",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "17"
     }
   ],
   "PHY112": [
@@ -4113,19 +4442,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F9"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F9"
         },
         {
           "day": "Wednesday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F46"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F46"
         }
       ],
       "location": "Not specified",
       "instructor": "Nouran Mohamed Abdelrazek",
       "credits": "3.00",
-      "seatsLeft": "59"
+      "seatsLeft": "30"
     },
     {
       "fullTitle": "PHY112: Physics II",
@@ -4135,19 +4464,19 @@
       "schedules": [
         {
           "day": "Monday",
-          "time": "10:30 AM - 1:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F9"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F9"
         },
         {
           "day": "Wednesday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB2, FUB2, Room F46"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "F46"
         }
       ],
       "location": "Not specified",
       "instructor": "Nouran Mohamed Abdelrazek",
       "credits": "3.00",
-      "seatsLeft": "60"
+      "seatsLeft": "41"
     },
     {
       "fullTitle": "PHY112: Physics II",
@@ -4157,19 +4486,19 @@
       "schedules": [
         {
           "day": "Saturday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "144"
         },
         {
           "day": "Tuesday",
           "time": "3:30 PM - 6:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "location": "154"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Mostafa Kamal",
       "credits": "0.00",
-      "seatsLeft": "29"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "PHY112: Physics II",
@@ -4179,30 +4508,30 @@
       "schedules": [
         {
           "day": "Saturday",
-          "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 144"
+          "time": "11:30 AM - 2:29 PM",
+          "location": "144"
         },
         {
           "day": "Tuesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 154"
+          "location": "154"
         }
       ],
       "location": "Not specified",
       "instructor": "Mohamed Mostafa Kamal",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "PHY112: Physics II",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Thursday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 32",
+      "schedule": "Thursday, 8:30 AM - 11:29 AM",
+      "location": "32",
       "instructor": "Farah Ahmed Anwar",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "12"
     },
     {
       "fullTitle": "PHY112: Physics II",
@@ -4210,21 +4539,21 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Tuesday, 12:30 PM - 3:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 32",
+      "location": "32",
       "instructor": "Farah Ahmed Anwar",
       "credits": "0.00",
-      "seatsLeft": "29"
+      "seatsLeft": "18"
     },
     {
       "fullTitle": "PHY112: Physics II",
       "section": "02A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Tuesday, 9:30 AM - 12:29 PM",
-      "location": "Nile University, UB1, BUB1, Room 32",
+      "schedule": "Monday, 2:30 PM - 5:29 PM",
+      "location": "33",
       "instructor": "Sara Mansour Ali",
       "credits": "0.00",
-      "seatsLeft": "30"
+      "seatsLeft": "11"
     }
   ],
   "PHYS101C": [
@@ -4237,18 +4566,18 @@
         {
           "day": "Sunday",
           "time": "2:30 PM - 5:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "location": "F48"
         },
         {
           "day": "Thursday",
-          "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB2, SUB2, Room S41"
+          "time": "8:30 AM - 11:29 AM",
+          "location": "F45"
         }
       ],
       "location": "Not specified",
       "instructor": "Yasser Mohamed Elbatawy",
       "credits": "4.00",
-      "seatsLeft": "58"
+      "seatsLeft": "39"
     },
     {
       "fullTitle": "PHYS101C: Physics I",
@@ -4259,18 +4588,18 @@
         {
           "day": "Thursday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 104"
+          "location": "104"
         },
         {
           "day": "Wednesday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 104"
+          "location": "104"
         }
       ],
       "location": "Not specified",
       "instructor": "Esraa Ahmed Mohamed Abdelfattah",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "PHYS101C: Physics I",
@@ -4281,18 +4610,18 @@
         {
           "day": "Monday",
           "time": "12:30 PM - 3:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 32"
+          "location": "32"
         },
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, BUB1, Room 32"
+          "location": "32"
         }
       ],
       "location": "Not specified",
       "instructor": "Rawan Mohamed Edris Khamis",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "9"
     }
   ],
   "PSCI-201": [
@@ -4305,18 +4634,18 @@
         {
           "day": "Thursday",
           "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 132"
+          "location": "132"
         },
         {
           "day": "Tuesday",
           "time": "1:30 PM - 4:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 132"
+          "location": "132"
         }
       ],
       "location": "Not specified",
       "instructor": "Rasha Ahmed Elebiary",
       "credits": "3.00",
-      "seatsLeft": "49"
+      "seatsLeft": "22"
     }
   ],
   "PSYC-201": [
@@ -4329,18 +4658,18 @@
         {
           "day": "Monday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 132"
+          "location": "132"
         },
         {
           "day": "Wednesday",
           "time": "11:30 AM - 2:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 132"
+          "location": "132"
         }
       ],
       "location": "Not specified",
       "instructor": "Tasneem Abdelfattah Waly",
       "credits": "3.00",
-      "seatsLeft": "46"
+      "seatsLeft": "41"
     }
   ],
   "SSCI101": [
@@ -4353,18 +4682,18 @@
         {
           "day": "Saturday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 116"
+          "location": "116"
         },
         {
           "day": "Sunday",
           "time": "9:30 AM - 12:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 111"
+          "location": "111"
         }
       ],
       "location": "Not specified",
       "instructor": "Randa Alaa Eldin Fouad",
       "credits": "3.00",
-      "seatsLeft": "25"
+      "seatsLeft": "0"
     }
   ],
   "SSCI102": [
@@ -4377,18 +4706,18 @@
         {
           "day": "Tuesday",
           "time": "5:30 PM - 8:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 116"
+          "location": "116"
         },
         {
           "day": "Wednesday",
           "time": "5:30 PM - 8:29 PM",
-          "location": "Nile University, UB1, GUB1, Room 116"
+          "location": "116"
         }
       ],
       "location": "Not specified",
       "instructor": "Mai Gamal Elhadidy",
       "credits": "3.00",
-      "seatsLeft": "20"
+      "seatsLeft": "0"
     }
   ]
 }
