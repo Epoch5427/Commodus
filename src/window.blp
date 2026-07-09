@@ -127,6 +127,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
       vscrollbar-policy: external;
       margin-start: 24;
       margin-end: 24;
+
         Adw.Clamp {
           margin-top: 1;
           margin-bottom: 1;
@@ -298,6 +299,8 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
             Adw.ExpanderRow time {
               title: _("Time Boundary");
+              show-enable-switch: true;
+              enable-expansion: false;
               Grid {
               column-spacing: 50;
               halign: center;
@@ -395,7 +398,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
           lower: 0;
           upper: 23;
           step-increment: 1;
-          value: 0;
+          value: 23;
         };
       }
 
@@ -404,6 +407,153 @@ template $CommodusWindow: Adw.ApplicationWindow {
       }
 
       SpinButton end_minutes {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 59;
+          step-increment: 15;
+          value: 59;
+        };
+      }
+    }
+
+    Box {
+      orientation: vertical;
+    }
+  }
+
+
+              }
+            }
+            Adw.ExpanderRow gap_time {
+              title: _("Specify Gap");
+              show-enable-switch: true;
+              enable-expansion: false;
+              Adw.ComboRow gap_day {
+                title: _("Day");
+                model: StringList {
+                  strings [
+                    "All Days",
+                    "Sunday",
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday"
+                  ]
+                };
+              }
+              Grid {
+              column-spacing: 50;
+              halign: center;
+              margin-top: 15;
+
+              Label {
+                label: _("Start Time");
+                margin-bottom: 10;
+                layout {
+                  row: 0;
+                  column: 0;
+                       }
+              }
+
+              Label {
+                label: _("End Time");
+                margin-bottom: 10;
+                wrap-mode: word_char;
+                layout {
+                  row: 0;
+                  column: 1;
+                       }
+              }
+
+                Box {
+                  orientation: vertical;
+                  spacing: 12;
+                  layout {
+                  row: 1;
+                  column: 0;
+                       }
+
+    Box {
+      halign: center;
+      spacing: 6;
+
+      SpinButton gap_start_hours {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        value: 0;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 23;
+          step-increment: 1;
+          value: 0;
+        };
+      }
+
+      Label {
+        label: ":";
+      }
+
+      SpinButton gap_start_minutes {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 59;
+          step-increment: 15;
+          value: 0;
+        };
+      }
+    }
+
+    Box {
+      orientation: vertical;
+    }
+  }
+  Box {
+    orientation: vertical;
+    spacing: 12;
+    layout {
+        row: 1;
+        column: 1;
+           }
+
+    Box {
+      halign: center;
+      spacing: 6;
+
+      SpinButton gap_end_hours {
+        halign: center;
+        orientation: vertical;
+        wrap: true;
+        value: 0;
+        climb-rate: 1;
+
+        adjustment: Adjustment {
+          lower: 0;
+          upper: 23;
+          step-increment: 1;
+          value: 0;
+        };
+      }
+
+      Label {
+        label: ":";
+      }
+
+      SpinButton gap_end_minutes {
         halign: center;
         orientation: vertical;
         wrap: true;
@@ -456,6 +606,18 @@ template $CommodusWindow: Adw.ApplicationWindow {
             ]
           };
           }
+          Adw.ComboRow sec_tuner {
+          title: _("Tie-Breaker");
+          model: StringList sec_list {
+            strings [
+              "None",
+              "Compact Days",
+              "Fewer Days",
+              "Shorter Days",
+              "Consistent Days",
+            ]
+          };
+          }
           Adw.ButtonRow generate {
         title: _("Generate Schedule");
         height-request: 50;
@@ -476,11 +638,36 @@ template $CommodusWindow: Adw.ApplicationWindow {
     revealed: false;
     valign: end;
 
+    [start]
+
+      ListBox {
+        styles ["boxed-list"]
+        selection-mode: none;
+        width-request: 150;
+
+        Adw.ComboRow major_combo {
+          title: _("Major:");
+        }
+      }
+
     [center]
-    Button alt_gen{
-      label: _("Generate Schedule");
-      styles ["pill","suggested-action"]
+    Button clear_sec{
+      icon-name: "user-trash-symbolic";
+      width-request: 150;
+      tooltip-text: _("Clear Courses Selection");
+      styles ["destructive-action", "pill"]
     }
+    [end]
+    ListBox {
+        styles ["boxed-list"]
+        selection-mode: none;
+        width-request: 150;
+
+        Adw.ComboRow semester_combo {
+          title: _("Semester:");
+          sensitive: false;
+        }
+      }
   }
     };
     }
@@ -490,7 +677,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
       Adw.OverlaySplitView split_view {
         collapsed: true;
         show-sidebar: bind show_sidebar_button.active;
-        min-sidebar-width: 300;
+        min-sidebar-width: 350;
 
         sidebar: ScrolledWindow {
           hscrollbar-policy: never;
@@ -599,9 +786,6 @@ Adw.PreferencesDialog prefs_dialog {
 
       Adw.SwitchRow wrap_switch{
         title: _("Schedule View Wrap");
-      }
-      Adw.SwitchRow global_generate{
-        title: _("Global Generate");
       }
     }
 

@@ -49,6 +49,28 @@
   </screenshots>
 
     <releases>
+      <release version="0.9.5" date="2026-06-30">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.5</url>
+      <description translate="no">
+        <p>New Features + Major Bug Fixes and UX Improvements</p>
+        <ul>
+          <li>Fixed the filter pop up not working for courses with a lot of sections or instructors</li>
+          <li>Reworked the filters dialog to be a lot smaller and smarter. It now dynamically removes useless elements</li>
+          <li>Fixed glitches that occurred as a result of using the generate shortcut before the fetch function was complete</li>
+          <li>Made it so selected courses appear at the top of the courses listbox and reschedule listbox</li>
+          <li>The reschedule function was reworked to use toggle buttons and checkboxes rather than drop downs in order to be more intuitive</li>
+          <li>Fixed the right arrow being sensitive even when only 1 schedule is generated</li>
+          <li>Fixed a longstanding bug in schedule generation for tutorials and labs with multiple meeting times</li>
+          <li>Sidebar course filters now disappear when no meaningful options are found using the same logic for the pop up</li>
+          <li>Added the ability to specify a specific time to be a gap for a specific day or all days</li>
+          <li>The course selection screen now displays ellipsized course title as well as course code with full support for search</li>
+          <li>The time boundary and specify gap functions now use an enable switch on the expander row rather than being neutralized by setting the time to 00:00</li>
+          <li>Added the ability to specify two priorities rather than one through a new composite score calculation</li>
+          <li>Added the ability to simply select major and semester rather than selecting courses manually</li>
+          <li>Made improvements on the course fetcher in the backend resulting in automated updates for the courses database</li>
+        </ul>
+      </description>
+    </release>
       <release version="0.9.4" date="2026-06-29">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.4</url>
       <description translate="no">

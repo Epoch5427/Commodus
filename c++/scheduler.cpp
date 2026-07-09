@@ -28,16 +28,20 @@ struct Meeting
     std::string course, type, id, location, instructor;
     int day, start, end, seats;
 };
+
 struct LectureOption
 {
     std::string lectureId;
-    std::vector<Meeting> lectureMeetings, labs, tutorials;
+    std::vector<Meeting> lectureMeetings;
+    std::vector<std::vector<Meeting>> labs, tutorials;
 };
+
 struct Course
 {
     std::string name, title;
     std::vector<LectureOption> options;
 };
+
 struct ScheduleResult
 {
     std::vector<Meeting> meetings;
@@ -45,16 +49,22 @@ struct ScheduleResult
     double timeConsistencyScore, score;
     bool operator<(const ScheduleResult &other) const { return score < other.score; }
 };
+
 struct Constraints
 {
     std::set<int> excludedDays;
     int maxEndTime = 24 * 60;
     int minStartTime = 0;
+
+    // Gap time constraint variables
+    int gapStartTime = -1;
+    int gapEndTime = -1;
+    int gapDay = 0; // 0 = All Days, 1 = Sun, 2 = Mon...
+
     std::map<std::string, std::string> preferredInstructors;
     bool filterZeroSeats = false;
     std::map<std::string, std::set<std::string>> specificSections;
 };
-
 
 // JSON serialization for Meeting and ScheduleResult
 void to_json(json& j, const Meeting& m) {
@@ -82,30 +92,42 @@ void to_json(json& j, const ScheduleResult& r) {
     };
 }
 
-
 int parseTime(const std::string &timeStr)
 {
     if (timeStr.empty() || timeStr.find("N/A") != std::string::npos)
         return -1;
+
     std::string cleanedTime = timeStr;
-    bool is_pm = (cleanedTime.find("PM") != std::string::npos);
+    bool has_pm = (cleanedTime.find("PM") != std::string::npos) || (cleanedTime.find("pm") != std::string::npos);
+    bool has_am = (cleanedTime.find("AM") != std::string::npos) || (cleanedTime.find("am") != std::string::npos);
+    bool is_12_hour_format = has_pm || has_am;
+
     size_t am_pos = cleanedTime.find(" AM");
-    if (am_pos != std::string::npos)
-        cleanedTime.erase(am_pos, 3);
+    if (am_pos != std::string::npos) cleanedTime.erase(am_pos, 3);
     size_t pm_pos = cleanedTime.find(" PM");
-    if (pm_pos != std::string::npos)
-        cleanedTime.erase(pm_pos, 3);
+    if (pm_pos != std::string::npos) cleanedTime.erase(pm_pos, 3);
+
+    am_pos = cleanedTime.find("AM");
+    if (am_pos != std::string::npos) cleanedTime.erase(am_pos, 2);
+    pm_pos = cleanedTime.find("PM");
+    if (pm_pos != std::string::npos) cleanedTime.erase(pm_pos, 2);
+
     size_t colon_pos = cleanedTime.find(":");
     if (colon_pos == std::string::npos)
         return -1;
+
     try
     {
         int hh = std::stoi(cleanedTime.substr(0, colon_pos));
         int mm = std::stoi(cleanedTime.substr(colon_pos + 1));
-        if (is_pm && hh != 12)
-            hh += 12;
-        if (!is_pm && hh == 12)
-            hh = 0;
+
+        if (is_12_hour_format) {
+            if (has_pm && hh != 12)
+                hh += 12;
+            if (has_am && hh == 12)
+                hh = 0;
+        }
+
         return hh * 60 + mm;
     }
     catch (const std::exception &)
@@ -113,6 +135,7 @@ int parseTime(const std::string &timeStr)
         return -1;
     }
 }
+
 std::string toHHMM(int minutes)
 {
     if (minutes < 0)
@@ -123,6 +146,7 @@ std::string toHHMM(int minutes)
     snprintf(buf, sizeof(buf), "%02d:%02d", hh, mm);
     return std::string(buf);
 }
+
 std::map<std::string, int> dayStringToInt = {{"SUNDAY", 1}, {"MONDAY", 2}, {"TUESDAY", 3}, {"WEDNESDAY", 4}, {"THURSDAY", 5}, {"FRIDAY", 6}, {"SATURDAY", 7}};
 
 std::vector<Meeting> parseMeetings(const std::string &courseCode, const json &sectionJson)
@@ -209,6 +233,7 @@ std::vector<Meeting> parseMeetings(const std::string &courseCode, const json &se
     }
     return meetings;
 }
+
 std::vector<Course> loadCoursesFromJson(const std::string &filename)
 {
     std::ifstream ifs(filename);
@@ -268,10 +293,12 @@ std::vector<Course> loadCoursesFromJson(const std::string &filename)
                 if (lectureOptionsMap.count(parentId))
                 {
                     std::vector<Meeting> meetings = parseMeetings(courseCode, sectionJson);
-                    if (subtype == "Lab")
-                        lectureOptionsMap[parentId].labs.insert(lectureOptionsMap[parentId].labs.end(), meetings.begin(), meetings.end());
-                    else
-                        lectureOptionsMap[parentId].tutorials.insert(lectureOptionsMap[parentId].tutorials.end(), meetings.begin(), meetings.end());
+                    if (!meetings.empty()) {
+                        if (subtype == "Lab")
+                            lectureOptionsMap[parentId].labs.push_back(meetings);
+                        else
+                            lectureOptionsMap[parentId].tutorials.push_back(meetings);
+                    }
                 }
             }
         }
@@ -284,12 +311,14 @@ std::vector<Course> loadCoursesFromJson(const std::string &filename)
               { return a.name < b.name; });
     return courses;
 }
+
 bool conflict(const Meeting &a, const Meeting &b)
 {
     if (a.day != b.day || a.day == 0)
         return false;
     return !(a.end <= b.start || b.end <= a.start);
 }
+
 bool meetsInstructorPreference(const std::vector<Meeting> &pack, const Constraints &constraints)
 {
     if (pack.empty())
@@ -311,18 +340,31 @@ bool meetsInstructorPreference(const std::vector<Meeting> &pack, const Constrain
     }
     return true;
 }
+
 bool isValid(const std::vector<Meeting> &pack, const Constraints &constraints)
 {
     for (const auto &m : pack)
     {
         if (m.day == 0 || m.start < 0)
             continue;
+
         if (constraints.excludedDays.count(m.day))
             return false;
+
         if (m.start < constraints.minStartTime)
             return false;
+
         if (m.end > constraints.maxEndTime)
             return false;
+
+        if (constraints.gapStartTime != -1 && constraints.gapEndTime != -1)
+        {
+            if (constraints.gapDay == 0 || m.day == constraints.gapDay)
+            {
+                if (m.start < constraints.gapEndTime && m.end > constraints.gapStartTime)
+                    return false;
+            }
+        }
     }
     return true;
 }
@@ -336,7 +378,17 @@ double calculateStdDev(const std::vector<int> &v)
     double sq_sum = std::inner_product(v.begin(), v.end(), v.begin(), 0.0);
     return sqrt(sq_sum / v.size() - mean * mean);
 }
-void calculateScheduleMetrics(ScheduleResult &result, const std::string &optimizationMetric)
+
+// Retrieves the numeric value of the metric
+double getMetricScore(const ScheduleResult& r, const std::string& metric) {
+    if (metric == "few-days") return r.numDays;
+    if (metric == "compact") return r.totalGapMinutes;
+    if (metric == "balanced-days") return r.maxDailyClasses;
+    if (metric == "consistent-times") return r.timeConsistencyScore;
+    return 0.0;
+}
+
+void calculateScheduleMetrics(ScheduleResult &result, const std::string &opt_metric, const std::string &sec_metric)
 {
     std::set<int> days;
     std::map<int, std::vector<Meeting>> meetingsByDay;
@@ -371,6 +423,7 @@ void calculateScheduleMetrics(ScheduleResult &result, const std::string &optimiz
         if (pair.second > maxClasses)
             maxClasses = pair.second;
     result.maxDailyClasses = maxClasses;
+
     std::vector<int> startTimes, endTimes;
     for (const auto &day : days)
     {
@@ -384,25 +437,24 @@ void calculateScheduleMetrics(ScheduleResult &result, const std::string &optimiz
         endTimes.push_back(dayEnd);
     }
     result.timeConsistencyScore = calculateStdDev(startTimes) + calculateStdDev(endTimes);
-    if (optimizationMetric == "few-days")
-        result.score = result.numDays;
-    else if (optimizationMetric == "compact")
-        result.score = result.totalGapMinutes;
-    else if (optimizationMetric == "balanced-days")
-        result.score = result.maxDailyClasses;
-    else if (optimizationMetric == "consistent-times")
-        result.score = result.timeConsistencyScore;
-    else
-        result.score = 0;
+
+    // COMPOSITE TIE-BREAKER SCORE
+    double primary = getMetricScore(result, opt_metric);
+    double secondary = getMetricScore(result, sec_metric);
+
+    // We divide the secondary metric by a large number (1,000,000) so it becomes a tiny decimal fraction.
+    // This strictly ensures the primary metric dictates the main sorting order, while the secondary
+    // metric cleanly resolves any ties (e.g. 3 Days with 500 Gaps = 3.005, 3 Days with 0 Gaps = 3.000).
+    result.score = primary + (secondary / 1000000.0);
 }
 
-void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting> &chosen, const Constraints &constraints, const std::string &opt_metric)
+void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting> &chosen, const Constraints &constraints, const std::string &opt_metric, const std::string &sec_metric)
 {
     if (idx == (int)courses.size())
     {
         ScheduleResult r;
         r.meetings = chosen;
-        calculateScheduleMetrics(r, opt_metric);
+        calculateScheduleMetrics(r, opt_metric, sec_metric);
         json j = r;
         std::cout << j.dump() << "\n";
         std::cout.flush();
@@ -431,22 +483,28 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
                 continue;
         }
 
-        std::vector<Meeting> availableLabs = opt.labs;
+        std::vector<std::vector<Meeting>> availableLabs = opt.labs;
         if (specificSectionsForCourse)
         {
-            availableLabs.erase(remove_if(availableLabs.begin(), availableLabs.end(), [&](const Meeting &m)
-                                          { return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
+            availableLabs.erase(remove_if(availableLabs.begin(), availableLabs.end(), [&](const std::vector<Meeting> &ms)
+                                          {
+                                              if(ms.empty()) return false;
+                                              return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
                                                           { return !s.empty() && toupper(s[0]) == 'L'; }) &&
-                                                   specificSectionsForCourse->find(m.id) == specificSectionsForCourse->end(); }),
+                                                   specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
+                                          }),
                                 availableLabs.end());
         }
-        std::vector<Meeting> availableTutorials = opt.tutorials;
+        std::vector<std::vector<Meeting>> availableTutorials = opt.tutorials;
         if (specificSectionsForCourse)
         {
-            availableTutorials.erase(remove_if(availableTutorials.begin(), availableTutorials.end(), [&](const Meeting &m)
-                                               { return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
+            availableTutorials.erase(remove_if(availableTutorials.begin(), availableTutorials.end(), [&](const std::vector<Meeting> &ms)
+                                               {
+                                                   if(ms.empty()) return false;
+                                                   return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
                                                                { return !s.empty() && toupper(s[0]) == 'T'; }) &&
-                                                        specificSectionsForCourse->find(m.id) == specificSectionsForCourse->end(); }),
+                                                        specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
+                                               }),
                                      availableTutorials.end());
         }
         int labsN = std::max(1, (int)availableLabs.size());
@@ -458,11 +516,10 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
                 std::vector<Meeting> pack;
                 pack.insert(pack.end(), opt.lectureMeetings.begin(), opt.lectureMeetings.end());
                 if (!availableLabs.empty())
-                    pack.push_back(availableLabs[li]);
+                    pack.insert(pack.end(), availableLabs[li].begin(), availableLabs[li].end());
                 if (!availableTutorials.empty())
-                    pack.push_back(availableTutorials[ti]);
+                    pack.insert(pack.end(), availableTutorials[ti].begin(), availableTutorials[ti].end());
 
-                // Evaluates entire pack (lecture+lab+tutorial)
                 if (!meetsInstructorPreference(pack, constraints))
                     continue;
 
@@ -496,19 +553,19 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
                 if (has_conflict)
                     continue;
                 chosen.insert(chosen.end(), pack.begin(), pack.end());
-                backtrack(courses, idx + 1, chosen, constraints, opt_metric);
+                backtrack(courses, idx + 1, chosen, constraints, opt_metric, sec_metric);
                 chosen.resize(chosen.size() - pack.size());
             }
         }
     }
 }
 
-
 int main(int argc, char* argv[]) {
     std::string json_file;
     std::set<std::string> selected_course_names;
     Constraints constraints;
     std::string opt_metric = "compact";
+    std::string sec_metric = "none";
 
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
@@ -534,16 +591,26 @@ int main(int argc, char* argv[]) {
             constraints.minStartTime = parseTime(argv[++i]);
         } else if (arg == "--end-time" && i + 1 < argc) {
             constraints.maxEndTime = parseTime(argv[++i]);
+
+        } else if (arg == "--gap-start" && i + 1 < argc) {
+            constraints.gapStartTime = parseTime(argv[++i]);
+        } else if (arg == "--gap-end" && i + 1 < argc) {
+            constraints.gapEndTime = parseTime(argv[++i]);
+        } else if (arg == "--gap-day" && i + 1 < argc) {
+            constraints.gapDay = std::stoi(argv[++i]);
+
         } else if (arg == "--exclude-full" && i + 1 < argc) {
             std::string val = argv[++i];
             constraints.filterZeroSeats = (val == "true");
         } else if (arg == "--optimize-by" && i + 1 < argc) {
             opt_metric = argv[++i];
+        } else if (arg == "--secondary-optimize-by" && i + 1 < argc) {
+            sec_metric = argv[++i];
         } else if (arg == "--preferred-instructors" && i + 1 < argc) {
             std::string insts_str = argv[++i];
             std::stringstream ss(insts_str);
             std::string pair;
-            while (std::getline(ss, pair, '|')) { // Use PIPE delimiter
+            while (std::getline(ss, pair, '|')) {
                 size_t colon_pos = pair.find(':');
                 if (colon_pos != std::string::npos) {
                     std::string course = pair.substr(0, colon_pos);
@@ -555,7 +622,7 @@ int main(int argc, char* argv[]) {
             std::string secs_str = argv[++i];
             std::stringstream ss(secs_str);
             std::string pair;
-            while (std::getline(ss, pair, '|')) { // Use PIPE delimiter
+            while (std::getline(ss, pair, '|')) {
                 size_t colon_pos = pair.find(':');
                 if (colon_pos != std::string::npos) {
                     std::string course = pair.substr(0, colon_pos);
@@ -581,7 +648,7 @@ int main(int argc, char* argv[]) {
         }
 
         std::vector<Meeting> chosen;
-        backtrack(courses_to_schedule, 0, chosen, constraints, opt_metric);
+        backtrack(courses_to_schedule, 0, chosen, constraints, opt_metric, sec_metric);
 
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;

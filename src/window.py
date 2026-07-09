@@ -8,7 +8,6 @@ import urllib.request
 import threading
 import time
 
-
 @Gtk.Template(resource_path='/io/github/Epoch5427/Commodus/window.ui')
 class CommodusWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'CommodusWindow'
@@ -19,7 +18,7 @@ class CommodusWindow(Adw.ApplicationWindow):
     back_button = Gtk.Template.Child()
     network_banner = Gtk.Template.Child()
     split_view = Gtk.Template.Child()
-    search_toggle = Gtk.Template.Child() # Mapped Search Toggle
+    search_toggle = Gtk.Template.Child()
     ls_switch = Gtk.Template.Child()
     constraints = Gtk.Template.Child()
     revealer_slide = Gtk.Template.Child()
@@ -34,22 +33,36 @@ class CommodusWindow(Adw.ApplicationWindow):
     filters_page = Gtk.Template.Child()
     numcourses = Gtk.Template.Child()
     data_page = Gtk.Template.Child()
+
+    time = Gtk.Template.Child()
     start_hours = Gtk.Template.Child()
     start_minutes = Gtk.Template.Child()
     end_hours = Gtk.Template.Child()
     end_minutes = Gtk.Template.Child()
+
+    gap_time = Gtk.Template.Child()
+    gap_day = Gtk.Template.Child()
+    gap_start_hours = Gtk.Template.Child()
+    gap_start_minutes = Gtk.Template.Child()
+    gap_end_hours = Gtk.Template.Child()
+    gap_end_minutes = Gtk.Template.Child()
+
     prefs_dialog = Gtk.Template.Child()
     dm_switch = Gtk.Template.Child()
     wrap_switch = Gtk.Template.Child()
-    global_generate = Gtk.Template.Child()
     delete_save = Gtk.Template.Child()
     local_load_switch = Gtk.Template.Child()
     fpickerbutton = Gtk.Template.Child()
     generate = Gtk.Template.Child()
     action_bar = Gtk.Template.Child()
-    alt_gen = Gtk.Template.Child()
+    clear_sec = Gtk.Template.Child()
     tuning_page = Gtk.Template.Child()
     tuner = Gtk.Template.Child()
+    sec_tuner = Gtk.Template.Child()
+
+    major_combo = Gtk.Template.Child()
+    semester_combo = Gtk.Template.Child()
+
     checksun = Gtk.Template.Child()
     checkmon = Gtk.Template.Child()
     checktue = Gtk.Template.Child()
@@ -61,12 +74,10 @@ class CommodusWindow(Adw.ApplicationWindow):
     schedule_view_inner = Gtk.Template.Child()
     schedule = Gtk.Template.Child()
     nav_view = Gtk.Template.Child()
-    network_status = Gtk.Template.Child() # Mapped Spinner
+    network_status = Gtk.Template.Child()
 
-    # Sidebar components mapped
     schedule_sidebar_content = Gtk.Template.Child()
     schedule_sidebar_buttons = Gtk.Template.Child()
-
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -81,6 +92,10 @@ class CommodusWindow(Adw.ApplicationWindow):
         self._sidebar_course_rows = []
         self.generation_process = None
 
+        self.major_keys = []
+        self.semester_keys = []
+        self.curriculum_data = {}
+
         self.searchbar.set_visible(False)
         self.show_sidebar_button.set_visible(False)
         self.search_toggle.set_visible(False)
@@ -90,42 +105,36 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.end_hours.set_value(0)
         self.end_minutes.set_value(0)
 
+        self.gap_start_hours.set_value(0)
+        self.gap_start_minutes.set_value(0)
+        self.gap_end_hours.set_value(0)
+        self.gap_end_minutes.set_value(0)
+
         self.delete_save.connect("activated", self._on_delete_save_clicked)
-
-        # Connect signals for dynamic opacity when set to 00:00
-        self.start_hours.connect("value-changed", self._update_time_opacity)
-        self.start_minutes.connect("value-changed", self._update_time_opacity)
-        self.end_hours.connect("value-changed", self._update_time_opacity)
-        self.end_minutes.connect("value-changed", self._update_time_opacity)
-
         self.nav_view.connect("popped", self._on_nav_popped)
         self.back_button.connect("clicked", lambda *_: self.nav_view.pop())
-        #self.network_banner.connect("button-clicked", lambda *_: self._fetch_database_async())
 
-        # Search Toggle Sync
         self.search_toggle.connect("toggled", lambda btn: self.searchbar.set_search_mode(btn.get_active()))
         self.searchbar.connect("notify::search-mode-enabled", lambda sb, *_: self.search_toggle.set_active(sb.get_search_mode()))
+        self.wrap_switch.connect("notify::active", lambda *_: self._update_navigation_buttons())
+
+        self.major_combo.connect("notify::selected", self._on_major_changed)
+        self.semester_combo.connect("notify::selected", self._on_semester_changed)
 
         self.data={}
 
-        # Key controller for cycling schedules
         key_ctrl = Gtk.EventControllerKey()
         key_ctrl.connect("key-pressed", self.on_key_pressed)
         self.add_controller(key_ctrl)
 
-
         def filter(row):
             query = self.searchentry.get_text()
-
-            # Treat '*' as a wildcard matching all courses
             if query == "*":
                 self.results_count += 1
                 return True
-
             try:
                 match = re.search(query, row.get_title(), re.IGNORECASE)
             except re.error:
-                # Catch syntax errors from invalid regex patterns (like naked *, +, ?, etc.)
                 match = None
 
             if match:
@@ -134,11 +143,22 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         self.listbox.set_filter_func(filter)
 
+        def sort_courses(row1, row2):
+            c1 = getattr(row1, 'course_code', '')
+            c2 = getattr(row2, 'course_code', '')
+            s1 = c1 in self.selected_courses
+            s2 = c2 in self.selected_courses
+            if s1 != s2:
+                return -1 if s1 else 1
+            if c1 < c2: return -1
+            if c1 > c2: return 1
+            return 0
+
+        self.listbox.set_sort_func(sort_courses)
 
         def on_search_changed(_search_widget):
             text = self.searchentry.get_text()
 
-            # If search text is empty, reset back to the default "Start Typing To Search" view
             if not text:
                 self.stack.set_visible_child(self.main_page)
                 self.listbox.set_opacity(0.0)
@@ -151,45 +171,34 @@ class CommodusWindow(Adw.ApplicationWindow):
                 self.listbox.set_opacity(0.0)
             elif self.searchbar.get_search_mode():
                 self.stack.set_visible_child(self.search_page)
-                self.listbox.set_opacity(1.0) # 1.0 represents fully opaque in GTK4
-
+                self.listbox.set_opacity(1.0)
 
         style_manager = Adw.StyleManager.get_default()
-
         self.dm_switch.set_active(style_manager.get_dark())
-
         self.dm_switch.connect(
             "notify::active",
             lambda *_: style_manager.set_color_scheme(
                 Adw.ColorScheme.FORCE_DARK
                 if self.dm_switch.get_active()
                 else Adw.ColorScheme.FORCE_LIGHT
-                                                ),
-                                            )
-
+            ),
+        )
 
         self.fpickerbutton.connect("clicked", self.open_json)
         self.generate.connect("activated", self.on_generate_clicked)
-
-        # Connect alt_gen to the smart toggle logic
-        self.alt_gen.connect("clicked", self.on_alt_gen_clicked)
+        self.clear_sec.connect("clicked", self.on_clear_sec_clicked)
 
         self.searchentry.connect("search-changed", on_search_changed)
         self.carousel.connect("page-changed", self.on_page_changed)
         self.search_page.connect("edge-overshot", self.on_edge_overshot)
 
-        # Save state on close
         self.connect("close-request", self.on_close_request)
 
-        # Apply visual updates, load saved settings, and build sidebar
-        self._update_time_opacity()
         self.load_settings()
         if self.local_load_switch.get_active():
             self.fpickerbutton.set_visible(True)
 
         self._build_sidebar_controls()
-
-        # Trigger automatic database download from GitHub
         self._fetch_database_async()
 
     def _on_nav_popped(self, *args):
@@ -198,7 +207,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.back_button.set_visible(False)
 
     def _ensure_check_icon(self):
-        """Helper to safely construct the check icon on demand."""
         if not hasattr(self, "check_icon"):
             self.check_icon = Gtk.Image()
             self.check_icon.set_pixel_size(24)
@@ -211,104 +219,193 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.network_status.set_visible(True)
 
         def fetch_task():
-            url = "https://raw.githubusercontent.com/Epoch5427/Commodus/app-data/NU_course_data.json"
+            db_url = "https://raw.githubusercontent.com/Epoch5427/Commodus/app-data/NU_course_data.json"
+            spec_url = "https://raw.githubusercontent.com/Epoch5427/Commodus/app-data/curriculum_spec.json"
+
+            cache_dir = os.path.join(GLib.get_user_cache_dir(), "commodus")
+            os.makedirs(cache_dir, exist_ok=True)
+            local_db_path = os.path.join(cache_dir, "database.json")
+            local_spec_path = os.path.join(cache_dir, "curriculum_spec.json")
+
+            parsed_db = None
+            parsed_spec = None
+
+            context = None
+            if os.name == 'nt':
+                import ssl
+                context = ssl._create_unverified_context()
+
             try:
-                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-
-                # Setup SSL context conditionally to keep code DRY
-                context = None
-                if os.name == 'nt':
-                    import ssl
-                    context = ssl._create_unverified_context()
-
-                with urllib.request.urlopen(req, context=context, timeout=10) as response:
-                    content = response.read().decode('utf-8')
-
-                # 1. Validate JSON first so we don't cache corrupted data
-                parsed_data = json.loads(content)
-
-                # 2. Cache only after validation succeeds
-                cache_dir = os.path.join(GLib.get_user_cache_dir(), "commodus")
-                os.makedirs(cache_dir, exist_ok=True)
-                local_path = os.path.join(cache_dir, "database.json")
-
-                with open(local_path, 'w', encoding='utf-8') as f:
-                    f.write(content)
-
-                # Send the pre-parsed data to the main thread to avoid parsing it again
-                GLib.idle_add(self._on_fetch_success, local_path, parsed_data)
-
+                req_db = urllib.request.Request(db_url, headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(req_db, context=context, timeout=10) as response:
+                    db_content = response.read().decode('utf-8')
+                parsed_db = json.loads(db_content)
+                with open(local_db_path, 'w', encoding='utf-8') as f:
+                    f.write(db_content)
             except Exception as e:
-                print(f"Failed to download database: {e}")
-                GLib.idle_add(self._on_fetch_error, str(e))
+                print(f"Failed to download course database: {e}")
+
+            try:
+                req_spec = urllib.request.Request(spec_url, headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(req_spec, context=context, timeout=10) as response:
+                    spec_content = response.read().decode('utf-8')
+                parsed_spec = json.loads(spec_content)
+                with open(local_spec_path, 'w', encoding='utf-8') as f:
+                    f.write(spec_content)
+            except Exception as e:
+                print(f"Failed to download curriculum spec: {e}")
+
+            GLib.idle_add(self._on_fetch_complete, local_db_path, parsed_db, local_spec_path, parsed_spec)
 
         threading.Thread(target=fetch_task, daemon=True).start()
 
-    def _on_fetch_success(self, local_path, parsed_data):
+    def _on_fetch_complete(self, local_db_path, parsed_db, local_spec_path, parsed_spec):
         self.network_status.set_visible(False)
         self.fpickerbutton.set_sensitive(True)
-
         self._ensure_check_icon()
 
-        # Update styling
-        self.check_icon.set_from_icon_name("circle-checkmark-symbolic")
-        self.check_icon.set_tooltip_text("Online Database Retrieved Successfully")
-        self.check_icon.remove_css_class("error")
-        self.check_icon.remove_css_class("warning")
-        self.check_icon.add_css_class("success")
+        if not parsed_db and os.path.exists(local_db_path):
+            try:
+                with open(local_db_path, 'r', encoding='utf-8') as f:
+                    parsed_db = json.load(f)
+            except Exception:
+                pass
+
+        if not parsed_spec and os.path.exists(local_spec_path):
+            try:
+                with open(local_spec_path, 'r', encoding='utf-8') as f:
+                    parsed_spec = json.load(f)
+            except Exception:
+                pass
+
+        if parsed_db:
+            self.data = parsed_db
+            self.json_path = local_db_path
+            self.populate_listbox()
+
+        if parsed_spec:
+            self.curriculum_data = parsed_spec
+            self._populate_curriculum_dropdowns()
+
+        if parsed_db and parsed_spec:
+            self.check_icon.set_from_icon_name("circle-checkmark-symbolic")
+            self.check_icon.set_tooltip_text("Database and Curriculum Specs Loaded Successfully")
+            self.check_icon.remove_css_class("error")
+            self.check_icon.remove_css_class("warning")
+            self.check_icon.add_css_class("success")
+            self.check_icon.set_visible(True)
+
+            def transition_to_courses():
+                self.carousel.scroll_to(self.courses_page, True)
+                return False
+
+            GLib.timeout_add(1000, transition_to_courses)
+        else:
+            self.network_banner.set_revealed(True)
+            self.check_icon.remove_css_class("success")
+
+            if not parsed_db:
+                self.check_icon.set_from_icon_name("circle-x-symbolic")
+                self.check_icon.set_tooltip_text("Failed To Retrieve Online Database")
+                self.check_icon.remove_css_class("warning")
+                self.check_icon.add_css_class("error")
+                self.network_banner.set_title("Failed to retrieve online database")
+            else:
+                self.check_icon.set_from_icon_name("circle-checkmark-symbolic")
+                self.check_icon.set_tooltip_text("Failed online sync. Using local cache.")
+                self.check_icon.remove_css_class("error")
+                self.check_icon.add_css_class("warning")
+                self.network_banner.set_title("Failed to retrieve online database. Using Cached Version")
+
+                def transition_to_courses():
+                    self.carousel.scroll_to(self.courses_page, True)
+                    return False
+
+                GLib.timeout_add(1000, transition_to_courses)
+
         self.check_icon.set_visible(True)
-
-        # Transition helper to ensure the timeout removes itself properly
-        def transition_to_courses():
-            self.carousel.scroll_to(self.courses_page, True)
-            return False
-
-        GLib.timeout_add(1000, transition_to_courses)
-
-        self.data = parsed_data
-        self.json_path = local_path
-        self.populate_listbox()
-
         return False
 
-    def _on_fetch_error(self, err_msg):
-        self.network_status.set_visible(False)
-        self.network_banner.set_revealed(True)
+    def _populate_curriculum_dropdowns(self):
+        if not self.curriculum_data or "majors" not in self.curriculum_data:
+            return
 
-        self._ensure_check_icon()
-        self.check_icon.remove_css_class("success")
+        self.major_keys = ["none"]
+        major_names = ["—"]
 
-        # Safely check json_path using getattr to prevent AttributeError
-        if getattr(self, "json_path", None) is None:
-            self.check_icon.set_from_icon_name("circle-x-symbolic")
-            self.check_icon.set_tooltip_text("Failed To Retrieve Online Database")
-            self.check_icon.remove_css_class("warning")
-            self.check_icon.add_css_class("error")
+        for key in self.curriculum_data["majors"].keys():
+            self.major_keys.append(key)
+            major_names.append(key)
 
-            self.network_banner.set_title("Failed to retrieve online database")
-            self.fpickerbutton.set_sensitive(True)
-        else:
-            self.check_icon.set_from_icon_name("circle-checkmark-symbolic")
-            self.check_icon.set_tooltip_text("Failed To Retrieve Online Database. Using Cached Version")
-            self.check_icon.remove_css_class("error")
-            self.check_icon.add_css_class("warning")
+        self.major_combo.set_model(Gtk.StringList.new(major_names))
 
-            self.network_banner.set_title("Failed to retrieve online database. Using Cached Version")
+        self.semester_combo.set_model(Gtk.StringList.new(["—"]))
+        self.semester_combo.set_sensitive(False)
 
-        self.check_icon.set_visible(True)
-        return False # Removes the idle callback
+    def _on_major_changed(self, combo, pspec):
+        idx = combo.get_selected()
+        if idx <= 0 or idx >= len(self.major_keys):
+            self.semester_combo.set_model(Gtk.StringList.new(["—"]))
+            self.semester_combo.set_sensitive(False)
+            return
 
-    def on_alt_gen_clicked(self, btn):
-        if self.carousel.get_position() == 1.0:
-            # We are on the Select Courses page, clear all!
+        major_key = self.major_keys[idx]
+        major_data = self.curriculum_data["majors"][major_key]
+
+        self.semester_keys = ["none"]
+        sem_names = ["—"]
+
+        for sem_key, sem_val in major_data.get("curriculum", {}).items():
+            self.semester_keys.append(sem_key)
+            sem_num = sem_val.get("semester_number", sem_key)
+            sem_names.append(str(sem_num))
+
+        self.semester_combo.set_model(Gtk.StringList.new(sem_names))
+        self.semester_combo.set_sensitive(True)
+        self.semester_combo.set_selected(0)
+
+    def _on_semester_changed(self, combo, pspec):
+        major_idx = self.major_combo.get_selected()
+        sem_idx = combo.get_selected()
+
+        if major_idx <= 0 or sem_idx <= 0:
+            return
+
+        major_key = self.major_keys[major_idx]
+        sem_key = self.semester_keys[sem_idx]
+
+        self.apply_curriculum_preset(major_key, sem_key)
+
+    def apply_curriculum_preset(self, major_key, semester_key):
+        try:
+            major_info = self.curriculum_data.get("majors", {}).get(major_key, {})
+            semester_info = major_info.get("curriculum", {}).get(semester_key, {})
+            preset_courses = semester_info.get("courses", [])
+
+            if not preset_courses:
+                return
+
             self.selected_courses.clear()
-            self.course_preferences.clear()
-            self.numcourses.set_text("0/7")
-            self.numcourses.set_fraction(0.0)
+
+            for course_code in preset_courses:
+                if course_code in self.data:
+                    self.selected_courses.add(course_code)
+
             self.populate_listbox()
-        else:
-            # We are on another page, generate schedule
-            self.on_generate_clicked(btn)
+
+            num = len(self.selected_courses)
+            self.numcourses.set_text(f"{num}/7")
+            self.numcourses.set_fraction(num / 7)
+
+        except Exception as e:
+            print(f"Error executing curriculum spec preset: {e}")
+
+    def on_clear_sec_clicked(self, btn):
+        self.selected_courses.clear()
+        self.course_preferences.clear()
+        self.numcourses.set_text("0/7")
+        self.numcourses.set_fraction(0.0)
+        self.populate_listbox()
 
     def _on_previous_clicked(self, _button):
         if self.schedules and self.current_schedule_idx > 0:
@@ -327,18 +424,12 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.draw_schedule_index(self.current_schedule_idx)
 
     def _build_sidebar_controls(self):
+        self.prev_btn = Gtk.Button(icon_name="go-previous-symbolic")
+        self.prev_btn.set_tooltip_text("Go To Previous Schedule (Left Arrow Key)")
+        self.prev_btn.add_css_class("circular")
+        self.prev_btn.connect("clicked", self._on_previous_clicked)
+        self.schedule_sidebar_buttons.append(self.prev_btn)
 
-        prev_btn = Gtk.Button(icon_name="go-previous-symbolic")
-        prev_btn.set_tooltip_text("Go To Previous Schedule (Left Arrow Key)")
-        prev_btn.add_css_class("circular")
-        prev_btn.connect("clicked", self._on_previous_clicked)
-        if self.wrap_switch.get_active():
-            prev_btn.set_sensitive(True)
-        else:
-            prev_btn.set_sensitive(False)
-        self.schedule_sidebar_buttons.append(prev_btn)
-
-        # 1. Copy Schedule Button
         copy_btn = Gtk.Button(icon_name="clipboard-symbolic")
         copy_btn.add_css_class("linked")
         copy_btn.set_tooltip_text("Copy Schedule To Clipboard")
@@ -346,7 +437,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.schedule_sidebar_buttons.append(copy_btn)
 
         compare_btn = Gtk.Button(icon_name="loop-arrow-symbolic")
-        compare_btn.set_tooltip_text("Compare and Reschedule. This feature helps you create schedules that align with your friends even if you don't take the same courses")
+        compare_btn.set_tooltip_text("Compare and Reschedule.")
         compare_btn.add_css_class("linked")
         compare_btn.connect("clicked", self.on_compare_clicked)
         self.schedule_sidebar_buttons.append(compare_btn)
@@ -357,27 +448,26 @@ class CommodusWindow(Adw.ApplicationWindow):
         import_btn.connect("clicked", self.on_import_clicked)
         self.schedule_sidebar_buttons.append(import_btn)
 
-        next_btn = Gtk.Button(icon_name="go-next-symbolic")
-        next_btn.set_tooltip_text("Go To Next Schedule (Right Arrow Key)")
-        next_btn.add_css_class("circular")
-        next_btn.connect("clicked", self._on_next_clicked)
-        self.schedule_sidebar_buttons.append(next_btn)
+        self.next_btn = Gtk.Button(icon_name="go-next-symbolic")
+        self.next_btn.set_tooltip_text("Go To Next Schedule (Right Arrow Key)")
+        self.next_btn.add_css_class("circular")
+        self.next_btn.connect("clicked", self._on_next_clicked)
+        self.schedule_sidebar_buttons.append(self.next_btn)
 
-        # 2. Course Filters Group
+        self._update_navigation_buttons()
+
         self.sidebar_courses_group = Adw.PreferencesGroup(title="Course Filters")
         self.sidebar_courses_group.set_margin_top(0)
         self.sidebar_courses_group.set_margin_start(12)
         self.sidebar_courses_group.set_margin_end(12)
         self.schedule_sidebar_content.append(self.sidebar_courses_group)
 
-        # 3. Constraints Group
         pref_group = Adw.PreferencesGroup(title="Filters and Tuning")
         pref_group.set_margin_top(12)
         pref_group.set_margin_start(12)
         pref_group.set_margin_end(12)
         self.schedule_sidebar_content.append(pref_group)
 
-        # Exclude Days Expander
         days_exp = Adw.ExpanderRow(title="Exclude Days")
         days_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         days_box.set_margin_top(6)
@@ -395,7 +485,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             ("Saturday", self.checksat),
         ]
 
-        # Bidirectional sync between main menu checks and sidebar checks
         for day_name, source_check in days_mapping:
             check = Gtk.CheckButton(label=day_name)
             source_check.bind_property("active", check, "active", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
@@ -404,61 +493,99 @@ class CommodusWindow(Adw.ApplicationWindow):
         days_exp.add_row(days_box)
         pref_group.add(days_exp)
 
-        # Time Boundary Expander
-        time_exp = Adw.ExpanderRow(title="Time Boundary")
+        sb_time_exp = Adw.ExpanderRow(title="Time Boundary", show_enable_switch=True)
+        self.time.bind_property("enable-expansion", sb_time_exp, "enable-expansion", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
 
-        # Start Time
         start_row = Adw.ActionRow(title="Start Time")
         start_h_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=23, step_increment=1))
         start_h_spin.set_valign(Gtk.Align.CENTER)
         self.start_hours.bind_property("value", start_h_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
-        self.start_hours.bind_property("opacity", start_h_spin, "opacity", GObject.BindingFlags.SYNC_CREATE)
 
         start_m_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=59, step_increment=15))
         start_m_spin.set_valign(Gtk.Align.CENTER)
         self.start_minutes.bind_property("value", start_m_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
-        self.start_minutes.bind_property("opacity", start_m_spin, "opacity", GObject.BindingFlags.SYNC_CREATE)
 
         start_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         start_box.append(start_h_spin)
         start_box.append(Gtk.Label(label=":"))
         start_box.append(start_m_spin)
         start_row.add_suffix(start_box)
-        time_exp.add_row(start_row)
+        sb_time_exp.add_row(start_row)
 
-        # End Time
         end_row = Adw.ActionRow(title="End Time")
         end_h_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=23, step_increment=1))
         end_h_spin.set_valign(Gtk.Align.CENTER)
         self.end_hours.bind_property("value", end_h_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
-        self.end_hours.bind_property("opacity", end_h_spin, "opacity", GObject.BindingFlags.SYNC_CREATE)
 
         end_m_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=59, step_increment=15))
         end_m_spin.set_valign(Gtk.Align.CENTER)
         self.end_minutes.bind_property("value", end_m_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
-        self.end_minutes.bind_property("opacity", end_m_spin, "opacity", GObject.BindingFlags.SYNC_CREATE)
 
         end_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         end_box.append(end_h_spin)
         end_box.append(Gtk.Label(label=":"))
         end_box.append(end_m_spin)
         end_row.add_suffix(end_box)
-        time_exp.add_row(end_row)
+        sb_time_exp.add_row(end_row)
 
-        pref_group.add(time_exp)
+        pref_group.add(sb_time_exp)
 
-        # Exclude Full Switch
+        sb_gap_exp = Adw.ExpanderRow(title="Specify Gap", show_enable_switch=True)
+        self.gap_time.bind_property("enable-expansion", sb_gap_exp, "enable-expansion", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
+
+        sb_gap_day = Adw.ComboRow(title="Day")
+        sb_gap_day.set_model(Gtk.StringList.new(["All Days", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]))
+        self.gap_day.bind_property("selected", sb_gap_day, "selected", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
+        sb_gap_exp.add_row(sb_gap_day)
+
+        gap_start_row = Adw.ActionRow(title="Start Time")
+        gap_start_h_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=23, step_increment=1))
+        gap_start_h_spin.set_valign(Gtk.Align.CENTER)
+        self.gap_start_hours.bind_property("value", gap_start_h_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
+
+        gap_start_m_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=59, step_increment=15))
+        gap_start_m_spin.set_valign(Gtk.Align.CENTER)
+        self.gap_start_minutes.bind_property("value", gap_start_m_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
+
+        gap_start_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        gap_start_box.append(gap_start_h_spin)
+        gap_start_box.append(Gtk.Label(label=":"))
+        gap_start_box.append(gap_start_m_spin)
+        gap_start_row.add_suffix(gap_start_box)
+        sb_gap_exp.add_row(gap_start_row)
+
+        gap_end_row = Adw.ActionRow(title="End Time")
+        gap_end_h_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=23, step_increment=1))
+        gap_end_h_spin.set_valign(Gtk.Align.CENTER)
+        self.gap_end_hours.bind_property("value", gap_end_h_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
+
+        gap_end_m_spin = Gtk.SpinButton(adjustment=Gtk.Adjustment(lower=0, upper=59, step_increment=15))
+        gap_end_m_spin.set_valign(Gtk.Align.CENTER)
+        self.gap_end_minutes.bind_property("value", gap_end_m_spin, "value", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
+
+        gap_end_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        gap_end_box.append(gap_end_h_spin)
+        gap_end_box.append(Gtk.Label(label=":"))
+        gap_end_box.append(gap_end_m_spin)
+        gap_end_row.add_suffix(gap_end_box)
+        sb_gap_exp.add_row(gap_end_row)
+
+        pref_group.add(sb_gap_exp)
+
         self.sb_ls_switch = Adw.SwitchRow(title="Exclude Full Classes")
         self.ls_switch.bind_property("active", self.sb_ls_switch, "active", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
         pref_group.add(self.sb_ls_switch)
 
-        # Prioritize ComboRow
         self.sb_tuner = Adw.ComboRow(title="Prioritize")
         self.sb_tuner.set_model(Gtk.StringList.new(["Compact Days", "Fewer Days", "Shorter Days", "Consistent Days"]))
         self.tuner.bind_property("selected", self.sb_tuner, "selected", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
         pref_group.add(self.sb_tuner)
 
-        # Generate Button for Sidebar
+        self.sb_sec_tuner = Adw.ComboRow(title="Tie-Breaker")
+        self.sb_sec_tuner.set_model(Gtk.StringList.new(["None", "Compact Days", "Fewer Days", "Shorter Days", "Consistent Days"]))
+        self.sec_tuner.bind_property("selected", self.sb_sec_tuner, "selected", GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE)
+        pref_group.add(self.sb_sec_tuner)
+
         sb_gen_btn = Gtk.Button(label="Generate Schedules")
         sb_gen_btn.add_css_class("suggested-action")
         sb_gen_btn.add_css_class("pill")
@@ -468,23 +595,31 @@ class CommodusWindow(Adw.ApplicationWindow):
         sb_gen_btn.connect("clicked", self.on_generate_clicked)
         self.schedule_sidebar_content.append(sb_gen_btn)
 
+    def _update_navigation_buttons(self):
+        if not hasattr(self, 'prev_btn') or not hasattr(self, 'next_btn'):
+            return
+
+        total_schedules = len(self.schedules) if self.schedules else 0
+
+        if total_schedules <= 1:
+            self.prev_btn.set_sensitive(False)
+            self.next_btn.set_sensitive(False)
+            return
+
+        if self.wrap_switch.get_active():
+            self.prev_btn.set_sensitive(True)
+            self.next_btn.set_sensitive(True)
+        else:
+            self.prev_btn.set_sensitive(self.current_schedule_idx > 0)
+            self.next_btn.set_sensitive(self.current_schedule_idx < total_schedules - 1)
+
     def _update_sidebar_course_filters(self):
-        # Explicitly remove tracked rows safely rather than querying GTK's hidden layout children
         for row in self._sidebar_course_rows:
             self.sidebar_courses_group.remove(row)
         self._sidebar_course_rows.clear()
 
-        # Re-populate dynamically for each selected course
         for course_code in sorted(self.selected_courses):
-            expander = Adw.ExpanderRow(title=course_code)
             sections_list = self.data.get(course_code, [])
-
-            vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
-            vbox.set_margin_top(12)
-            vbox.set_margin_bottom(12)
-            vbox.set_margin_start(12)
-            vbox.set_margin_end(12)
-            expander.add_row(vbox)
 
             lec_instructors = set()
             lab_instructors = set()
@@ -512,7 +647,37 @@ class CommodusWindow(Adw.ApplicationWindow):
             tut_inst_list = sorted(list(tut_instructors))
             sec_list = sorted(list(sections))
 
-            none_btn = Gtk.CheckButton(label="None")
+            has_instructors = len(lec_inst_list) > 1 or len(lab_inst_list) > 1 or len(tut_inst_list) > 1
+            has_sections = len(sec_list) > 1
+
+            if not has_instructors and not has_sections:
+                continue
+
+            saved_pref = self.course_preferences.get(course_code, {"type": "Neither", "value": ""})
+
+            if saved_pref["type"] == "Instructor":
+                valid = False
+                if len(lec_inst_list) > 1 and saved_pref["value"] in lec_inst_list: valid = True
+                if len(lab_inst_list) > 1 and saved_pref["value"] in lab_inst_list: valid = True
+                if len(tut_inst_list) > 1 and saved_pref["value"] in tut_inst_list: valid = True
+                if not valid:
+                    saved_pref = {"type": "Neither", "value": ""}
+                    self.course_preferences[course_code] = saved_pref
+            elif saved_pref["type"] == "Section":
+                if not has_sections or saved_pref["value"] not in sec_list:
+                    saved_pref = {"type": "Neither", "value": ""}
+                    self.course_preferences[course_code] = saved_pref
+
+            expander = Adw.ExpanderRow(title=course_code)
+
+            vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+            vbox.set_margin_top(12)
+            vbox.set_margin_bottom(12)
+            vbox.set_margin_start(12)
+            vbox.set_margin_end(12)
+            expander.add_row(vbox)
+
+            none_btn = Gtk.CheckButton(label="Any")
             vbox.append(none_btn)
 
             def on_btn_toggled(btn, pref_type, val, c=course_code):
@@ -521,7 +686,6 @@ class CommodusWindow(Adw.ApplicationWindow):
 
             none_btn.connect("toggled", on_btn_toggled, "Neither", "")
 
-            saved_pref = self.course_preferences.get(course_code, {"type": "Neither", "value": ""})
             if saved_pref["type"] == "Neither":
                 none_btn.set_active(True)
 
@@ -529,7 +693,8 @@ class CommodusWindow(Adw.ApplicationWindow):
 
             def append_instructor_group(title, inst_list):
                 nonlocal has_activated_instructor
-                if not inst_list:
+
+                if len(inst_list) <= 1:
                     return
 
                 vbox.append(Gtk.Separator(margin_top=4, margin_bottom=4))
@@ -539,7 +704,15 @@ class CommodusWindow(Adw.ApplicationWindow):
                 vbox.append(lbl)
 
                 for inst in inst_list:
-                    btn = Gtk.CheckButton(label=inst)
+                    inst_label = Gtk.Label(label=inst)
+                    inst_label.set_ellipsize(Pango.EllipsizeMode.END)
+                    inst_label.set_lines(1)
+                    inst_label.set_max_width_chars(25)
+                    inst_label.set_xalign(0)
+                    inst_label.set_tooltip_text(inst)
+
+                    btn = Gtk.CheckButton()
+                    btn.set_child(inst_label)
                     btn.set_group(none_btn)
                     btn.connect("toggled", on_btn_toggled, "Instructor", inst)
                     vbox.append(btn)
@@ -552,7 +725,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             append_instructor_group("Lab Instructors", lab_inst_list)
             append_instructor_group("Tutorial Instructors", tut_inst_list)
 
-            if sec_list:
+            if has_sections:
                 vbox.append(Gtk.Separator(margin_top=4, margin_bottom=4))
                 lbl = Gtk.Label(label="<b>Sections</b>", use_markup=True)
                 lbl.set_halign(Gtk.Align.START)
@@ -560,7 +733,15 @@ class CommodusWindow(Adw.ApplicationWindow):
                 vbox.append(lbl)
 
                 for sec in sec_list:
-                    btn = Gtk.CheckButton(label=sec)
+                    sec_label = Gtk.Label(label=sec)
+                    sec_label.set_ellipsize(Pango.EllipsizeMode.END)
+                    sec_label.set_lines(1)
+                    sec_label.set_max_width_chars(25)
+                    sec_label.set_xalign(0)
+                    sec_label.set_tooltip_text(sec)
+
+                    btn = Gtk.CheckButton()
+                    btn.set_child(sec_label)
                     btn.set_group(none_btn)
                     btn.connect("toggled", on_btn_toggled, "Section", sec)
                     vbox.append(btn)
@@ -571,6 +752,9 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.sidebar_courses_group.add(expander)
             self._sidebar_course_rows.append(expander)
 
+        has_rows = len(self._sidebar_course_rows) > 0
+        self.sidebar_courses_group.set_visible(has_rows)
+
     def on_copy_schedule_clicked(self, btn):
         if not self.schedules or self.current_schedule_idx >= len(self.schedules):
             return
@@ -580,7 +764,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         days_map = {1: "Sun", 2: "Mon", 3: "Tue", 4: "Wed", 5: "Thu", 6: "Fri", 7: "Sat"}
         lines = []
 
-        # Sort by Course -> Type -> ID
         meetings = sorted(sched["meetings"], key=lambda m: (m['course'], m['type'], m['id']))
         for m in meetings:
             if m['day'] == 0 or m['start'] < 0 or m['end'] < 0:
@@ -603,7 +786,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         clipboard = self.get_clipboard()
         clipboard.set(text)
 
-        # Provide visual feedback on button
         btn.set_icon_name("checkmark-symbolic")
         GLib.timeout_add(2000, lambda: btn.set_icon_name("clipboard-symbolic") or False)
 
@@ -625,12 +807,10 @@ class CommodusWindow(Adw.ApplicationWindow):
         vbox.set_margin_start(18)
         vbox.set_margin_end(18)
 
-        # Instruction Label
         lbl = Gtk.Label(label="Paste your copied schedule text below:")
         lbl.set_halign(Gtk.Align.START)
         vbox.append(lbl)
 
-        # Text View for pasting
         scrolled = Gtk.ScrolledWindow(vexpand=True)
         textview = Gtk.TextView()
         textview.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)
@@ -638,7 +818,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         scrolled.set_child(textview)
         vbox.append(scrolled)
 
-        # Buttons
         btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
         btn_box.set_homogeneous(True)
         btn_box.set_margin_top(10)
@@ -678,7 +857,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             if "|" not in line:
                 continue
 
-            # Split off the instructor part (right of the pipe)
             left, right = line.split("|", 1)
             tokens = left.strip().split()
 
@@ -688,7 +866,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             course = tokens[0]
             new_selected.add(course)
 
-            # Look for the Lecture to lock down the core section path
             if len(tokens) > 2 and tokens[1] == "Lecture":
                 section = tokens[2]
                 new_prefs[course] = {"type": "Section", "value": section}
@@ -697,15 +874,11 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.show_error_dialog("Could not parse any courses from the provided text.")
             return False
 
-        # Apply parsed data
         self.selected_courses = new_selected
         self.course_preferences = new_prefs
 
-        # Trigger generation immediately
         self.on_generate_clicked(None)
-        # Clear preferences so specific sections/instructors are set to None
         self.course_preferences.clear()
-        # Update UI Counters
         self.populate_listbox()
         self._update_sidebar_course_filters()
         num = len(self.selected_courses)
@@ -727,15 +900,22 @@ class CommodusWindow(Adw.ApplicationWindow):
             "json_path": self.json_path,
             "selected_courses": list(self.selected_courses),
             "course_preferences": self.course_preferences,
+            "time_enabled": self.time.get_enable_expansion(),
             "start_hours": self.start_hours.get_value_as_int(),
             "start_minutes": self.start_minutes.get_value_as_int(),
             "end_hours": self.end_hours.get_value_as_int(),
             "end_minutes": self.end_minutes.get_value_as_int(),
+            "gap_enabled": self.gap_time.get_enable_expansion(),
+            "gap_day": self.gap_day.get_selected(),
+            "gap_start_hours": self.gap_start_hours.get_value_as_int(),
+            "gap_start_minutes": self.gap_start_minutes.get_value_as_int(),
+            "gap_end_hours": self.gap_end_hours.get_value_as_int(),
+            "gap_end_minutes": self.gap_end_minutes.get_value_as_int(),
             "exclude_full": self.ls_switch.get_active(),
             "tuner": self.tuner.get_selected(),
+            "sec_tuner": self.sec_tuner.get_selected(),
             "dark_mode": self.dm_switch.get_active(),
             "wrap_mode": self.wrap_switch.get_active(),
-            "global_mode": self.global_generate.get_active(),
             "local_load": self.local_load_switch.get_active(),
             "checksun": self.checksun.get_active(),
             "checkmon": self.checkmon.get_active(),
@@ -763,16 +943,24 @@ class CommodusWindow(Adw.ApplicationWindow):
             with open(path, 'r', encoding='utf-8') as f:
                 settings = json.load(f)
 
+            self.time.set_enable_expansion(settings.get("time_enabled", False))
             self.start_hours.set_value(settings.get("start_hours", 0))
             self.start_minutes.set_value(settings.get("start_minutes", 0))
             self.end_hours.set_value(settings.get("end_hours", 0))
             self.end_minutes.set_value(settings.get("end_minutes", 0))
 
+            self.gap_time.set_enable_expansion(settings.get("gap_enabled", False))
+            self.gap_day.set_selected(settings.get("gap_day", 0))
+            self.gap_start_hours.set_value(settings.get("gap_start_hours", 0))
+            self.gap_start_minutes.set_value(settings.get("gap_start_minutes", 0))
+            self.gap_end_hours.set_value(settings.get("gap_end_hours", 0))
+            self.gap_end_minutes.set_value(settings.get("gap_end_minutes", 0))
+
             self.ls_switch.set_active(settings.get("exclude_full", True))
             self.tuner.set_selected(settings.get("tuner", 0))
+            self.sec_tuner.set_selected(settings.get("sec_tuner", 0))
             self.dm_switch.set_active(settings.get("dark_mode", False))
             self.wrap_switch.set_active(settings.get("wrap_mode", False))
-            self.global_generate.set_active(settings.get("global_mode", False))
             self.local_load_switch.set_active(settings.get("local_load", False))
 
             self.checksun.set_active(settings.get("checksun", False))
@@ -789,8 +977,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             saved_json = settings.get("json_path")
             if saved_json and os.path.exists(saved_json):
                 self.load_database_from_path(saved_json)
-                if self.global_generate.get_active():
-                    self.action_bar.set_revealed(True)
 
         except Exception as e:
             print(f"Error loading settings: {e}")
@@ -801,7 +987,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             try:
                 os.remove(path)
 
-                # Show success dialog
                 dialog = Adw.MessageDialog(
                     transient_for=self,
                     heading="Save Deleted",
@@ -816,7 +1001,6 @@ class CommodusWindow(Adw.ApplicationWindow):
                 self.show_error_dialog(f"Error removing save file: {e}")
                 return
 
-        # Complete reset of internal Python state
         self.selected_courses.clear()
         self.course_preferences.clear()
         self._saved_selected_courses.clear()
@@ -825,17 +1009,24 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.schedules = []
         self.current_schedule_idx = 0
 
-        # Complete reset of all bound UI widgets
+        self.time.set_enable_expansion(False)
         self.start_hours.set_value(0)
         self.start_minutes.set_value(0)
-        self.end_hours.set_value(0)
-        self.end_minutes.set_value(0)
+        self.end_hours.set_value(23)
+        self.end_minutes.set_value(59)
+
+        self.gap_time.set_enable_expansion(False)
+        self.gap_day.set_selected(0)
+        self.gap_start_hours.set_value(0)
+        self.gap_start_minutes.set_value(0)
+        self.gap_end_hours.set_value(0)
+        self.gap_end_minutes.set_value(0)
 
         self.ls_switch.set_active(False)
         self.tuner.set_selected(0)
+        self.sec_tuner.set_selected(0)
         self.dm_switch.set_active(False)
         self.wrap_switch.set_active(False)
-        self.global_generate.set_active(False)
 
         self.checksun.set_active(False)
         self.checkmon.set_active(False)
@@ -845,16 +1036,16 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.checkfri.set_active(False)
         self.checksat.set_active(False)
 
-        # Clear course counter UI
         self.numcourses.set_text("0/7")
         self.numcourses.set_fraction(0.0)
 
-        # Clear populated lists and views
         self.populate_listbox()
         child = self.schedule.get_first_child()
         while child:
             self.schedule.remove(child)
             child = self.schedule.get_first_child()
+
+        self._update_navigation_buttons()
 
     def load_database_from_path(self, path):
         print(f"Loading JSON Database: {path}")
@@ -879,14 +1070,12 @@ class CommodusWindow(Adw.ApplicationWindow):
         dialog.present()
 
     def on_key_pressed(self, controller, keyval, keycode, state):
-        # Determine if we are actively viewing the schedules page
         is_schedule_view = False
         try:
             is_schedule_view = (self.nav_view.get_visible_page() == self.schedule_view)
         except AttributeError:
             pass
 
-        # 1. Consolidated Navigation Shortcuts (Ctrl + 1/2/3/4)
         if state & Gdk.ModifierType.CONTROL_MASK:
             pages_map = {
                 Gdk.KEY_1: getattr(self, "data_page", None),
@@ -901,52 +1090,45 @@ class CommodusWindow(Adw.ApplicationWindow):
                 self.carousel.scroll_to(pages_map[keyval], True)
                 return True
 
-        # 2. Handlers for Non-Schedule Views
         if not is_schedule_view:
             if keyval in (Gdk.KEY_g, Gdk.KEY_G):
-                self.on_generate_clicked(self)
+                if hasattr(self, "check_icon"):
+                    self.on_generate_clicked(self)
                 return True
             return False
 
-        # 3. Handlers for Schedule-Only View
         if keyval in (Gdk.KEY_s, Gdk.KEY_S):
             is_active = self.show_sidebar_button.get_active()
             self.show_sidebar_button.set_active(not is_active)
             return True
 
         elif keyval == Gdk.KEY_Right:
-            if self.schedules and self.current_schedule_idx < len(self.schedules) - 1:
-                self.current_schedule_idx += 1
-                self.draw_schedule_index(self.current_schedule_idx)
-            elif self.wrap_switch.get_active() and self.current_schedule_idx == len(self.schedules) - 1:
-                self.current_schedule_idx = 0
-                self.draw_schedule_index(self.current_schedule_idx)
-                return True
+            if self.schedules and len(self.schedules) > 1:
+                if self.current_schedule_idx < len(self.schedules) - 1:
+                    self.current_schedule_idx += 1
+                    self.draw_schedule_index(self.current_schedule_idx)
+                    return True
+                elif self.wrap_switch.get_active() and self.current_schedule_idx == len(self.schedules) - 1:
+                    self.current_schedule_idx = 0
+                    self.draw_schedule_index(self.current_schedule_idx)
+                    return True
 
         elif keyval == Gdk.KEY_Left:
-            if self.schedules and self.current_schedule_idx > 0:
-                self.current_schedule_idx -= 1
-                self.draw_schedule_index(self.current_schedule_idx)
-            elif self.wrap_switch.get_active() and self.current_schedule_idx == 0:
-                self.current_schedule_idx = len(self.schedules) - 1
-                self.draw_schedule_index(self.current_schedule_idx)
-                return True
+            if self.schedules and len(self.schedules) > 1:
+                if self.current_schedule_idx > 0:
+                    self.current_schedule_idx -= 1
+                    self.draw_schedule_index(self.current_schedule_idx)
+                    return True
+                elif self.wrap_switch.get_active() and self.current_schedule_idx == 0:
+                    self.current_schedule_idx = len(self.schedules) - 1
+                    self.draw_schedule_index(self.current_schedule_idx)
+                    return True
 
         elif keyval in (Gdk.KEY_c, Gdk.KEY_C) and (state & Gdk.ModifierType.CONTROL_MASK):
             self.on_copy_schedule_clicked(self)
             return True
 
         return False
-
-    def _update_time_opacity(self, *args):
-        start_is_zero = (self.start_hours.get_value_as_int() == 0 and self.start_minutes.get_value_as_int() == 0)
-        end_is_zero = (self.end_hours.get_value_as_int() == 0 and self.end_minutes.get_value_as_int() == 0)
-
-        # Dim to 0.5 if disabled (00:00), otherwise fully opaque
-        self.start_hours.set_opacity(0.5 if start_is_zero else 1.0)
-        self.start_minutes.set_opacity(0.5 if start_is_zero else 1.0)
-        self.end_hours.set_opacity(0.5 if end_is_zero else 1.0)
-        self.end_minutes.set_opacity(0.5 if end_is_zero else 1.0)
 
     def on_page_changed(self, carousel, index):
         if index==2:
@@ -955,24 +1137,17 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.search_toggle.set_visible(False)
             self.searchbar.set_key_capture_widget(None)
             self.show_sidebar_button.set_visible(False)
-            if self.global_generate.get_active():
-                self.action_bar.set_revealed(True)
-            else:
-                self.action_bar.set_revealed(False)
-            self.alt_gen.set_label("Generate Schedule")
-            self.alt_gen.remove_css_class("destructive-action")
-            self.alt_gen.add_css_class("suggested-action")
+            self.action_bar.set_revealed(False)
         elif index==1:
+            is_schedule_view = (self.nav_view.get_visible_page() == self.schedule_view)
             self.revealer_slide.set_reveal_child(False)
-            self.searchbar.set_visible(True)
-            self.search_toggle.set_visible(True)
-            self.search_toggle.set_active(True)
-            self.searchbar.set_key_capture_widget(self) # Typing ANYWHERE opens search instantly!
-            self.show_sidebar_button.set_visible(False)
-            self.action_bar.set_revealed(True)
-            self.alt_gen.set_label("Clear Selection")
-            self.alt_gen.remove_css_class("suggested-action")
-            self.alt_gen.add_css_class("destructive-action")
+            if not is_schedule_view:
+                self.searchbar.set_visible(True)
+                self.search_toggle.set_visible(True)
+                self.search_toggle.set_active(True)
+                self.searchbar.set_key_capture_widget(self)
+                self.show_sidebar_button.set_visible(False)
+                self.action_bar.set_revealed(True)
         elif index==0:
             self.revealer_slide.set_reveal_child(False)
             self.searchbar.set_visible(False)
@@ -980,9 +1155,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.searchbar.set_key_capture_widget(None)
             self.show_sidebar_button.set_visible(False)
             self.action_bar.set_revealed(False)
-            self.alt_gen.set_label("Generate Schedule")
-            self.alt_gen.remove_css_class("destructive-action")
-            self.alt_gen.add_css_class("suggested-action")
         else:
             self.revealer_slide.set_reveal_child(False)
             self.searchbar.set_visible(False)
@@ -990,9 +1162,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.searchbar.set_key_capture_widget(None)
             self.show_sidebar_button.set_visible(False)
             self.action_bar.set_revealed(False)
-            self.alt_gen.set_label("Generate Schedule")
-            self.alt_gen.remove_css_class("destructive-action")
-            self.alt_gen.add_css_class("suggested-action")
 
     def on_edge_overshot(self, search_page, pos):
         if pos == 3:
@@ -1026,42 +1195,42 @@ class CommodusWindow(Adw.ApplicationWindow):
             return file.get_path()
 
     def populate_listbox(self):
-        # Clear existing items
         child = self.listbox.get_first_child()
         while child:
             self.listbox.remove(child)
             child = self.listbox.get_first_child()
 
-        # Restore from backup if present (applies heavily on startup)
         saved_selection = self._saved_selected_courses if hasattr(self, '_saved_selected_courses') and self._saved_selected_courses else set(self.selected_courses)
-
         self.selected_courses.clear()
 
-        for course_code, sections_list in self.data.items():
-            fullTitle = course_code
-            row = Adw.ActionRow(title=fullTitle)
+        sorted_keys = sorted(self.data.keys(), key=lambda c: (c not in saved_selection, c))
+
+        for course_code in sorted_keys:
+            sections_list = self.data[course_code]
+            full_title = sections_list[0].get("fullTitle", "") if sections_list else ""
+
+            if full_title:
+                prefix_pattern = re.compile(rf"^{re.escape(course_code)}\s*[:-]?\s*", re.IGNORECASE)
+                clean_title = prefix_pattern.sub("", full_title)
+            else:
+                clean_title = ""
+
+            if clean_title and clean_title.lower() != course_code.lower():
+                display_title = f"{course_code}: {clean_title}"
+            else:
+                display_title = course_code
+
+            escaped_title = GLib.markup_escape_text(display_title)
+
+            row = Adw.ActionRow(title=escaped_title)
+            row.course_code = course_code
+            row.set_title_lines(2)
+
             self.listbox.append(row)
             chboxcont = Gtk.Box(spacing=10, valign="center")
             row.add_suffix(chboxcont)
 
-            # --- Popover Filtering UI per Row ---
-            popover = Gtk.Popover()
-
-            # Setup menubutton early to modify its icon from callbacks
-            menubutton = Gtk.MenuButton()
-            menubutton.set_valign(Gtk.Align.CENTER)
-            menubutton.set_tooltip_text("Filter By Section Or Instructor")
-            menubutton.set_popover(popover)
-
-            vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
-            vbox.set_margin_top(12)
-            vbox.set_margin_bottom(12)
-            vbox.set_margin_start(12)
-            vbox.set_margin_end(12)
-
-            popover.set_child(vbox)
-
-            # 1. Harvest Data First
+            # Extract instructors and section numbers
             lec_instructors = set()
             lab_instructors = set()
             tut_instructors = set()
@@ -1080,7 +1249,6 @@ class CommodusWindow(Adw.ApplicationWindow):
                     elif subtype == "Tutorial":
                         tut_instructors.add(inst)
 
-                # Exclude tutorials & labs, only grab sections from lectures
                 if subtype == "Lecture" and s_id:
                     sections.add(s_id)
 
@@ -1089,90 +1257,197 @@ class CommodusWindow(Adw.ApplicationWindow):
             tut_inst_list = sorted(list(tut_instructors))
             sec_list = sorted(list(sections))
 
-            # 2. Setup the group logic
-            none_btn = Gtk.CheckButton(label="None")
-            vbox.append(none_btn)
+            has_instructors = len(lec_inst_list) > 1 or len(lab_inst_list) > 1 or len(tut_inst_list) > 1
+            has_sections = len(sec_list) > 1
 
-            def on_btn_toggled(btn, pref_type, val, c=course_code, mb=menubutton):
-                if btn.get_active():
-                    self.course_preferences[c] = {"type": pref_type, "value": val}
-                    # Update icon based on active filter state
-                    if pref_type == "Neither":
-                        mb.set_icon_name("funnel-outline-symbolic")
-                    else:
-                        mb.set_icon_name("funnel-symbolic")
-
-            none_btn.connect("toggled", on_btn_toggled, "Neither", "")
+            menubutton = Gtk.MenuButton()
+            menubutton.set_valign(Gtk.Align.CENTER)
+            menubutton.set_tooltip_text("Filter By Section Or Instructor")
 
             saved_pref = self.course_preferences.get(course_code, {"type": "Neither", "value": ""})
 
-            # Initialize icon states explicitly based on saved config
-            if saved_pref["type"] == "Neither":
-                none_btn.set_active(True)
-                menubutton.set_icon_name("funnel-outline-symbolic")
+            if saved_pref["type"] == "Instructor":
+                valid = False
+                if len(lec_inst_list) > 1 and saved_pref["value"] in lec_inst_list: valid = True
+                if len(lab_inst_list) > 1 and saved_pref["value"] in lab_inst_list: valid = True
+                if len(tut_inst_list) > 1 and saved_pref["value"] in tut_inst_list: valid = True
+                if not valid:
+                    saved_pref = {"type": "Neither", "value": ""}
+                    self.course_preferences[course_code] = saved_pref
+            elif saved_pref["type"] == "Section":
+                if not has_sections or saved_pref["value"] not in sec_list:
+                    saved_pref = {"type": "Neither", "value": ""}
+                    self.course_preferences[course_code] = saved_pref
+
+            if not has_instructors and not has_sections:
+                menubutton.set_visible(False)
             else:
-                menubutton.set_icon_name("funnel-symbolic")
+                popover = Gtk.Popover()
+                menubutton.set_popover(popover)
 
-            # 3. Populate Separated Instructors Lists
-            has_activated_instructor = False
+                main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+                popover.set_child(main_vbox)
 
-            def append_instructor_group(title, inst_list):
-                nonlocal has_activated_instructor
-                if not inst_list:
-                    return
+                stack = Gtk.Stack()
+                stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
 
-                vbox.append(Gtk.Separator(margin_top=4, margin_bottom=4))
-                lbl = Gtk.Label(label=f"<b>{title}</b>", use_markup=True)
-                lbl.set_halign(Gtk.Align.START)
-                lbl.add_css_class("dim-label")
-                vbox.append(lbl)
+                switcher = Gtk.StackSwitcher()
+                switcher.set_stack(stack)
+                switcher.set_margin_top(6)
+                switcher.set_margin_bottom(6)
+                switcher.set_margin_start(12)
+                switcher.set_margin_end(12)
+                switcher.set_halign(Gtk.Align.CENTER)
 
-                for inst in inst_list:
-                    btn = Gtk.CheckButton(label=inst)
-                    btn.set_group(none_btn) # Grouping makes them mutually exclusive radio buttons!
-                    btn.connect("toggled", on_btn_toggled, "Instructor", inst)
-                    vbox.append(btn)
+                main_vbox.append(switcher)
+                main_vbox.append(stack)
 
-                    if not has_activated_instructor and saved_pref["type"] == "Instructor" and saved_pref["value"] == inst:
-                        btn.set_active(True)
-                        has_activated_instructor = True
+                hidden_none_btn = Gtk.CheckButton(visible=False)
+                main_vbox.append(hidden_none_btn)
 
-            append_instructor_group("Lecture Instructors", lec_inst_list)
-            append_instructor_group("Lab Instructors", lab_inst_list)
-            append_instructor_group("Tutorial Instructors", tut_inst_list)
+                none_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+                none_vbox.set_margin_top(18)
+                none_vbox.set_margin_bottom(18)
+                none_vbox.set_margin_start(18)
+                none_vbox.set_margin_end(18)
 
-            # 4. Populate Sections List
-            if sec_list:
-                vbox.append(Gtk.Separator(margin_top=4, margin_bottom=4))
-                lbl = Gtk.Label(label="<b>Sections</b>", use_markup=True)
-                lbl.set_halign(Gtk.Align.START)
-                lbl.add_css_class("dim-label")
-                vbox.append(lbl)
+                none_desc = Gtk.Label(label="No filters applied.\nAny section or instructor can be used.")
+                none_desc.add_css_class("dim-label")
+                none_desc.set_halign(Gtk.Align.CENTER)
+                none_desc.set_justify(Gtk.Justification.CENTER)
+                none_desc.set_wrap(True)
+                none_desc.set_max_width_chars(5)
+                none_vbox.append(none_desc)
 
-                for sec in sec_list:
-                    btn = Gtk.CheckButton(label=sec)
-                    btn.set_group(none_btn) # Mutually exclusive with both Instructors and None
-                    btn.connect("toggled", on_btn_toggled, "Section", sec)
-                    vbox.append(btn)
+                stack.add_titled(none_vbox, "none", "Clear Filters")
+                stack.get_page(none_vbox).set_icon_name("action-unavailable-symbolic")
 
-                    if saved_pref["type"] == "Section" and saved_pref["value"] == sec:
-                        btn.set_active(True)
+                def on_btn_toggled(btn, pref_type, val, c=course_code, mb=menubutton):
+                    if btn.get_active():
+                        self.course_preferences[c] = {"type": pref_type, "value": val}
+                        if pref_type != "Neither":
+                            mb.set_icon_name("funnel-symbolic")
 
-            # Attach popover button to layout
+                if has_instructors:
+                    inst_scroll = Gtk.ScrolledWindow()
+                    inst_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+                    inst_scroll.set_propagate_natural_height(True)
+                    inst_scroll.set_max_content_height(300)
+
+                    inst_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+                    inst_vbox.set_margin_top(6)
+                    inst_vbox.set_margin_bottom(12)
+                    inst_vbox.set_margin_start(12)
+                    inst_vbox.set_margin_end(12)
+                    inst_scroll.set_child(inst_vbox)
+
+                    stack.add_titled(inst_scroll, "instructors", "Instructors")
+                    stack.get_page(inst_scroll).set_icon_name("avatar-default-symbolic")
+
+                    has_activated_instructor = False
+
+                    def append_instructor_group(title, inst_list):
+                        nonlocal has_activated_instructor
+
+                        if len(inst_list) <= 1:
+                            return
+
+                        if inst_vbox.get_first_child() is not None:
+                            inst_vbox.append(Gtk.Separator(margin_top=4, margin_bottom=4))
+
+                        lbl = Gtk.Label(label=f"<b>{title}</b>", use_markup=True)
+                        lbl.set_halign(Gtk.Align.START)
+                        lbl.add_css_class("dim-label")
+                        inst_vbox.append(lbl)
+
+                        for inst in inst_list:
+                            inst_label = Gtk.Label(label=inst)
+                            inst_label.set_ellipsize(Pango.EllipsizeMode.END)
+                            inst_label.set_lines(1)
+                            inst_label.set_max_width_chars(20)
+                            inst_label.set_xalign(0)
+                            inst_label.set_tooltip_text(inst)
+
+                            btn = Gtk.CheckButton()
+                            btn.set_child(inst_label)
+                            btn.set_group(hidden_none_btn)
+                            btn.connect("toggled", on_btn_toggled, "Instructor", inst)
+                            inst_vbox.append(btn)
+
+                            if not has_activated_instructor and saved_pref["type"] == "Instructor" and saved_pref["value"] == inst:
+                                btn.set_active(True)
+                                has_activated_instructor = True
+
+                    append_instructor_group("Lecture Instructors", lec_inst_list)
+                    append_instructor_group("Lab Instructors", lab_inst_list)
+                    append_instructor_group("Tutorial Instructors", tut_inst_list)
+
+                if has_sections:
+                    sec_scroll = Gtk.ScrolledWindow()
+                    sec_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+                    sec_scroll.set_propagate_natural_height(True)
+                    sec_scroll.set_max_content_height(300)
+
+                    sec_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+                    sec_vbox.set_margin_top(6)
+                    sec_vbox.set_margin_bottom(12)
+                    sec_vbox.set_margin_start(12)
+                    sec_vbox.set_margin_end(12)
+                    sec_scroll.set_child(sec_vbox)
+
+                    stack.add_titled(sec_scroll, "sections", "Sections")
+                    stack.get_page(sec_scroll).set_icon_name("view-list-symbolic")
+
+                    lbl = Gtk.Label(label="<b>Sections</b>", use_markup=True)
+                    lbl.set_halign(Gtk.Align.START)
+                    lbl.add_css_class("dim-label")
+                    sec_vbox.append(lbl)
+
+                    for sec in sec_list:
+                        sec_label = Gtk.Label(label=sec)
+                        sec_label.set_ellipsize(Pango.EllipsizeMode.END)
+                        sec_label.set_lines(1)
+                        sec_label.set_max_width_chars(20)
+                        sec_label.set_xalign(0)
+                        sec_label.set_tooltip_text(sec)
+
+                        btn = Gtk.CheckButton()
+                        btn.set_child(sec_label)
+                        btn.set_group(hidden_none_btn)
+                        btn.connect("toggled", on_btn_toggled, "Section", sec)
+                        sec_vbox.append(btn)
+
+                        if saved_pref["type"] == "Section" and saved_pref["value"] == sec:
+                            btn.set_active(True)
+
+                if saved_pref["type"] == "Neither":
+                    hidden_none_btn.set_active(True)
+                    menubutton.set_icon_name("funnel-outline-symbolic")
+                    stack.set_visible_child_name("none")
+                else:
+                    menubutton.set_icon_name("funnel-symbolic")
+                    if saved_pref["type"] == "Instructor":
+                        stack.set_visible_child_name("instructors")
+                    elif saved_pref["type"] == "Section":
+                        stack.set_visible_child_name("sections")
+
+                def on_stack_page_changed(stk, param, c=course_code, mb=menubutton, hnb=hidden_none_btn):
+                    if stk.get_visible_child_name() == "none":
+                        hnb.set_active(True)
+                        self.course_preferences[c] = {"type": "Neither", "value": ""}
+                        mb.set_icon_name("funnel-outline-symbolic")
+
+                stack.connect("notify::visible-child-name", on_stack_page_changed)
+
             chboxcont.append(menubutton)
-
             checkbox = Gtk.CheckButton(focusable=False)
-
-            # Connect the signal *before* setting active so the list updates itself
             checkbox.connect("toggled", self.on_course_toggled, course_code)
 
-            # Automatically tick if it was in memory
             if course_code in saved_selection:
                 checkbox.set_active(True)
 
             chboxcont.append(checkbox)
 
-        # Consume the saved selected courses so it doesn't persistently override manual toggles
         self._saved_selected_courses = set()
 
     def on_course_toggled(self, checkbox, course_code):
@@ -1182,9 +1457,11 @@ class CommodusWindow(Adw.ApplicationWindow):
             else:
                 checkbox.set_active(False)
                 self.show_error_dialog("You Can't Select More Than 7 Courses")
-
         else:
             self.selected_courses.discard(course_code)
+
+        self.listbox.invalidate_sort()
+
         print("Selected courses:", self.selected_courses)
 
         num = len(self.selected_courses)
@@ -1207,13 +1484,11 @@ class CommodusWindow(Adw.ApplicationWindow):
 
     def on_generate_clicked(self, _button):
         if not self.json_path or not self.selected_courses:
-            self.show_error_dialog("Please select a JSON file and at least one course.")
+            self.show_error_dialog("Please Restart The App To Refetch The Courses Or Make Sure You Have At Least One Course Selected.")
             return
 
-        # Flatpak places installed binaries in /app/bin, which is automatically in the PATH.
         scheduler_path = shutil.which('scheduler')
 
-        # Fallback for local, uninstalled development environments
         if not scheduler_path:
             project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             exe_name = 'scheduler.exe' if os.name == 'nt' else 'scheduler'
@@ -1228,7 +1503,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             '--courses', ",".join(self.selected_courses)
         ]
 
-        # Use Pipe (|) to join strings to avoid splitting names that contain commas!
         pref_insts = []
         pref_secs = []
         for c in self.selected_courses:
@@ -1254,15 +1528,25 @@ class CommodusWindow(Adw.ApplicationWindow):
         if excluded_days:
             cmd.extend(['--exclude-days', ",".join(excluded_days)])
 
-        start_h = self.start_hours.get_value_as_int()
-        start_m = self.start_minutes.get_value_as_int()
-        if start_h != 0 or start_m != 0:
+        if self.time.get_enable_expansion():
+            start_h = self.start_hours.get_value_as_int()
+            start_m = self.start_minutes.get_value_as_int()
             cmd.extend(['--start-time', f"{start_h:02d}:{start_m:02d}"])
 
-        end_h = self.end_hours.get_value_as_int()
-        end_m = self.end_minutes.get_value_as_int()
-        if end_h != 0 or end_m != 0:
+            end_h = self.end_hours.get_value_as_int()
+            end_m = self.end_minutes.get_value_as_int()
             cmd.extend(['--end-time', f"{end_h:02d}:{end_m:02d}"])
+
+        if self.gap_time.get_enable_expansion():
+            g_start_h = self.gap_start_hours.get_value_as_int()
+            g_start_m = self.gap_start_minutes.get_value_as_int()
+            cmd.extend(['--gap-start', f"{g_start_h:02d}:{g_start_m:02d}"])
+
+            g_end_h = self.gap_end_hours.get_value_as_int()
+            g_end_m = self.gap_end_minutes.get_value_as_int()
+            cmd.extend(['--gap-end', f"{g_end_h:02d}:{g_end_m:02d}"])
+
+            cmd.extend(['--gap-day', str(self.gap_day.get_selected())])
 
         if self.ls_switch.get_active():
             cmd.extend(['--exclude-full', 'true'])
@@ -1276,6 +1560,17 @@ class CommodusWindow(Adw.ApplicationWindow):
         opt_metric = opt_metric_map.get(self.tuner.get_selected(), "compact")
         cmd.extend(['--optimize-by', opt_metric])
 
+        sec_metric_map = {
+            0: "none",
+            1: "compact",
+            2: "few-days",
+            3: "balanced-days",
+            4: "consistent-times"
+        }
+        sec_metric = sec_metric_map.get(self.sec_tuner.get_selected(), "none")
+        if sec_metric != "none":
+            cmd.extend(['--secondary-optimize-by', sec_metric])
+
         print(f"Running command: {' '.join(cmd)}")
 
         target_width = max(self.get_width(), 1175)
@@ -1284,14 +1579,12 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         self.start_scheduler_thread(cmd)
 
-    # --- COMPARE & RESCHEDULE LOGIC ---
     def on_compare_clicked(self, _button):
         if not self.schedules or self.current_schedule_idx >= len(self.schedules):
             return
 
         current_sched = self.schedules[self.current_schedule_idx]
 
-        # Build a map of course -> set of ALL section IDs (Lecture, Lab, Tutorial) present in this exact schedule
         current_courses = {}
         for m in current_sched['meetings']:
             c = m['course']
@@ -1299,7 +1592,6 @@ class CommodusWindow(Adw.ApplicationWindow):
                 current_courses[c] = set()
             current_courses[c].add(m['id'])
 
-        # Native Libadwaita popup styling (Beautiful card-style sheet floating over the window)
         dialog = Adw.Dialog(title="Compare & Reschedule")
         dialog.set_content_width(450)
         dialog.set_content_height(500)
@@ -1307,25 +1599,21 @@ class CommodusWindow(Adw.ApplicationWindow):
         toolbar = Adw.ToolbarView()
         dialog.set_child(toolbar)
 
-        # Flat header to match screenshot
         header = Adw.HeaderBar()
         header.add_css_class("flat")
         toolbar.add_top_bar(header)
 
-        # Search Toggle Button in HeaderBar
         search_btn = Gtk.ToggleButton(icon_name="system-search-symbolic")
         search_btn.set_tooltip_text("Search Courses")
         header.pack_start(search_btn)
 
-        # Search Bar (Revealer style, hidden by default, sliding down from header)
         search_bar = Gtk.SearchBar()
         search_entry = Gtk.SearchEntry(placeholder_text="Filter courses...")
         search_bar.set_child(search_entry)
-        search_bar.set_key_capture_widget(dialog) # Begins searching as soon as you type!
+        search_bar.set_key_capture_widget(dialog)
         search_bar.connect_entry(search_entry)
         toolbar.add_top_bar(search_bar)
 
-        # Bind button state to search bar
         search_btn.connect("toggled", lambda btn: search_bar.set_search_mode(btn.get_active()))
         search_bar.connect("notify::search-mode-enabled", lambda sb, *_: search_btn.set_active(sb.get_search_mode()))
 
@@ -1337,6 +1625,19 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         toolbar.set_content(vbox)
 
+        def sort_compare_courses(row1, row2):
+            c1 = getattr(row1, 'course_code', '')
+            c2 = getattr(row2, 'course_code', '')
+            cb1 = getattr(row1, 'checkbox', None)
+            cb2 = getattr(row2, 'checkbox', None)
+            s1 = cb1.get_active() if cb1 else False
+            s2 = cb2.get_active() if cb2 else False
+            if s1 != s2:
+                return -1 if s1 else 1
+            if c1 < c2: return -1
+            if c1 > c2: return 1
+            return 0
+
         list_box = Gtk.ListBox()
         list_box.set_selection_mode(Gtk.SelectionMode.NONE)
         list_box.add_css_class("boxed-list")
@@ -1344,12 +1645,12 @@ class CommodusWindow(Adw.ApplicationWindow):
         list_box.set_margin_bottom(5)
         list_box.set_margin_start(5)
         list_box.set_margin_end(5)
+        list_box.set_sort_func(sort_compare_courses)
 
         scrolled = Gtk.ScrolledWindow(vexpand=True)
         scrolled.set_child(list_box)
         vbox.append(scrolled)
 
-        # Bottom Buttons (Homogeneous 50/50 Layout perfectly centered)
         btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
         btn_box.set_homogeneous(True)
         btn_box.set_margin_top(10)
@@ -1364,24 +1665,64 @@ class CommodusWindow(Adw.ApplicationWindow):
         generate_btn.add_css_class("pill")
         btn_box.append(generate_btn)
 
-        combo_rows = {}
+        widgets_dict = {}
         rows = []
 
-        # Populate the dialog listbox with all loaded courses in the database
-        for course_code in sorted(self.data.keys()):
-            row = Adw.ComboRow(title=course_code)
+        sorted_keys = sorted(self.data.keys(), key=lambda c: (c not in current_courses, c))
 
-            if course_code in current_courses:
-                row.set_model(Gtk.StringList.new(["Not Selected", "Locked", "Unlocked"]))
-                row.set_selected(1) # Locked by default for current classes
-                row.set_tooltip_text("Lock: Keep this exact section. Unlocked: Allow other sections. Not Selected: Remove.")
+        for course_code in sorted_keys:
+            row = Adw.ActionRow(title=course_code)
+            row.course_code = course_code
+
+            suffix_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+            suffix_box.set_valign(Gtk.Align.CENTER)
+
+            lock_btn = Gtk.ToggleButton()
+            lock_btn.add_css_class("flat")
+            lock_btn.set_valign(Gtk.Align.CENTER)
+
+            def update_lock_icon(btn, *args):
+                if btn.get_active():
+                    btn.set_icon_name("changes-prevent-symbolic")
+                    btn.set_tooltip_text("Locked: Keep this exact section.")
+                else:
+                    btn.set_icon_name("changes-allow-symbolic")
+                    btn.set_tooltip_text("Unlocked: Allow other sections.")
+
+            update_lock_icon(lock_btn)
+            lock_btn.connect("notify::active", update_lock_icon)
+
+            checkbox = Gtk.CheckButton()
+            checkbox.set_valign(Gtk.Align.CENTER)
+            row.checkbox = checkbox
+
+            suffix_box.append(lock_btn)
+            suffix_box.append(checkbox)
+            row.add_suffix(suffix_box)
+            row.set_activatable_widget(checkbox)
+
+            is_current = course_code in current_courses
+
+            if is_current:
+                checkbox.set_active(True)
+                lock_btn.set_active(True)
+                lock_btn.set_visible(True)
             else:
-                row.set_model(Gtk.StringList.new(["Not Selected", "Selected"]))
-                row.set_selected(0) # Not selected by default for outside classes
-                row.set_tooltip_text("Selected: Add this course. Not Selected: Do not add.")
+                checkbox.set_active(False)
+                lock_btn.set_active(False)
+                lock_btn.set_visible(False)
+
+            def on_checkbox_toggled(cb, *args, btn=lock_btn, curr=is_current):
+                if curr:
+                    btn.set_visible(cb.get_active())
+                else:
+                    btn.set_visible(False)
+                list_box.invalidate_sort()
+
+            checkbox.connect("notify::active", on_checkbox_toggled)
 
             list_box.append(row)
-            combo_rows[course_code] = row
+            widgets_dict[course_code] = {"checkbox": checkbox, "lock_btn": lock_btn}
             rows.append((row, course_code))
 
         def on_search_changed(entry):
@@ -1398,32 +1739,31 @@ class CommodusWindow(Adw.ApplicationWindow):
             dialog.close()
 
         def on_generate(btn):
-            self.execute_compare_generation(combo_rows, current_courses)
             dialog.close()
+            self.execute_compare_generation(widgets_dict, current_courses)
 
         cancel_btn.connect("clicked", on_cancel)
         generate_btn.connect("clicked", on_generate)
 
         dialog.present()
 
-    def execute_compare_generation(self, combo_rows, current_courses):
+    def execute_compare_generation(self, widgets_dict, current_courses):
         temp_selected = set()
         temp_section_locks = {}
 
-        for course, row in combo_rows.items():
-            selected_item = row.get_selected_item()
-            if not selected_item:
-                continue
-            selected_text = selected_item.get_string()
+        for course, widgets in widgets_dict.items():
+            checkbox = widgets["checkbox"]
+            lock_btn = widgets["lock_btn"]
 
-            if selected_text == "Locked":
-                temp_selected.add(course)
+            if not checkbox.get_active():
+                continue
+
+            temp_selected.add(course)
+            if course in current_courses and lock_btn.get_active():
                 temp_section_locks[course] = current_courses[course]
-            elif selected_text in ("Unlocked", "Selected"):
-                temp_selected.add(course)
 
         if not temp_selected:
-            self.show_error_dialog("Please select at least one course.")
+            self.show_error_dialog("Please Select At Least One Course.")
             return
 
         scheduler_path = shutil.which('scheduler')
@@ -1438,18 +1778,15 @@ class CommodusWindow(Adw.ApplicationWindow):
             '--courses', ",".join(temp_selected)
         ]
 
-        # Construct specific sections override ONLY for locked courses
         pref_secs = []
         for c in temp_selected:
             if c in temp_section_locks:
-                # Append EVERY section ID (lecture, lab, tut) locked from the current schedule
                 for sec_id in temp_section_locks[c]:
                     pref_secs.append(f"{c}:{sec_id}")
 
         if pref_secs:
             cmd.extend(['--specific-sections', "|".join(pref_secs)])
 
-        # Append standard constraints
         excluded_days = []
         if self.checksun.get_active(): excluded_days.append("1")
         if self.checkmon.get_active(): excluded_days.append("2")
@@ -1461,15 +1798,25 @@ class CommodusWindow(Adw.ApplicationWindow):
         if excluded_days:
             cmd.extend(['--exclude-days', ",".join(excluded_days)])
 
-        start_h = self.start_hours.get_value_as_int()
-        start_m = self.start_minutes.get_value_as_int()
-        if start_h != 0 or start_m != 0:
+        if self.time.get_enable_expansion():
+            start_h = self.start_hours.get_value_as_int()
+            start_m = self.start_minutes.get_value_as_int()
             cmd.extend(['--start-time', f"{start_h:02d}:{start_m:02d}"])
 
-        end_h = self.end_hours.get_value_as_int()
-        end_m = self.end_minutes.get_value_as_int()
-        if end_h != 0 or end_m != 0:
+            end_h = self.end_hours.get_value_as_int()
+            end_m = self.end_minutes.get_value_as_int()
             cmd.extend(['--end-time', f"{end_h:02d}:{end_m:02d}"])
+
+        if self.gap_time.get_enable_expansion():
+            g_start_h = self.gap_start_hours.get_value_as_int()
+            g_start_m = self.gap_start_minutes.get_value_as_int()
+            cmd.extend(['--gap-start', f"{g_start_h:02d}:{g_start_m:02d}"])
+
+            g_end_h = self.gap_end_hours.get_value_as_int()
+            g_end_m = self.gap_end_minutes.get_value_as_int()
+            cmd.extend(['--gap-end', f"{g_end_h:02d}:{g_end_m:02d}"])
+
+            cmd.extend(['--gap-day', str(self.gap_day.get_selected())])
 
         if self.ls_switch.get_active():
             cmd.extend(['--exclude-full', 'true'])
@@ -1482,6 +1829,17 @@ class CommodusWindow(Adw.ApplicationWindow):
         }
         opt_metric = opt_metric_map.get(self.tuner.get_selected(), "compact")
         cmd.extend(['--optimize-by', opt_metric])
+
+        sec_metric_map = {
+            0: "none",
+            1: "compact",
+            2: "few-days",
+            3: "balanced-days",
+            4: "consistent-times"
+        }
+        sec_metric = sec_metric_map.get(self.sec_tuner.get_selected(), "none")
+        if sec_metric != "none":
+            cmd.extend(['--secondary-optimize-by', sec_metric])
 
         print(f"Running command: {' '.join(cmd)}")
         self.start_scheduler_thread(cmd)
@@ -1522,6 +1880,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.back_button.set_visible(True)
 
         self._update_sidebar_course_filters()
+        self._update_navigation_buttons()
 
         threading.Thread(target=self._run_scheduler_async, args=(cmd,), daemon=True).start()
 
@@ -1545,7 +1904,7 @@ class CommodusWindow(Adw.ApplicationWindow):
                 batch.append(parsed)
 
                 now = time.time()
-                if now - last_update > 0.1: # Max 10 updates per second to protect rendering
+                if now - last_update > 0.1:
                     GLib.idle_add(self._on_schedules_batch_received, list(batch))
                     batch.clear()
                     last_update = now
@@ -1571,16 +1930,11 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         new_top = self.schedules[0]
 
-        # Swap top schedule visually only if there is a score improvement
         if self.current_schedule_idx == 0 and old_top != new_top:
             self.draw_schedule_index(0)
 
         self.schedule_view_inner.set_title(f"Found {len(self.schedules)} Schedules...")
-
-        if len(self.schedules) > 1 and not self.wrap_switch.get_active() and self.current_schedule_idx == 0:
-            lastbuttonchild = self.schedule_sidebar_buttons.get_last_child()
-            if lastbuttonchild:
-                lastbuttonchild.set_sensitive(True)
+        self._update_navigation_buttons()
 
     def _on_generation_complete(self, ret_code, stderr):
         if ret_code != 0:
@@ -1596,17 +1950,13 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.generation_process = None
 
     def draw_schedule_index(self, index):
-        # Clear previous schedule view
         child = self.schedule.get_first_child()
         while child:
             self.schedule.remove(child)
             child = self.schedule.get_first_child()
 
         if not self.schedules or index >= len(self.schedules):
-            # Update Title if no schedules
             self.schedule_view_inner.set_title("")
-
-            # If no schedules were generated, show a helpful status page instead of a blank screen
             self.schedule.set_margin_top(0)
             self.schedule.set_margin_bottom(0)
             self.schedule.set_margin_start(0)
@@ -1622,14 +1972,12 @@ class CommodusWindow(Adw.ApplicationWindow):
             status.set_size_request(-1,330)
 
             self.schedule.attach(status, 0, 0, 1, 1)
+            self._update_navigation_buttons()
             return
 
-        # Update the title dynamically to "Schedule X of Y"
         self.schedule_view_inner.set_title(f"Schedule {index + 1} of {len(self.schedules)}")
-
         schedule_data = self.schedules[index]
 
-        # Setup schedule grid properties
         self.schedule.set_row_spacing(0)
         self.schedule.set_column_spacing(10)
         self.schedule.set_margin_top(12)
@@ -1637,14 +1985,10 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.schedule.set_margin_start(12)
         self.schedule.set_margin_end(12)
 
-        # Stop grid from expanding vertically to avoid messing up Y-axis pixels alignment.
-        # This removes the weird empty space at the top.
         self.schedule.set_valign(Gtk.Align.START)
         self.schedule.set_hexpand(True)
         self.schedule.set_halign(Gtk.Align.FILL)
 
-        # 1. Draw Time Labels from 8:30 to 20:30
-        # Scaled down to 60px height per hour instead of 90px (reduces total height by 33%)
         for i in range(13):
             hour = 8 + i
             time_str = f"{hour:02d}:30"
@@ -1654,18 +1998,16 @@ class CommodusWindow(Adw.ApplicationWindow):
             label.set_valign(Gtk.Align.START)
             label.set_margin_end(6)
 
-            # The box enforces the fixed row height for perfect alignment
             box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
             box.set_valign(Gtk.Align.START)
             if i == 12:
-                box.set_size_request(60, 1) # Last boundary label doesn't need to stretch
+                box.set_size_request(60, 1)
             else:
-                box.set_size_request(60, 60) # 60 pixels per hour
+                box.set_size_request(60, 60)
 
             box.append(label)
             self.schedule.attach(box, 0, i + 1, 1, 1)
 
-        # 2. Draw Day Headers & Initialize Columns using Gtk.Overlay
         days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         day_overlays = {}
 
@@ -1676,12 +2018,9 @@ class CommodusWindow(Adw.ApplicationWindow):
             day_label.set_halign(Gtk.Align.CENTER)
             self.schedule.attach(day_label, col_idx, 0, 1, 1)
 
-            # Creating an Overlay allowing dynamic horizontal stretching to fill space
             overlay = Gtk.Overlay()
-
-            # Use a dummy box as the underlying widget to force minimum column sizes
             dummy = Gtk.Box()
-            dummy.set_size_request(140, 12 * 60) # Min 140px width, 720px total height
+            dummy.set_size_request(140, 12 * 60)
             overlay.set_child(dummy)
 
             overlay.set_hexpand(True)
@@ -1691,49 +2030,41 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.schedule.attach(overlay, col_idx, 1, 1, 12)
             day_overlays[col_idx] = overlay
 
-        # 3. Schedule Coordinate Setup
-        START_MINUTES = 8 * 60 + 30 # 8:30 in absolute minutes (510)
-        PX_PER_MINUTE = 1.0         # 60 pixels per hour = 1.0 px/min (Clean coordinate scaling)
+        START_MINUTES = 8 * 60 + 30
+        PX_PER_MINUTE = 1.0
 
-        # 4. Render Meetings
         for meeting in schedule_data["meetings"]:
             if meeting["day"] == 0 or meeting["start"] < 0 or meeting["end"] < 0:
                 continue
 
-            day_idx = meeting["day"] # 1 to 7
+            day_idx = meeting["day"]
             if day_idx not in day_overlays:
                 continue
 
             overlay = day_overlays[day_idx]
 
-            # Calculate exact coordinates
             start_y = int((meeting["start"] - START_MINUTES) * PX_PER_MINUTE)
             height = int((meeting["end"] - meeting["start"]) * PX_PER_MINUTE)
 
-            # Gracefully handle classes starting before 8:30 bounds
             if start_y < 0:
                 height += start_y
                 start_y = 0
             if height <= 0:
                 continue
 
-            # Create the native styling card
             card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
             card.add_css_class("card")
-            card.set_size_request(-1, height) # Don't bound width dynamically, enforce strict height
+            card.set_size_request(-1, height)
 
-            card.set_halign(Gtk.Align.FILL) # Horizontally expand to container size
-            card.set_valign(Gtk.Align.START) # Anchor perfectly from top of the Grid
-            card.set_margin_top(start_y) # Absolute position distance
+            card.set_halign(Gtk.Align.FILL)
+            card.set_valign(Gtk.Align.START)
+            card.set_margin_top(start_y)
 
-            # --- Extract Full Title for Tooltip ---
             full_title = meeting['course']
             course_data = self.data.get(meeting['course'], [])
             if course_data:
-                # Pluck fullTitle from the first item found for this course
                 full_title = course_data[0].get("fullTitle", meeting['course'])
 
-            # Rich Tooltip Display
             tooltip_text = f"{full_title} ({meeting['id']})\n" \
                            f"Type: {meeting['type']}\n" \
                            f"Time: {meeting['start']//60:02d}:{meeting['start']%60:02d} - {meeting['end']//60:02d}:{meeting['end']%60:02d}\n" \
@@ -1742,37 +2073,32 @@ class CommodusWindow(Adw.ApplicationWindow):
                            f"Seats Left: {meeting['seats']}"
             card.set_tooltip_text(tooltip_text)
 
-            # --- Internal Card Layout (Homogeneous Dual-Column) ---
             inner = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-            inner.set_homogeneous(True) # Forces perfect 50/50 visual split!
-            inner.set_valign(Gtk.Align.CENTER) # <--- Vertically Centers the text block!
+            inner.set_homogeneous(True)
+            inner.set_valign(Gtk.Align.CENTER)
             inner.set_margin_top(4)
             inner.set_margin_bottom(4)
             inner.set_margin_start(6)
             inner.set_margin_end(6)
             card.append(inner)
 
-            # Left Column (Course, Type, Room)
             left_col = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
             left_col.set_hexpand(True)
             left_col.set_halign(Gtk.Align.FILL)
             inner.append(left_col)
 
-            # Right Column (Instructor)
             right_col = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
             right_col.set_hexpand(True)
             right_col.set_halign(Gtk.Align.FILL)
             inner.append(right_col)
 
-            # Left: Title (Scaled to caption size, bold)
             title = Gtk.Label()
             title.set_markup(f"<b>{meeting['course']}</b>")
-            title.set_ellipsize(3) # END
+            title.set_ellipsize(3)
             title.set_halign(Gtk.Align.START)
             title.add_css_class("caption")
             left_col.append(title)
 
-            # Left: Subtitle (Type & ID) (Scaled to caption size)
             subtitle = Gtk.Label(label=f"{meeting['type']} ({meeting['id']})")
             subtitle.set_ellipsize(2)
             subtitle.add_css_class("dim-label")
@@ -1780,20 +2106,18 @@ class CommodusWindow(Adw.ApplicationWindow):
             subtitle.set_halign(Gtk.Align.START)
             left_col.append(subtitle)
 
-            # Hide subtitle if slot height is extremely short (< 40 minutes)
             if height < 40:
                 subtitle.set_visible(False)
 
-            # Left: Room location (Scaled to caption size)
             raw_location = meeting['location']
-            # Grab just the last part of the string (e.g. "Room 134")
             short_location = raw_location.split(',')[-1].strip() if ',' in raw_location else raw_location
+            if "Room" not in short_location:
+                short_location = "Room " + short_location
 
             room = Gtk.Label(label=short_location)
             room.set_halign(Gtk.Align.START)
             room.add_css_class("caption")
 
-            # Allow tall cards to show more room details before ellipsizing
             if height > 80:
                 room.set_wrap(True)
                 room.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
@@ -1802,41 +2126,22 @@ class CommodusWindow(Adw.ApplicationWindow):
             room.set_ellipsize(3)
             left_col.append(room)
 
-            # Hide room if slot height is short (< 60 minutes) to prevent overflow
             if height < 60:
                 room.set_visible(False)
 
-            # Right: Instructor
             instructor = Gtk.Label(label=meeting['instructor'])
             instructor.set_halign(Gtk.Align.START)
             instructor.set_valign(Gtk.Align.START)
             instructor.add_css_class("caption")
-            #instructor.add_css_class("dim-label")
             instructor.set_wrap(True)
             instructor.set_wrap_mode(Pango.WrapMode.WORD_CHAR)
             if height > 110:
                 instructor.set_lines(4)
             else:
                 instructor.set_lines(2)
-            #instructor.set_lines(2) # Word-wraps cleanly up to 2 lines
-            instructor.set_ellipsize(3) # Adds '...' if the name spans more than max lines allowed
+            instructor.set_ellipsize(3)
             right_col.append(instructor)
 
-            # Add to the day column overlay layer perfectly formatted
             overlay.add_overlay(card)
 
-            #Handle Visual State of Previous and Next Buttons
-
-            if not self.wrap_switch.get_active():
-                firstbuttonchild = self.schedule_sidebar_buttons.get_first_child()
-                lastbuttonchild = self.schedule_sidebar_buttons.get_last_child()
-                if self.current_schedule_idx == 0:
-                    firstbuttonchild.set_sensitive(False)
-                elif self.current_schedule_idx == 1:
-                    firstbuttonchild.set_sensitive(True)
-                elif self.current_schedule_idx == len(self.schedules) -1:
-                    lastbuttonchild.set_sensitive(False)
-                elif self.current_schedule_idx == len(self.schedules) -2:
-                    lastbuttonchild.set_sensitive(True)
-
-
+        self._update_navigation_buttons()

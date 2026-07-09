@@ -1,0 +1,55 @@
+name: Fetch NU Courses
+
+on:
+  schedule:
+    # Runs at minute 0 of every 12th hour (e.g., 12:00 AM and 12:00 PM UTC)
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+    # Allows manual trigger from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout your default/main branch to get the python script
+      - name: Checkout main code
+        uses: actions/checkout@v4
+        with:
+          path: main-code
+
+      # Step 2: Checkout the app-data branch to store the output JSON
+      - name: Checkout app-data branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'app-data'
+          path: dest-branch
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests python-dateutil
+
+      # Step 3: Run the script using the python file in main-code and output to dest-branch
+      - name: Run course fetcher script
+        run: |
+          python main-code/fetch_nu_courses.py --out dest-branch/NU_course_data.json
+
+      # Step 4: Move into the app-data branch workspace, commit, and push
+      - name: Commit and push updated JSON to app-data branch
+        run: |
+          cd dest-branch
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add NU_course_data.json
+
+          # Only commit and push if the file contents have actually changed
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update NU_course_data.json" && git push)
