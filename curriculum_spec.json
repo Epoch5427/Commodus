@@ -1,0 +1,44 @@
+{
+  "majors": {
+    "CE": {
+      "display_name": "Computer Engineering (CE)",
+      "curriculum": {
+        "Y1S1": {
+          "display_name": "Year 1 - Semester 1 (Semester 1)",
+          "semester_number": 1,
+          "courses": ["ENGL-101", "CSC111", "MTH111", "PHY111", "MEC111", "INT121"]
+        },
+        "Y1S2": {
+          "display_name": "Year 1 - Semester 2 (Semester 2)",
+          "semester_number": 2,
+          "courses": ["ENGL-102", "MTH112", "PHY112", "MTH113", "ECE121", "ECE151"]
+        },
+        "Y2S1": {
+          "display_name": "Year 2 - Semester 1 (Semester 3)",
+          "semester_number": 3,
+          "courses": ["ENGL201", "MTH214", "MTH215", "ECE211", "ECE231", "ECE251"]
+        },
+        "Y2S2": {
+          "display_name": "Year 2 - Semester 2 (Semester 4)",
+          "semester_number": 4,
+          "courses": ["MTH217", "MTH216", "ECE213", "ECE241", "ECE252", "ECE233"]
+        },
+        "Y3S1": {
+          "display_name": "Year 3 - Semester 1 (Semester 5)",
+          "semester_number": 5,
+          "courses": ["ECE343", "ECE322", "ECE342", "ECE353", "ECE344", "ECE354"]
+        },
+        "Y3S2": {
+          "display_name": "Year 3 - Semester 2 (Semester 6)",
+          "semester_number": 6,
+          "courses": ["ENGL202", "ECE355", "ECE315", "ECE346", "ECE338", "ECE345"]
+        },
+        "Y4S1": {
+          "display_name": "Year 4 - Semester 1 (Semester 7)",
+          "semester_number": 7,
+          "courses": ["ECE457", "ECE447", "ECE456", "EBS111"]
+        }
+      }
+    }
+  }
+}
