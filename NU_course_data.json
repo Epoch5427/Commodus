@@ -3166,7 +3166,29 @@
       "location": "Not specified",
       "instructor": "Mohamed Mohamed Elshabrawy",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "14"
+    },
+    {
+      "fullTitle": "MEC111: Engineering Mechanics I",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Monday",
+          "time": "11:30 AM - 1:29 PM",
+          "location": "138"
+        },
+        {
+          "day": "Tuesday",
+          "time": "11:30 AM - 3:29 PM",
+          "location": "138"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Mohamed Mohamed Elshabrawy",
+      "credits": "3.00",
+      "seatsLeft": "34"
     },
     {
       "fullTitle": "MEC111: Engineering Mechanics I",
@@ -3188,7 +3210,7 @@
       "location": "Not specified",
       "instructor": "Iman Ali Shalabi",
       "credits": "0.00",
-      "seatsLeft": "0"
+      "seatsLeft": "12"
     },
     {
       "fullTitle": "MEC111: Engineering Mechanics I",
@@ -3211,6 +3233,28 @@
       "instructor": "Mariam Hamdy Abdelhamid",
       "credits": "0.00",
       "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "MEC111: Engineering Mechanics I",
+      "section": "02A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedules": [
+        {
+          "day": "Monday",
+          "time": "4:30 PM - 6:29 PM",
+          "location": "S29"
+        },
+        {
+          "day": "Sunday",
+          "time": "2:30 PM - 6:29 PM",
+          "location": "S29"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Abdelrahman Ahmed Kamal",
+      "credits": "0.00",
+      "seatsLeft": "4"
     }
   ],
   "MEC112": [
