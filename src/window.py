@@ -382,20 +382,43 @@ class CommodusWindow(Adw.ApplicationWindow):
             semester_info = major_info.get("curriculum", {}).get(semester_key, {})
             preset_courses = semester_info.get("courses", [])
 
-            if not preset_courses:
-                return
-
             self.selected_courses.clear()
 
+            if not preset_courses:
+                self.populate_listbox()
+                self.numcourses.set_text("0/7")
+                self.numcourses.set_fraction(0.0)
+                self.show_message_dialog(
+                    heading="No Courses Selected",
+                    body="No courses are listed for the selected semester (e.g. Summer semester)."
+                )
+                return
+
+            missing_courses = []
             for course_code in preset_courses:
                 if course_code in self.data:
                     self.selected_courses.add(course_code)
+                else:
+                    missing_courses.append(course_code)
 
             self.populate_listbox()
 
             num = len(self.selected_courses)
             self.numcourses.set_text(f"{num}/7")
-            self.numcourses.set_fraction(num / 7)
+            self.numcourses.set_fraction(min(num / 7, 1.0))
+
+            if len(self.selected_courses) == 0:
+                missing_str = "\n".join(f"• {c}" for c in missing_courses)
+                self.show_message_dialog(
+                    heading="No Courses Selected",
+                    body=f"None of the required courses could be selected because they were not found in the database:\n\n{missing_str}"
+                )
+            elif missing_courses:
+                missing_str = "\n".join(f"• {c}" for c in missing_courses)
+                self.show_message_dialog(
+                    heading="Missing Courses",
+                    body=f"The following required course(s) could not be selected because they were not found in the database:\n\n{missing_str}"
+                )
 
         except Exception as e:
             print(f"Error executing curriculum spec preset: {e}")
@@ -1058,16 +1081,19 @@ class CommodusWindow(Adw.ApplicationWindow):
             print(f"Failed to load database {path}: {e}")
             self.data = {}
 
-    def show_error_dialog(self, message):
+    def show_message_dialog(self, heading, body):
         dialog = Adw.MessageDialog(
             transient_for=self,
-            heading="Error",
-            body=message
+            heading=heading,
+            body=body
         )
         dialog.add_response("ok", "OK")
         dialog.set_default_response("ok")
         dialog.connect("response", lambda d, r: d.close())
         dialog.present()
+
+    def show_error_dialog(self, message):
+        self.show_message_dialog("Error", message)
 
     def on_key_pressed(self, controller, keyval, keycode, state):
         is_schedule_view = False

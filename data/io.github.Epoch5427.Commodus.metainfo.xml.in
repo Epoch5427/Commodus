@@ -49,6 +49,17 @@
   </screenshots>
 
     <releases>
+      <release version="0.9.6" date="2026-08-18">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.6</url>
+      <description translate="no">
+        <p>Backend Robustness Improvements + Minor UX Improvements</p>
+        <ul>
+          <li>When selecting a major and semester and one or all of the required courses is missing the user is presented with a popup</li>
+          <li>The courses scraper doesn't delete the database if it encounters an error</li>
+          <li>The courses scraper is more resilient to errors now</li>
+        </ul>
+      </description>
+    </release>
       <release version="0.9.5" date="2026-06-30">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.5</url>
       <description translate="no">
