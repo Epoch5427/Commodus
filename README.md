@@ -37,7 +37,8 @@ Commodus helps you take control of your academic calendar. Instead of spending h
 
 | Schedule View | Constraints & Filters |
 | :---: | :---: |
-| <img width="1225" height="1041" alt="Screenshot From 2026-06-26 02-27-35" src="https://github.com/user-attachments/assets/ee305416-858a-444f-8a72-337be3f5bc88" /> | <img width="770" height="590" alt="Screenshot From 2026-06-26 02-27-52" src="https://github.com/user-attachments/assets/a34d1051-1717-499a-a695-3a8a391e1836" /> |
+| <img width="1100" height="937" alt="Screenshot From 2026-08-20 21-12-10" src="https://github.com/user-attachments/assets/66840e83-5f38-4cd4-985c-9ec6ccba78f3" />
+| <img width="1100" height="937" alt="Screenshot From 2026-08-20 21-11-14" src="https://github.com/user-attachments/assets/9c98398b-84ef-47df-9e94-3c36f98b7ba9" /> |
 
 ---
 
