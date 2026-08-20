@@ -3,11 +3,17 @@
   <object class="AdwShortcutsDialog" id="shortcuts_dialog">
     <child>
       <object class="AdwShortcutsSection">
-        <property name="title" translatable="yes">Application</property>
+        <property name="title" translatable="yes">General</property>
         <child>
           <object class="AdwShortcutsItem">
             <property name="title" translatable="yes" context="shortcut window">Show Shortcuts</property>
             <property name="action-name">app.shortcuts</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes" context="shortcut window">Show Preferences</property>
+            <property name="action-name">app.preferences</property>
           </object>
         </child>
         <child>
@@ -22,46 +28,17 @@
             <property name="accelerator">Escape</property>
           </object>
         </child>
-        <child>
-          <object class="AdwShortcutsItem">
-            <property name="title" translatable="yes" context="shortcut window">Generate Schedule</property>
-            <property name="accelerator">G</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="AdwShortcutsSection">
-        <property name="title" translatable="yes">Navigation</property>
-        <child>
-          <object class="AdwShortcutsItem">
-            <property name="title" translatable="yes" context="shortcut window">Go To Data Page</property>
-            <property name="accelerator">&lt;Primary&gt;1</property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwShortcutsItem">
-            <property name="title" translatable="yes" context="shortcut window">Go To Courses Page</property>
-            <property name="accelerator">&lt;Primary&gt;2</property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwShortcutsItem">
-            <property name="title" translatable="yes" context="shortcut window">Go To Filters Page</property>
-            <property name="accelerator">&lt;Primary&gt;3</property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwShortcutsItem">
-            <property name="title" translatable="yes" context="shortcut window">Go To Tuning Page</property>
-            <property name="accelerator">&lt;Primary&gt;4</property>
-          </object>
-        </child>
       </object>
     </child>
     <child>
       <object class="AdwShortcutsSection">
         <property name="title" translatable="yes">Schedule View</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes" context="shortcut window">Generate Schedule</property>
+            <property name="accelerator">&lt;Primary&gt;G</property>
+          </object>
+        </child>
         <child>
           <object class="AdwShortcutsItem">
             <property name="title" translatable="yes" context="shortcut window">Previous Schedule</property>
@@ -76,8 +53,20 @@
         </child>
         <child>
           <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes" context="shortcut window">Previous Favorite</property>
+            <property name="accelerator">&lt;Shift&gt;Left</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="title" translatable="yes" context="shortcut window">Next Favorite</property>
+            <property name="accelerator">&lt;Shift&gt;Right</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
             <property name="title" translatable="yes" context="shortcut window">Toggle Side Bar</property>
-            <property name="accelerator">S</property>
+            <property name="accelerator">&lt;Primary&gt;S</property>
           </object>
         </child>
         <child>

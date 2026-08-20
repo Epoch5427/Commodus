@@ -39,16 +39,33 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/user-attachments/assets/ee305416-858a-444f-8a72-337be3f5bc88</image>
+      <image>https://github.com/user-attachments/assets/66840e83-5f38-4cd4-985c-9ec6ccba78f3</image>
       <caption>Interactive timeline showing a generated schedule with detailed course overlays.</caption>
     </screenshot>
     <screenshot>
-      <image>https://github.com/user-attachments/assets/a34d1051-1717-499a-a695-3a8a391e1836</image>
+      <image>https://github.com/user-attachments/assets/9c98398b-84ef-47df-9e94-3c36f98b7ba9</image>
       <caption>Granular constraint filtering, including day exclusions and time boundaries.</caption>
     </screenshot>
   </screenshots>
 
     <releases>
+      <release version="0.9.7" date="2026-08-19">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.7</url>
+      <description translate="no">
+        <p>Major UI Redesign and Code Cleanup</p>
+        <ul>
+          <li>Redesigned the UI so that it's a lot more intuitive</li>
+          <li>Removed a lot of now redundant code resulting in the same functionality for about 40% less code</li>
+          <li>Added the ability to retry connection to the database if it fails</li>
+          <li>Now using Gsettings rather than saving data in a JSON file</li>
+          <li>Added the ability to favorite schedules so you can quickly switch between schedules that catch your eye</li>
+          <li>Added color coding to different courses</li>
+          <li>Added a simple stats counter at the top left of the schedule view</li>
+          <li>It is now possible to inclusively filter by multiple instructors</li>
+          <li>The scheduling engine now diagnoses which courses or tight constraints resulted in no schedules generated</li>
+        </ul>
+      </description>
+    </release>
       <release version="0.9.6" date="2026-08-18">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.6</url>
       <description translate="no">

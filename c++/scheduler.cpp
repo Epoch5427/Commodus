@@ -61,7 +61,8 @@ struct Constraints
     int gapEndTime = -1;
     int gapDay = 0; // 0 = All Days, 1 = Sun, 2 = Mon...
 
-    std::map<std::string, std::string> preferredInstructors;
+    // CHANGED: string -> vector<string> to allow multiple whitelist instructors
+    std::map<std::string, std::vector<std::string>> preferredInstructors;
     bool filterZeroSeats = false;
     std::map<std::string, std::set<std::string>> specificSections;
 };
@@ -326,15 +327,20 @@ bool meetsInstructorPreference(const std::vector<Meeting> &pack, const Constrain
     const std::string &courseCode = pack.front().course;
     if (constraints.preferredInstructors.count(courseCode))
     {
-        const std::string &preferredInstructor = constraints.preferredInstructors.at(courseCode);
-        std::string upperPreferred = preferredInstructor;
-        transform(upperPreferred.begin(), upperPreferred.end(), upperPreferred.begin(), ::toupper);
+        const auto &preferredList = constraints.preferredInstructors.at(courseCode);
+        if (preferredList.empty())
+            return true;
 
         for (const auto &m : pack) {
             std::string actualInstructor = m.instructor;
             transform(actualInstructor.begin(), actualInstructor.end(), actualInstructor.begin(), ::toupper);
-            if (actualInstructor.find(upperPreferred) != std::string::npos)
-                return true;
+
+            for (const auto &pref : preferredList) {
+                std::string upperPref = pref;
+                transform(upperPref.begin(), upperPref.end(), upperPref.begin(), ::toupper);
+                if (actualInstructor.find(upperPref) != std::string::npos)
+                    return true;
+            }
         }
         return false;
     }
@@ -615,7 +621,8 @@ int main(int argc, char* argv[]) {
                 if (colon_pos != std::string::npos) {
                     std::string course = pair.substr(0, colon_pos);
                     std::string inst = pair.substr(colon_pos + 1);
-                    constraints.preferredInstructors[course] = inst;
+                    // CHANGED: push_back instead of assigning
+                    constraints.preferredInstructors[course].push_back(inst);
                 }
             }
         } else if (arg == "--specific-sections" && i + 1 < argc) {

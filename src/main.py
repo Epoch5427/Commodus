@@ -38,7 +38,7 @@ class CommodusApplication(Adw.Application):
                          resource_base_path='/io/github/Epoch5427/Commodus')
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
-        self.create_action('preferences', self.on_preferences_action)
+        self.create_action('preferences', self.on_preferences_action, ['<primary>comma'])
 
     def do_activate(self):
         """Called when the application is activated.
@@ -56,7 +56,7 @@ class CommodusApplication(Adw.Application):
         about = Adw.AboutDialog(application_name='Commodus',
                                 application_icon='io.github.Epoch5427.Commodus',
                                 developer_name='Epoch',
-                                version='0.9.6',
+                                version='0.9.7',
                                 developers=['Epoch'],
                                 copyright='© 2026 Epoch')
         # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.

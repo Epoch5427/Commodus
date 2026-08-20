@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="commodus">
-	<schema id="io.github.Epoch5427.Commodus" path="/io/github/Epoch5427/Commodus/">
-	</schema>
+  <schema id="io.github.Epoch5427.Commodus" path="/io/github/Epoch5427/Commodus/">
+
+    <!-- Dynamic / Course State -->
+    <key name="selected-courses" type="as">
+      <default>[]</default>
+      <summary>Selected Courses</summary>
+      <description>List of selected course codes.</description>
+    </key>
+
+    <key name="course-preferences" type="s">
+      <default>'{}'</default>
+      <summary>Course Preferences</summary>
+      <description>Serialized JSON of instructor/section preferences.</description>
+    </key>
+
+    <!-- Constraints -->
+    <key name="time-enabled" type="b">
+      <default>false</default>
+      <summary>Time boundary enabled</summary>
+    </key>
+    <key name="start-hours" type="i">
+      <default>0</default>
+      <summary>Start time hour</summary>
+    </key>
+    <key name="start-minutes" type="i">
+      <default>0</default>
+      <summary>Start time minute</summary>
+    </key>
+    <key name="end-hours" type="i">
+      <default>23</default>
+      <summary>End time hour</summary>
+    </key>
+    <key name="end-minutes" type="i">
+      <default>59</default>
+      <summary>End time minute</summary>
+    </key>
+
+    <!-- Gap Constraint -->
+    <key name="gap-enabled" type="b">
+      <default>false</default>
+      <summary>Gap constraint enabled</summary>
+    </key>
+    <key name="gap-day" type="i">
+      <default>0</default>
+      <summary>Gap day index</summary>
+    </key>
+    <key name="gap-start-hours" type="i">
+      <default>0</default>
+      <summary>Gap start hour</summary>
+    </key>
+    <key name="gap-start-minutes" type="i">
+      <default>0</default>
+      <summary>Gap start minute</summary>
+    </key>
+    <key name="gap-end-hours" type="i">
+      <default>0</default>
+      <summary>Gap end hour</summary>
+    </key>
+    <key name="gap-end-minutes" type="i">
+      <default>0</default>
+      <summary>Gap end minute</summary>
+    </key>
+
+    <!-- Optimization & Toggles -->
+    <key name="exclude-full" type="b">
+      <default>true</default>
+      <summary>Exclude full classes</summary>
+    </key>
+    <key name="tuner" type="i">
+      <default>0</default>
+      <summary>Primary optimization metric index</summary>
+    </key>
+    <key name="sec-tuner" type="i">
+      <default>0</default>
+      <summary>Secondary optimization metric index</summary>
+    </key>
+
+    <!-- App Preferences -->
+    <key name="dark-mode" type="b">
+      <default>false</default>
+      <summary>Force dark mode</summary>
+    </key>
+    <key name="wrap-mode" type="b">
+      <default>false</default>
+      <summary>Wrap schedule cycling</summary>
+    </key>
+    <key name="local-load" type="b">
+      <default>false</default>
+      <summary>Enable local JSON picker</summary>
+    </key>
+
+    <!-- Excluded Days -->
+    <key name="checksun" type="b"><default>false</default></key>
+    <key name="checkmon" type="b"><default>false</default></key>
+    <key name="checktue" type="b"><default>false</default></key>
+    <key name="checkwed" type="b"><default>false</default></key>
+    <key name="checkthu" type="b"><default>false</default></key>
+    <key name="checkfri" type="b"><default>false</default></key>
+    <key name="checksat" type="b"><default>false</default></key>
+
+  </schema>
 </schemalist>
