@@ -10,18 +10,12 @@
 #include <stdexcept>
 #include <numeric>
 #include <filesystem>
+#include <sstream>
 
-// Include the downloaded JSON library header
 #include "json.hpp"
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
-
-// ===================================================================================
-//
-// SECTION 1: CORE SCHEDULING LOGIC
-//
-// ===================================================================================
 
 struct Meeting
 {
@@ -56,41 +50,49 @@ struct Constraints
     int maxEndTime = 24 * 60;
     int minStartTime = 0;
 
-    // Gap time constraint variables
     int gapStartTime = -1;
     int gapEndTime = -1;
-    int gapDay = 0; // 0 = All Days, 1 = Sun, 2 = Mon...
+    int gapDay = 0;
 
-    // CHANGED: string -> vector<string> to allow multiple whitelist instructors
     std::map<std::string, std::vector<std::string>> preferredInstructors;
     bool filterZeroSeats = false;
     std::map<std::string, std::set<std::string>> specificSections;
 };
 
-// JSON serialization for Meeting and ScheduleResult
-void to_json(json& j, const Meeting& m) {
-    j = json{
-        {"course", m.course},
-        {"type", m.type},
-        {"id", m.id},
-        {"location", m.location},
-        {"instructor", m.instructor},
-        {"day", m.day},
-        {"start", m.start},
-        {"end", m.end},
-        {"seats", m.seats}
-    };
+inline void writeJsonString(std::ostream &os, const std::string &s) {
+    os << '"';
+    for (char c : s) {
+        if (c == '"') os << "\\\"";
+        else if (c == '\\') os << "\\\\";
+        else if (c == '\b') os << "\\b";
+        else if (c == '\f') os << "\\f";
+        else if (c == '\n') os << "\\n";
+        else if (c == '\r') os << "\\r";
+        else if (c == '\t') os << "\\t";
+        else os << c;
+    }
+    os << '"';
 }
 
-void to_json(json& j, const ScheduleResult& r) {
-    j = json{
-        {"meetings", r.meetings},
-        {"numDays", r.numDays},
-        {"totalGapMinutes", r.totalGapMinutes},
-        {"maxDailyClasses", r.maxDailyClasses},
-        {"timeConsistencyScore", r.timeConsistencyScore},
-        {"score", r.score}
-    };
+// Emits format: <score>\t[ [course, type, id, loc, inst, day, start, end, seats], ... ]\n
+void outputSchedule(const ScheduleResult &r) {
+    std::cout << r.score << '\t' << '[';
+    for (size_t i = 0; i < r.meetings.size(); ++i) {
+        const auto &m = r.meetings[i];
+        if (i > 0) std::cout << ',';
+        std::cout << '[';
+        writeJsonString(std::cout, m.course);
+        std::cout << ',';
+        writeJsonString(std::cout, m.type);
+        std::cout << ',';
+        writeJsonString(std::cout, m.id);
+        std::cout << ',';
+        writeJsonString(std::cout, m.location);
+        std::cout << ',';
+        writeJsonString(std::cout, m.instructor);
+        std::cout << ',' << m.day << ',' << m.start << ',' << m.end << ',' << m.seats << ']';
+    }
+    std::cout << "]\n";
 }
 
 int parseTime(const std::string &timeStr)
@@ -137,18 +139,10 @@ int parseTime(const std::string &timeStr)
     }
 }
 
-std::string toHHMM(int minutes)
-{
-    if (minutes < 0)
-        return "TBD";
-    int hh = (minutes / 60) % 24;
-    int mm = minutes % 60;
-    char buf[6];
-    snprintf(buf, sizeof(buf), "%02d:%02d", hh, mm);
-    return std::string(buf);
-}
-
-std::map<std::string, int> dayStringToInt = {{"SUNDAY", 1}, {"MONDAY", 2}, {"TUESDAY", 3}, {"WEDNESDAY", 4}, {"THURSDAY", 5}, {"FRIDAY", 6}, {"SATURDAY", 7}};
+std::map<std::string, int> dayStringToInt = {
+    {"SUNDAY", 1}, {"MONDAY", 2}, {"TUESDAY", 3}, {"WEDNESDAY", 4},
+    {"THURSDAY", 5}, {"FRIDAY", 6}, {"SATURDAY", 7}
+};
 
 std::vector<Meeting> parseMeetings(const std::string &courseCode, const json &sectionJson)
 {
@@ -313,7 +307,7 @@ std::vector<Course> loadCoursesFromJson(const std::string &filename)
     return courses;
 }
 
-bool conflict(const Meeting &a, const Meeting &b)
+inline bool conflict(const Meeting &a, const Meeting &b)
 {
     if (a.day != b.day || a.day == 0)
         return false;
@@ -385,7 +379,6 @@ double calculateStdDev(const std::vector<int> &v)
     return sqrt(sq_sum / v.size() - mean * mean);
 }
 
-// Retrieves the numeric value of the metric
 double getMetricScore(const ScheduleResult& r, const std::string& metric) {
     if (metric == "few-days") return r.numDays;
     if (metric == "compact") return r.totalGapMinutes;
@@ -444,13 +437,8 @@ void calculateScheduleMetrics(ScheduleResult &result, const std::string &opt_met
     }
     result.timeConsistencyScore = calculateStdDev(startTimes) + calculateStdDev(endTimes);
 
-    // COMPOSITE TIE-BREAKER SCORE
     double primary = getMetricScore(result, opt_metric);
     double secondary = getMetricScore(result, sec_metric);
-
-    // We divide the secondary metric by a large number (1,000,000) so it becomes a tiny decimal fraction.
-    // This strictly ensures the primary metric dictates the main sorting order, while the secondary
-    // metric cleanly resolves any ties (e.g. 3 Days with 500 Gaps = 3.005, 3 Days with 0 Gaps = 3.000).
     result.score = primary + (secondary / 1000000.0);
 }
 
@@ -461,9 +449,7 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
         ScheduleResult r;
         r.meetings = chosen;
         calculateScheduleMetrics(r, opt_metric, sec_metric);
-        json j = r;
-        std::cout << j.dump() << "\n";
-        std::cout.flush();
+        outputSchedule(r);
         return;
     }
     const Course &course = courses[idx];
@@ -567,6 +553,9 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
 }
 
 int main(int argc, char* argv[]) {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
     std::string json_file;
     std::set<std::string> selected_course_names;
     Constraints constraints;
@@ -597,14 +586,12 @@ int main(int argc, char* argv[]) {
             constraints.minStartTime = parseTime(argv[++i]);
         } else if (arg == "--end-time" && i + 1 < argc) {
             constraints.maxEndTime = parseTime(argv[++i]);
-
         } else if (arg == "--gap-start" && i + 1 < argc) {
             constraints.gapStartTime = parseTime(argv[++i]);
         } else if (arg == "--gap-end" && i + 1 < argc) {
             constraints.gapEndTime = parseTime(argv[++i]);
         } else if (arg == "--gap-day" && i + 1 < argc) {
             constraints.gapDay = std::stoi(argv[++i]);
-
         } else if (arg == "--exclude-full" && i + 1 < argc) {
             std::string val = argv[++i];
             constraints.filterZeroSeats = (val == "true");
@@ -621,7 +608,6 @@ int main(int argc, char* argv[]) {
                 if (colon_pos != std::string::npos) {
                     std::string course = pair.substr(0, colon_pos);
                     std::string inst = pair.substr(colon_pos + 1);
-                    // CHANGED: push_back instead of assigning
                     constraints.preferredInstructors[course].push_back(inst);
                 }
             }
@@ -656,6 +642,7 @@ int main(int argc, char* argv[]) {
 
         std::vector<Meeting> chosen;
         backtrack(courses_to_schedule, 0, chosen, constraints, opt_metric, sec_metric);
+        std::cout.flush();
 
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;

@@ -49,6 +49,19 @@
   </screenshots>
 
     <releases>
+      <release version="0.9.8" date="2026-08-21">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.8</url>
+      <description translate="no">
+        <p>Edge Case Optimizations</p>
+        <ul>
+          <li>Optimized the code to better handle extreme combination counts (400K+)</li>
+          <li>Reduced memory usage by up to 83% in some extreme cases</li>
+          <li>Redesigned the compare and reschedule popup to better align with the recent redesign</li>
+          <li>Redesigned the import schedule popup to better align with the recent redesign</li>
+          <li>Added back the network status indicator lost with the redesign</li>
+        </ul>
+      </description>
+    </release>
       <release version="0.9.7" date="2026-08-19">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.7</url>
       <description translate="no">
