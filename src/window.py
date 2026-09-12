@@ -1,3 +1,6 @@
+#TODO Loading saved sections loads 01A for both tutorials and labs even when only 1 was selected
+#TODO Bring back the two column instructor schedule block design with first and last name trimming
+#TODO Rework the theme selector to be more modern (reference gnome text editor)
 from gi.repository import Adw, Gtk, Gio, GLib, Gdk, Pango, GObject
 import json
 import re
@@ -104,6 +107,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.json_path = None
         self._is_generating = False
         self._net_hide_timer_id = None
+        self._active_toasts = set()
 
         self.major_keys = []
         self.semester_keys = []
@@ -112,7 +116,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         self._next_long_pressed = False
         self._prev_long_pressed = False
 
-        # Setup ListBox Empty Placeholder
         placeholder = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
         placeholder.set_margin_top(16)
         placeholder.set_margin_bottom(16)
@@ -140,11 +143,10 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.wrap_switch.connect("notify::active", lambda *_: self._update_navigation_buttons())
         self.delete_save.connect("activated", self._on_delete_save_clicked)
         self.fpickerbutton.connect("clicked", self.open_json)
-        self.local_load_switch.connect("notify::active", lambda sw, *_: self.fpickerbutton.set_sensitive(sw.get_active()))
+        self.local_load_switch.connect("notify::enable-expansion", lambda sw, *_: self.fpickerbutton.set_sensitive(sw.get_enable_expansion()))
 
         self.fav_btn.connect("clicked", self.on_toggle_favorite_clicked)
 
-        # Attach Long Press Gestures to navigation buttons
         next_gesture = Gtk.GestureLongPress.new()
         next_gesture.connect("pressed", self._on_next_btn_long_pressed)
         self.next_btn.add_controller(next_gesture)
@@ -203,24 +205,20 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.net_status_stack.set_margin_end(6)
         self.net_status_stack.set_visible(False)
 
-        # 1. Spinner View
         self.net_spinner = Gtk.Spinner()
         self.net_spinner.set_size_request(16, 16)
         self.net_status_stack.add_named(self.net_spinner, "spinner")
 
-        # 2. Success View (circle-checkmark-symbolic)
         self.net_success_icon = Gtk.Image.new_from_icon_name("circle-checkmark-symbolic")
         self.net_success_icon.add_css_class("success")
         self.net_status_stack.add_named(self.net_success_icon, "success")
 
-        # 3. Error View (circle-x-symbolic)
         self.net_error_icon = Gtk.Image.new_from_icon_name("cross-large-circle-outline-symbolic")
         self.net_error_icon.add_css_class("error")
         self.net_status_stack.add_named(self.net_error_icon, "error")
 
         header_bar = self._find_header_bar()
         if header_bar:
-            # pack_end places it directly to the left of the hamburger menu
             header_bar.pack_end(self.net_status_stack)
 
     def _show_net_status_spinning(self):
@@ -271,7 +269,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         try:
             meetings_raw = json.loads(raw_data)
             if isinstance(meetings_raw, list):
-                # Compact array format: [[course, type, id, loc, inst, day, start, end, seats], ...]
                 meetings = [
                     {
                         "course": m[0],
@@ -336,9 +333,9 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         b("dark-mode", self.dm_switch, "active", flags)
         b("wrap-mode", self.wrap_switch, "active", flags)
-        b("local-load", self.local_load_switch, "active", flags)
+        b("local-load", self.local_load_switch, "enable-expansion", flags)
 
-        self.fpickerbutton.set_sensitive(self.local_load_switch.get_active())
+        self.fpickerbutton.set_sensitive(self.local_load_switch.get_enable_expansion())
 
     def _load_saved_courses_and_preferences(self):
         self._saved_selected_courses = set(self.settings.get_strv("selected-courses"))
@@ -507,9 +504,27 @@ class CommodusWindow(Adw.ApplicationWindow):
         time_window = f"{self._format_time(stats['earliest_start'])} – {self._format_time(stats['latest_end'])}"
         self.stat_time_window_row.set_subtitle(time_window)
 
-    def show_toast(self, text, timeout=1):
+    def dismiss_toasts(self):
+        """Dismisses all visible and queued toasts."""
+        if hasattr(self.toast_overlay, "dismiss_all"):
+            try:
+                self.toast_overlay.dismiss_all()
+            except Exception:
+                pass
+        for toast in list(self._active_toasts):
+            try:
+                toast.dismiss()
+            except Exception:
+                pass
+        self._active_toasts.clear()
+
+    def show_toast(self, text, timeout=1, dismiss_existing=False):
+        if dismiss_existing:
+            self.dismiss_toasts()
         toast = Adw.Toast.new(text)
         toast.set_timeout(timeout)
+        self._active_toasts.add(toast)
+        toast.connect("dismissed", lambda t: self._active_toasts.discard(t))
         self.toast_overlay.add_toast(toast)
 
     def _on_banner_retry(self, _banner):
@@ -775,7 +790,9 @@ class CommodusWindow(Adw.ApplicationWindow):
             lec_instructors = set()
             lab_instructors = set()
             tut_instructors = set()
-            sections = set()
+            lec_sections = set()
+            lab_sections = set()
+            tut_sections = set()
 
             for sec in sections_list:
                 inst = sec.get("instructor")
@@ -787,16 +804,20 @@ class CommodusWindow(Adw.ApplicationWindow):
                     elif subtype == "Lab": lab_instructors.add(inst)
                     elif subtype == "Tutorial": tut_instructors.add(inst)
 
-                if subtype == "Lecture" and s_id:
-                    sections.add(s_id)
+                if s_id:
+                    if subtype == "Lecture": lec_sections.add(s_id)
+                    elif subtype == "Lab": lab_sections.add(s_id)
+                    elif subtype == "Tutorial": tut_sections.add(s_id)
 
             lec_inst_list = sorted(list(lec_instructors))
             lab_inst_list = sorted(list(lab_instructors))
             tut_inst_list = sorted(list(tut_instructors))
-            sec_list = sorted(list(sections))
+            lec_sec_list = sorted(list(lec_sections))
+            lab_sec_list = sorted(list(lab_sections))
+            tut_sec_list = sorted(list(tut_sections))
 
             has_instructors = len(lec_inst_list) > 1 or len(lab_inst_list) > 1 or len(tut_inst_list) > 1
-            has_sections = len(sec_list) > 1
+            has_sections = len(lec_sec_list) > 1 or len(lab_sec_list) > 1 or len(tut_sec_list) > 1
 
             menubutton = Gtk.MenuButton()
             menubutton.set_valign(Gtk.Align.CENTER)
@@ -808,6 +829,14 @@ class CommodusWindow(Adw.ApplicationWindow):
             if saved_pref.get("type") == "Instructor":
                 val = saved_pref.get("value", [])
                 saved_inst_set = set(val) if isinstance(val, list) else ({val} if val else set())
+
+            saved_sec_set = set()
+            if saved_pref.get("type") == "Section":
+                val = saved_pref.get("value", [])
+                saved_sec_set = set(val) if isinstance(val, list) else ({val} if val else set())
+
+            inst_checkbox_map = {}
+            sec_checkbox_map = {}
 
             if not has_instructors and not has_sections:
                 menubutton.set_visible(False)
@@ -844,8 +873,6 @@ class CommodusWindow(Adw.ApplicationWindow):
 
                 stack.add_titled(none_vbox, "none", "Any")
                 stack.get_page(none_vbox).set_icon_name("action-unavailable-symbolic")
-
-                inst_checkbox_map = {}
 
                 def on_inst_toggled(_btn, c=course_code, mb=menubutton, stk=stack, hnb=hidden_none_btn, icm=inst_checkbox_map):
                     checked = [name for name, cb in icm.items() if cb.get_active()]
@@ -905,25 +932,68 @@ class CommodusWindow(Adw.ApplicationWindow):
                     stack.add_titled(sec_scroll, "sections", "Sections")
                     stack.get_page(sec_scroll).set_icon_name("view-list-symbolic")
 
-                    lbl = Gtk.Label(label="<b>Sections</b>", use_markup=True, halign=Gtk.Align.START)
-                    lbl.add_css_class("dim-label")
-                    sec_vbox.append(lbl)
+                    def on_sec_toggled(btn, s_val, s_type, c=course_code, mb=menubutton, stk=stack, hnb=hidden_none_btn, scm=sec_checkbox_map, lsl=lec_sec_list):
 
-                    def on_sec_toggled(btn, s_val, c=course_code, mb=menubutton, icm=inst_checkbox_map):
-                        if btn.get_active():
-                            for cb in icm.values():
-                                cb.set_active(False)
-                            self.course_preferences[c] = {"type": "Section", "value": s_val}
+                        # Extract the prefixes currently active per category
+                        lec_p = {re.match(r'^\d+', sv).group(0).lstrip("0") or "0" for (st, sv), cb in scm.items() if st == "Lecture" and cb.get_active()}
+                        lab_p = {re.match(r'^\d+', sv).group(0).lstrip("0") or "0" for (st, sv), cb in scm.items() if st == "Lab" and cb.get_active()}
+                        tut_p = {re.match(r'^\d+', sv).group(0).lstrip("0") or "0" for (st, sv), cb in scm.items() if st == "Tutorial" and cb.get_active()}
+
+                        # Apply strict cross-category restrictions
+                        for (st, sv), cb in scm.items():
+                            prefix = re.match(r'^\d+', sv).group(0).lstrip("0") or "0"
+                            is_valid = True
+
+                            if st == "Lecture":
+                                if lab_p and prefix not in lab_p: is_valid = False
+                                if tut_p and prefix not in tut_p: is_valid = False
+                            elif st == "Lab":
+                                if lec_p and prefix not in lec_p: is_valid = False
+                                if tut_p and prefix not in tut_p: is_valid = False
+                            elif st == "Tutorial":
+                                if lec_p and prefix not in lec_p: is_valid = False
+                                if lab_p and prefix not in lab_p: is_valid = False
+
+                            # A checked box always overrides and remains sensitive so it can be manually unchecked to escape states
+                            if cb.get_active():
+                                is_valid = True
+
+                            cb.set_sensitive(is_valid)
+
+                        checked = list({sec_val for (sec_type, sec_val), cb in scm.items() if cb.get_active()})
+                        if checked:
+                            hnb.set_active(True)
+                            self.course_preferences[c] = {"type": "Section", "value": checked}
                             mb.set_icon_name("funnel-symbolic")
-                            self._save_courses_and_preferences()
+                        else:
+                            self.course_preferences[c] = {"type": "Neither", "value": ""}
+                            if stk.get_visible_child_name() == "sections":
+                                mb.set_icon_name("funnel-outline-symbolic")
+                        self._save_courses_and_preferences()
 
-                    for sec in sec_list:
-                        sec_label = Gtk.Label(label=sec, ellipsize=Pango.EllipsizeMode.END, max_width_chars=20, xalign=0)
-                        btn = Gtk.CheckButton(child=sec_label, group=hidden_none_btn)
-                        btn.connect("toggled", on_sec_toggled, sec)
-                        sec_vbox.append(btn)
-                        if saved_pref.get("type") == "Section" and saved_pref.get("value") == sec:
-                            btn.set_active(True)
+                    def append_section_group(title, sec_list_group, subtype):
+                        if len(sec_list_group) <= 1: return
+
+                        if sec_vbox.get_first_child() is not None:
+                            sec_vbox.append(Gtk.Separator(margin_top=4, margin_bottom=4))
+
+                        lbl = Gtk.Label(label=f"<b>{title}</b>", use_markup=True, halign=Gtk.Align.START)
+                        lbl.add_css_class("dim-label")
+                        sec_vbox.append(lbl)
+
+                        for sec in sec_list_group:
+                            sec_label = Gtk.Label(label=sec, ellipsize=Pango.EllipsizeMode.END, max_width_chars=20, xalign=0)
+                            btn = Gtk.CheckButton(child=sec_label)
+                            sec_checkbox_map[(subtype, sec)] = btn
+                            btn.connect("toggled", on_sec_toggled, sec, subtype)
+                            sec_vbox.append(btn)
+                            if sec in saved_sec_set:
+                                btn.set_active(True)
+
+                    append_section_group("Lecture Sections", lec_sec_list, "Lecture")
+                    append_section_group("Lab Sections", lab_sec_list, "Lab")
+                    append_section_group("Tutorial Sections", tut_sec_list, "Tutorial")
+
 
                 if saved_pref.get("type") == "Neither":
                     hidden_none_btn.set_active(True)
@@ -936,17 +1006,21 @@ class CommodusWindow(Adw.ApplicationWindow):
                     menubutton.set_icon_name("funnel-symbolic")
                     stack.set_visible_child_name("sections")
 
-                def on_stack_page_changed(stk, _param, c=course_code, mb=menubutton, hnb=hidden_none_btn, icm=inst_checkbox_map):
+                def on_stack_page_changed(stk, _param, c=course_code, mb=menubutton, hnb=hidden_none_btn, icm=inst_checkbox_map, scm=sec_checkbox_map):
                     page = stk.get_visible_child_name()
                     if page == "none":
                         hnb.set_active(True)
                         for cb in icm.values():
+                            cb.set_active(False)
+                        for cb in scm.values():
                             cb.set_active(False)
                         self.course_preferences[c] = {"type": "Neither", "value": ""}
                         mb.set_icon_name("funnel-outline-symbolic")
                         self._save_courses_and_preferences()
                     elif page == "instructors":
                         hnb.set_active(True)
+                        for cb in scm.values():
+                            cb.set_active(False)
                         checked = [name for name, cb in icm.items() if cb.get_active()]
                         if checked:
                             self.course_preferences[c] = {"type": "Instructor", "value": checked}
@@ -958,8 +1032,12 @@ class CommodusWindow(Adw.ApplicationWindow):
                     elif page == "sections":
                         for cb in icm.values():
                             cb.set_active(False)
-                        pref = self.course_preferences.get(c, {})
-                        if pref.get("type") != "Section" or not pref.get("value"):
+                        checked = list({sec_val for (sec_type, sec_val), cb in scm.items() if cb.get_active()})
+                        if checked:
+                            self.course_preferences[c] = {"type": "Section", "value": checked}
+                            mb.set_icon_name("funnel-symbolic")
+                        else:
+                            self.course_preferences[c] = {"type": "Neither", "value": ""}
                             mb.set_icon_name("funnel-outline-symbolic")
                         self._save_courses_and_preferences()
 
@@ -1026,7 +1104,13 @@ class CommodusWindow(Adw.ApplicationWindow):
                 elif isinstance(val, str) and val:
                     pref_insts.append(f"{c}:{val}")
             elif pref and pref.get("type") == "Section" and pref.get("value"):
-                pref_secs.append(f"{c}:{pref['value']}")
+                val = pref['value']
+                if isinstance(val, list):
+                    for sec in val:
+                        if sec:
+                            pref_secs.append(f"{c}:{sec}")
+                elif val:
+                    pref_secs.append(f"{c}:{val}")
 
         if pref_insts: cmd.extend(['--preferred-instructors', "|".join(pref_insts)])
         if pref_secs: cmd.extend(['--specific-sections', "|".join(pref_secs)])
@@ -1122,7 +1206,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             if not line:
                 continue
             try:
-                # Ultra-fast split on tab: <score>\t<raw_data_string>
                 if '\t' in line:
                     score_str, raw_data = line.split('\t', 1)
                     all_schedules.append((float(score_str), raw_data))
@@ -1132,12 +1215,11 @@ class CommodusWindow(Adw.ApplicationWindow):
                 continue
 
             now = time.time()
-            if now - last_ui_update > 0.12:  # ~8 UI syncs per second
+            if now - last_ui_update > 0.12:
                 count = len(all_schedules)
                 is_live_sorting = count <= LIVE_SORT_THRESHOLD
                 top_changed = False
 
-                # Live sorting during the first 10K results
                 if is_live_sorting and count > 0:
                     old_top = all_schedules[0] if has_shown_first else None
                     all_schedules.sort(key=lambda s: s[0])
@@ -1155,7 +1237,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         ret_code = self.generation_process.returncode
         stderr = self.generation_process.stderr.read()
 
-        # Final complete sort on background thread (~15ms for 400,000 items)
         all_schedules.sort(key=lambda s: s[0])
 
         GLib.idle_add(self._on_generation_complete, ret_code, stderr, all_schedules)
@@ -1164,13 +1245,11 @@ class CommodusWindow(Adw.ApplicationWindow):
         if not self._is_generating:
             return False
 
-        # Live visual updates (re-drawing top schedule when a better score arrives)
         if top_changed and self.current_schedule_idx == 0:
             self.draw_schedule_index(0)
         elif not self.schedule.get_visible() and count > 0:
             self.draw_schedule_index(0)
 
-        # Dynamic counter update showing active mode
         gen_status = "" if is_live_sorting else "(Sorting Paused)"
         if self.schedule.get_visible():
             self.schedule_counter_label.set_text(
@@ -1184,15 +1263,37 @@ class CommodusWindow(Adw.ApplicationWindow):
 
     def _on_generation_complete(self, ret_code, stderr, all_schedules):
         self._is_generating = False
-        self.schedules = all_schedules
 
         if ret_code != 0:
+            self.schedules = all_schedules
             self.show_error_dialog(f"Error running scheduler: {stderr}")
             self.schedule_status.set_title("Generation Failed")
             self.schedule_status.set_description("An error occurred during calculation.")
             self.schedule_status.set_icon_name("dialog-error-symbolic")
             self.schedule_counter_label.set_text("Failed")
             return
+
+        # Python-side reordering to boost exact imported schedule to Index 0
+        if all_schedules and hasattr(self, 'imported_exact_match') and self.imported_exact_match:
+            exact_match_idx = -1
+            for idx, (score, raw_data) in enumerate(all_schedules):
+                try:
+                    meetings = json.loads(raw_data)
+                    # C++ returns meetings as arrays: [course, type, id, location, instructor, day, start, end, seats]
+                    current_pairs = {f"{m[0]}:{m[2]}" for m in meetings}
+                    if self.imported_exact_match.issubset(current_pairs):
+                        exact_match_idx = idx
+                        break
+                except Exception:
+                    continue
+
+            if exact_match_idx != -1:
+                exact_item = all_schedules.pop(exact_match_idx)
+                all_schedules.insert(0, exact_item)
+
+            self.imported_exact_match = None
+
+        self.schedules = all_schedules
 
         if not self.schedules:
             self.draw_schedule_index(0)
@@ -1458,10 +1559,37 @@ class CommodusWindow(Adw.ApplicationWindow):
                 p_key = p_match.group(0) if p_match else sec_id
                 tutorials.setdefault(p_key, []).append(meetings)
 
+        def resolve_sections_for_lecture(section_dict, lec_id_str):
+            if not section_dict:
+                return [[]]
+            if lec_id_str in section_dict:
+                return section_dict[lec_id_str]
+
+            clean_lec_num = lec_id_str.lstrip("0")
+            for k, v in section_dict.items():
+                if k.lstrip("0") == clean_lec_num:
+                    return v
+
+            lec_match = re.match(r'^\d+', lec_id_str)
+            if lec_match:
+                digits = lec_match.group(0).lstrip("0")
+                for k, v in section_dict.items():
+                    if k.lstrip("0") == digits:
+                        return v
+
+            if all(not re.match(r'^\d+', k) for k in section_dict.keys()):
+                shared = []
+                for sec_meetings in section_dict.values():
+                    shared.extend(sec_meetings)
+                return shared if shared else [[]]
+
+            return [[]]
+
         packs = []
         for lec_id, lec_meetings in lectures.items():
-            avail_labs = labs.get(lec_id, [[]])
-            avail_tuts = tutorials.get(lec_id, [[]])
+            avail_labs = resolve_sections_for_lecture(labs, lec_id)
+            avail_tuts = resolve_sections_for_lecture(tutorials, lec_id)
+
             for lab_m in avail_labs:
                 for tut_m in avail_tuts:
                     packs.append(list(lec_meetings) + list(lab_m) + list(tut_m))
@@ -1532,6 +1660,17 @@ class CommodusWindow(Adw.ApplicationWindow):
         if isinstance(pref_val, str) and pref_val:
             pref_val = [pref_val]
 
+        has_lec_pref = False
+        has_lab_pref = False
+        has_tut_pref = False
+        if pref_type == "Section" and pref_val:
+            for pack in raw_packs:
+                for m in pack:
+                    if m.get("id") in pref_val:
+                        if m.get("type") == "Lecture": has_lec_pref = True
+                        elif m.get("type") == "Lab": has_lab_pref = True
+                        elif m.get("type") == "Tutorial": has_tut_pref = True
+
         valid_packs = []
         for pack in raw_packs:
             if not ignore_prefs:
@@ -1539,7 +1678,17 @@ class CommodusWindow(Adw.ApplicationWindow):
                     if not any(any(p_inst.lower() in m.get("instructor", "").lower() for p_inst in pref_val) for m in pack):
                         continue
                 elif pref_type == "Section" and pref_val:
-                    if not any(m.get("type") == "Lecture" and m.get("id") in pref_val for m in pack):
+                    failed_pref = False
+                    if has_lec_pref:
+                        if not any(m.get("type") == "Lecture" and m.get("id") in pref_val for m in pack):
+                            failed_pref = True
+                    if has_lab_pref:
+                        if not any(m.get("type") == "Lab" and m.get("id") in pref_val for m in pack):
+                            failed_pref = True
+                    if has_tut_pref:
+                        if not any(m.get("type") == "Tutorial" and m.get("id") in pref_val for m in pack):
+                            failed_pref = True
+                    if failed_pref:
                         continue
 
             if exclude_full and any(m.get("seats", -1) == 0 for m in pack):
@@ -1564,8 +1713,21 @@ class CommodusWindow(Adw.ApplicationWindow):
             if isinstance(pval, list): return f"Instructor: {', '.join(pval)}"
             return f"Instructor: {pval}"
         elif ptype == "Section" and pval:
+            if isinstance(pval, list): return f"Section(s): {', '.join(pval)}"
             return f"Section {pval}"
         return "Any"
+
+    def _has_active_filter(self, course_code):
+        pref = self.course_preferences.get(course_code)
+        if not pref or not isinstance(pref, dict):
+            return False
+        ptype = pref.get("type")
+        pval = pref.get("value")
+        if ptype in ("Instructor", "Section"):
+            if isinstance(pval, list):
+                return any(bool(x and str(x).strip()) for x in pval)
+            return bool(pval and str(pval).strip())
+        return False
 
     def _find_pref_blocker_reason(self, course_code, raw_packs):
         pref_packs = self._filter_packs(
@@ -1574,6 +1736,10 @@ class CommodusWindow(Adw.ApplicationWindow):
         )
         if not pref_packs:
             return "is not available in the database", None
+
+        if self.ls_switch.get_active():
+            if not self._filter_packs(course_code, pref_packs, ignore_prefs=False, ignore_full=False):
+                return "is full or has no open lab/tutorial seats remaining", ("full", "")
 
         if self.gap_time.get_enable_expansion():
             if not self._filter_packs(course_code, pref_packs, ignore_prefs=False, ignore_gap=False):
@@ -1599,10 +1765,6 @@ class CommodusWindow(Adw.ApplicationWindow):
                 days_hit = {day_names.get(m["day"]) for pack in pref_packs for m in pack if m.get("day", 0) in excluded_days}
                 d_str = ", ".join(filter(None, days_hit))
                 return f"requires attending on an Excluded Day (<b>{d_str}</b>)", ("day", d_str)
-
-        if self.ls_switch.get_active():
-            if not self._filter_packs(course_code, pref_packs, ignore_prefs=False, ignore_full=False):
-                return "is completely full (0 seats remaining)", ("full", "")
 
         return "violates active constraints", None
 
@@ -1647,20 +1809,31 @@ class CommodusWindow(Adw.ApplicationWindow):
                 continue
 
             if not glob_p:
+                is_individually_categorized = False
+                if exclude_full and self._filter_packs(c, raw_p, ignore_prefs=True, ignore_full=True):
+                    full_blocked.append(c)
+                    is_individually_categorized = True
                 if time_enabled and self._filter_packs(c, raw_p, ignore_prefs=True, ignore_time=True):
                     time_blocked.append(c)
-                elif gap_enabled and self._filter_packs(c, raw_p, ignore_prefs=True, ignore_gap=True):
+                    is_individually_categorized = True
+                if gap_enabled and self._filter_packs(c, raw_p, ignore_prefs=True, ignore_gap=True):
                     gap_blocked.append(c)
-                elif has_excluded_days and self._filter_packs(c, raw_p, ignore_prefs=True, ignore_days=True):
+                    is_individually_categorized = True
+                if has_excluded_days and self._filter_packs(c, raw_p, ignore_prefs=True, ignore_days=True):
                     days_hit = {day_names.get(m["day"]) for pack in raw_p for m in pack if m.get("day", 0) in excluded_days}
                     d_str = ", ".join(filter(None, days_hit))
                     day_blocked.setdefault(d_str, []).append(c)
-                elif exclude_full and self._filter_packs(c, raw_p, ignore_prefs=True, ignore_full=True):
-                    full_blocked.append(c)
-                else:
+                    is_individually_categorized = True
+
+                if not is_individually_categorized:
                     issues.append(f"<b>{c}</b>: All sections violate active time, day, or capacity constraints.")
 
-        if time_blocked or gap_blocked or day_blocked or full_blocked:
+        if full_blocked or time_blocked or gap_blocked or day_blocked:
+            if full_blocked:
+                c_str = ", ".join(f"<b>{c}</b>" for c in full_blocked)
+                issues.append(f"<b>Full Classes:</b> All available sections (or their required labs/tutorials) of {c_str} have 0 seats remaining.")
+                suggestions_dict["full"] = "Turn off 'Exclude Full Classes' in Constraints."
+
             if time_blocked:
                 c_str = ", ".join(f"<b>{c}</b>" for c in time_blocked)
                 t_str = f"{self.start_hours.get_value_as_int():02d}:{self.start_minutes.get_value_as_int():02d}–{self.end_hours.get_value_as_int():02d}:{self.end_minutes.get_value_as_int():02d}"
@@ -1678,18 +1851,13 @@ class CommodusWindow(Adw.ApplicationWindow):
                 issues.append(f"<b>Excluded Day ({d_str}):</b> Every section of {c_str} requires attending on {d_str}.")
                 suggestions_dict[f"day_{d_str}"] = f"Un-exclude {d_str} in Constraints."
 
-            if full_blocked:
-                c_str = ", ".join(f"<b>{c}</b>" for c in full_blocked)
-                issues.append(f"<b>Full Classes:</b> All sections of {c_str} have 0 seats remaining.")
-                suggestions_dict["full"] = "Turn off 'Exclude Full Classes'."
-
             return issues, list(suggestions_dict.values())
 
         pref_self_blocked = []
         for c in selected_list:
             glob_p = unfiltered_packs[c]
             filt_p = filtered_packs[c]
-            if not filt_p and glob_p:
+            if not filt_p and glob_p and self._has_active_filter(c):
                 pref_self_blocked.append((c, self._get_pref_description(c), len(glob_p)))
 
         if pref_self_blocked:
@@ -1699,26 +1867,26 @@ class CommodusWindow(Adw.ApplicationWindow):
 
                 if blocker_tuple:
                     b_type, b_val = blocker_tuple
-                    if b_type == "gap":
+                    if b_type == "full":
+                        suggestions_dict["full"] = f"Turn off 'Exclude Full Classes' to allow {p_desc}."
+                    elif b_type == "gap":
                         suggestions_dict["gap"] = f"Adjust or disable your specified gap ({b_val}) to allow {p_desc}."
                     elif b_type == "time":
                         suggestions_dict["time"] = f"Widen or disable your Time Boundary ({b_val}) to allow {p_desc}."
                     elif b_type == "day":
                         suggestions_dict[f"day_{b_val}"] = f"Un-exclude {b_val} to allow {p_desc}."
-                    elif b_type == "full":
-                        suggestions_dict["full"] = f"Turn off 'Exclude Full Classes' to allow {p_desc}."
 
                 suggestions_dict[f"pref_{c}"] = f"Or unlock {c} to use an alternative section."
 
             return issues, list(suggestions_dict.values())
 
         can_fit_all_any = self._find_one_valid_combination([unfiltered_packs[c] for c in selected_list])
+        active_filtered_courses = [c for c in selected_list if self._has_active_filter(c)]
 
-        if can_fit_all_any:
-            filtered_courses = [c for c in selected_list if self.course_preferences.get(c, {}).get("type") != "Neither"]
+        if can_fit_all_any and active_filtered_courses:
             culprit_found = False
 
-            for c_test in filtered_courses:
+            for c_test in active_filtered_courses:
                 test_set = [unfiltered_packs[c] if c == c_test else filtered_packs[c] for c in selected_list]
                 if self._find_one_valid_combination(test_set):
                     p_desc = self._get_pref_description(c_test)
@@ -1726,10 +1894,10 @@ class CommodusWindow(Adw.ApplicationWindow):
                     suggestions_dict[f"pref_{c_test}"] = f"Unlock {c_test} (allow any section/instructor)."
                     culprit_found = True
 
-            if not culprit_found and len(filtered_courses) >= 2:
-                for i in range(len(filtered_courses)):
-                    for j in range(i + 1, len(filtered_courses)):
-                        c1, c2 = filtered_courses[i], filtered_courses[j]
+            if not culprit_found and len(active_filtered_courses) >= 2:
+                for i in range(len(active_filtered_courses)):
+                    for j in range(i + 1, len(active_filtered_courses)):
+                        c1, c2 = active_filtered_courses[i], active_filtered_courses[j]
                         test_set = [unfiltered_packs[c] if c in (c1, c2) else filtered_packs[c] for c in selected_list]
                         if self._find_one_valid_combination(test_set):
                             p1_desc = self._get_pref_description(c1)
@@ -1745,6 +1913,25 @@ class CommodusWindow(Adw.ApplicationWindow):
                 suggestions_dict["reset_all_prefs"] = "Unlock course filters to allow flexible combinations."
 
         else:
+            if exclude_full:
+                no_full_packs = [self._filter_packs(c, raw_packs_by_course[c], ignore_prefs=True, ignore_full=True) for c in selected_list]
+                if self._find_one_valid_combination(no_full_packs):
+                    culprit_courses = []
+                    for c_test in selected_list:
+                        test_set = [
+                            self._filter_packs(c, raw_packs_by_course[c], ignore_prefs=True, ignore_full=(c == c_test))
+                            for c in selected_list
+                        ]
+                        if self._find_one_valid_combination(test_set):
+                            culprit_courses.append(c_test)
+
+                    if culprit_courses:
+                        c_names = ", ".join(f"<b>{c}</b>" for c in culprit_courses)
+                        issues.append(f"<b>Full Sections on {c_names}:</b> Compatible combinations exist if full sections (or their tutorials/labs) for {c_names} are included.")
+                    else:
+                        issues.append("<b>Full Classes Blocking Schedules:</b> Remaining open sections conflict with each other. Conflict-free schedules exist if full classes (or tutorials/labs) are included.")
+                    suggestions_dict["full"] = "Turn off 'Exclude Full Classes' in Constraints."
+
             if time_enabled:
                 no_time_packs = [self._filter_packs(c, raw_packs_by_course[c], ignore_prefs=True, ignore_time=True) for c in selected_list]
                 if self._find_one_valid_combination(no_time_packs):
@@ -1767,7 +1954,18 @@ class CommodusWindow(Adw.ApplicationWindow):
 
             if not issues:
                 issues.append(f"<b>Schedule Overlap:</b> No conflict-free combination exists containing all <b>{len(selected_list)}</b> selected courses.")
-                suggestions_dict["remove_course"] = "Try deselecting 1 course or loosening time constraints."
+                sugg_actions = ["Try deselecting 1 course"]
+                if exclude_full:
+                    sugg_actions.append("turning off 'Exclude Full Classes'")
+                if time_enabled or gap_enabled or has_excluded_days:
+                    sugg_actions.append("loosening time/day constraints")
+
+                if len(sugg_actions) == 1:
+                    suggestions_dict["remove_course"] = f"{sugg_actions[0]}."
+                elif len(sugg_actions) == 2:
+                    suggestions_dict["remove_course"] = f"{sugg_actions[0]} or {sugg_actions[1]}."
+                else:
+                    suggestions_dict["remove_course"] = f"{sugg_actions[0]}, {sugg_actions[1]}, or {sugg_actions[2]}."
 
         return issues, list(suggestions_dict.values())
 
@@ -1824,6 +2022,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self._on_prev_favorite()
 
     def _on_next_favorite(self):
+        self.dismiss_toasts()
         if not self.favorites:
             self.show_toast("No favorite schedules saved")
             return
@@ -1846,6 +2045,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.show_toast("Only 1 favorite schedule saved")
 
     def _on_prev_favorite(self):
+        self.dismiss_toasts()
         if not self.favorites:
             self.show_toast("No favorite schedules saved")
             return
@@ -1917,13 +2117,14 @@ class CommodusWindow(Adw.ApplicationWindow):
         _btn.set_icon_name("object-select-symbolic")
         GLib.timeout_add(2000, lambda: _btn.set_icon_name("edit-copy-symbolic") or False)
 
-    # Compare & RESCHEDULE
+    # =========================================================================
+    # COMPARE & RESCHEDULE
+    # =========================================================================
 
     def _get_clean_course_title(self, course_code):
         sections_list = self.data.get(course_code, [])
         full_title = sections_list[0].get("fullTitle", "") if sections_list else ""
 
-        # Strip all hidden newlines (\n, \r), tabs, and multiple spaces
         full_title = re.sub(r'\s+', ' ', full_title).strip()
 
         clean_title = ""
@@ -1939,7 +2140,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         if not current_sched:
             return
 
-        # Extract strictly Lecture sections and Lecture instructors
         current_courses_data = {}
         for m in current_sched.get('meetings', []):
             c = m['course']
@@ -1953,11 +2153,10 @@ class CommodusWindow(Adw.ApplicationWindow):
             m_id = str(m.get('id', '')).strip()
             inst = m.get('instructor', '').strip()
 
-            if m_type == "Lecture" or (not any(ch.isalpha() for ch in m_id) and m_id):
-                if m_id and not any(ch.isalpha() for ch in m_id):
-                    current_courses_data[c]["sections"].add(m_id)
-                if inst and inst != "Not Assigned":
-                    current_courses_data[c]["instructors"].add(inst)
+            if m_id:
+                current_courses_data[c]["sections"].add(m_id)
+            if inst and inst != "Not Assigned":
+                current_courses_data[c]["instructors"].add(inst)
 
         dialog = Adw.Dialog(title="Compare & Reschedule")
         dialog.set_content_width(480)
@@ -1966,7 +2165,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         toolbar = Adw.ToolbarView()
         dialog.set_child(toolbar)
 
-        # HeaderBar without the redundant 'X' close button
         header = Adw.HeaderBar()
         header.set_show_end_title_buttons(False)
         header.set_show_start_title_buttons(False)
@@ -1986,14 +2184,12 @@ class CommodusWindow(Adw.ApplicationWindow):
         page_box.set_margin_end(16)
         scrolled.set_child(page_box)
 
-        # 1. "In This Schedule" Group
         current_group = Adw.PreferencesGroup(title="In This Schedule")
         current_listbox = Gtk.ListBox(selection_mode=Gtk.SelectionMode.NONE)
         current_listbox.add_css_class("boxed-list")
         current_group.add(current_listbox)
         page_box.append(current_group)
 
-        # 2. "Add Courses" Group
         catalog_group = Adw.PreferencesGroup(title="Add Courses")
         catalog_search = Gtk.SearchEntry(placeholder_text="Search catalog...")
         catalog_search.set_margin_bottom(8)
@@ -2016,7 +2212,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             row.set_title_lines(1)
             row.set_subtitle_lines(1)
 
-            # Compact color dot
             color_idx = course_color_idx_map.get(course_code, len(active_courses) % len(COURSE_COLORS))
             color_hex = COURSE_COLORS[color_idx]
             dot = Gtk.Label(use_markup=True)
@@ -2042,7 +2237,6 @@ class CommodusWindow(Adw.ApplicationWindow):
 
             suffix_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6, valign=Gtk.Align.CENTER)
 
-            # Lock button is available for any course with section information in the original schedule
             if is_current:
                 lock_btn = Gtk.ToggleButton(valign=Gtk.Align.CENTER, css_classes=["flat"])
                 lock_btn.set_active(initial_lock)
@@ -2066,10 +2260,8 @@ class CommodusWindow(Adw.ApplicationWindow):
                 sync_lock_state(lock_btn)
                 suffix_box.append(lock_btn)
             else:
-                # Brand new course (never in schedule) is flexible
                 row.set_subtitle("Flexible (Any section)")
 
-            # Destructive Trash Button
             remove_btn = Gtk.Button(
                 icon_name="user-trash-symbolic",
                 valign=Gtk.Align.CENTER,
@@ -2083,7 +2275,6 @@ class CommodusWindow(Adw.ApplicationWindow):
                     del active_courses[course_code]
                 generate_btn.set_sensitive(len(active_courses) > 0)
 
-                # Re-enable in catalog
                 if course_code in catalog_rows_dict:
                     btn = catalog_rows_dict[course_code]["btn"]
                     btn.set_icon_name("list-add-symbolic")
@@ -2096,11 +2287,9 @@ class CommodusWindow(Adw.ApplicationWindow):
             current_listbox.append(row)
             generate_btn.set_sensitive(len(active_courses) > 0)
 
-        # Build initial current rows
         for c in sorted(current_courses_data.keys()):
             create_active_course_row(c, is_current=True, initial_lock=True)
 
-        # Build clean catalog rows
         catalog_rows = []
 
         for course_code in sorted(self.data.keys()):
@@ -2125,7 +2314,6 @@ class CommodusWindow(Adw.ApplicationWindow):
                         self.show_toast("Maximum of 7 courses reached")
                         return
 
-                    # If this course was originally in the schedule, retain its lockable capability
                     is_sched_course = code in current_courses_data
                     create_active_course_row(code, is_current=is_sched_course, initial_lock=False)
                     btn.set_icon_name("object-select-symbolic")
@@ -2137,7 +2325,6 @@ class CommodusWindow(Adw.ApplicationWindow):
             catalog_rows_dict[course_code] = {"row": cat_row, "btn": add_btn}
             catalog_rows.append((cat_row, course_code, c_title))
 
-        # Search filtering
         def on_catalog_search_changed(entry):
             q = entry.get_text().strip().lower()
             for r, code, full_name in catalog_rows:
@@ -2211,12 +2398,13 @@ class CommodusWindow(Adw.ApplicationWindow):
     # =========================================================================
 
     def _parse_schedule_text(self, text):
-        """Extracts valid course codes and lecture section locks from schedule text."""
+        """Extracts valid course codes, exact meetings, and lecture section locks from schedule text."""
         new_selected = set()
         new_prefs = {}
+        exact_imported = set()
 
         if not text:
-            return new_selected, new_prefs
+            return new_selected, new_prefs, exact_imported
 
         for line in text.strip().split("\n"):
             line = line.strip()
@@ -2227,10 +2415,18 @@ class CommodusWindow(Adw.ApplicationWindow):
                 continue
             course = tokens[0]
             new_selected.add(course)
-            if len(tokens) > 2 and tokens[1] == "Lecture":
-                new_prefs[course] = {"type": "Section", "value": tokens[2]}
+            if len(tokens) > 2:
+                mtype = tokens[1]
+                sec_id = tokens[2]
+                exact_imported.add(f"{course}:{sec_id}")
 
-        return new_selected, new_prefs
+                if mtype == "Lecture":
+                    if course not in new_prefs:
+                        new_prefs[course] = {"type": "Section", "value": []}
+                    if sec_id not in new_prefs[course]["value"]:
+                        new_prefs[course]["value"].append(sec_id)
+
+        return new_selected, new_prefs, exact_imported
 
     def on_import_clicked(self, _button):
         dialog = Adw.Dialog(title="Import Schedule")
@@ -2240,7 +2436,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         toolbar = Adw.ToolbarView()
         dialog.set_child(toolbar)
 
-        # HeaderBar matching Compare & Reschedule
         header = Adw.HeaderBar()
         header.set_show_end_title_buttons(False)
         header.set_show_start_title_buttons(False)
@@ -2261,7 +2456,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         page_box.set_margin_end(16)
         scrolled.set_child(page_box)
 
-        # Preferences Group with quick paste header button
         group = Adw.PreferencesGroup(title="Schedule Summary Text")
 
         paste_btn = Gtk.Button(
@@ -2272,7 +2466,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         )
         group.set_header_suffix(paste_btn)
 
-        # Monospace Text Area inside a styled card
         text_frame = Gtk.Frame(css_classes=["card"])
         text_scroll = Gtk.ScrolledWindow(min_content_height=200, vexpand=True)
         textview = Gtk.TextView(
@@ -2288,7 +2481,6 @@ class CommodusWindow(Adw.ApplicationWindow):
         group.add(text_frame)
         page_box.append(group)
 
-        # Live parser status label
         status_label = Gtk.Label(
             label="Paste exported schedule text above.",
             halign=Gtk.Align.START,
@@ -2298,7 +2490,6 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         buf = textview.get_buffer()
 
-        # Live Parser Validator
         def on_buffer_changed(_buf):
             raw_text = _buf.get_text(_buf.get_start_iter(), _buf.get_end_iter(), False).strip()
             if not raw_text:
@@ -2306,7 +2497,7 @@ class CommodusWindow(Adw.ApplicationWindow):
                 import_action_btn.set_sensitive(False)
                 return
 
-            courses, _ = self._parse_schedule_text(raw_text)
+            courses, _, _ = self._parse_schedule_text(raw_text)
             if courses:
                 courses_str = ", ".join(sorted(courses))
                 status_label.set_markup(f"Found <b>{len(courses)}</b> course(s): {courses_str}")
@@ -2317,14 +2508,11 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         buf.connect("changed", on_buffer_changed)
 
-        # 1-Click Clipboard Paste
         def on_paste_clicked(_b):
             clipboard = dialog.get_clipboard()
             clipboard.read_text_async(None, lambda cb, res: buf.set_text(cb.read_text_finish(res) or ""))
 
         paste_btn.connect("clicked", on_paste_clicked)
-
-        # Actions
         cancel_btn.connect("clicked", lambda *_: dialog.close())
 
         def on_import_execute(*_):
@@ -2337,13 +2525,12 @@ class CommodusWindow(Adw.ApplicationWindow):
         dialog.present(self)
 
     def _parse_and_import_schedule(self, text):
-        new_selected, new_prefs = self._parse_schedule_text(text)
+        new_selected, new_prefs, exact_imported = self._parse_schedule_text(text)
 
         if not new_selected:
             self.show_error_dialog("Could not parse any valid courses from text.")
             return False
 
-        # Validate against database if available
         missing = [c for c in new_selected if self.data and c not in self.data]
         valid_selected = {c for c in new_selected if not self.data or c in self.data}
 
@@ -2353,6 +2540,8 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         self.selected_courses = valid_selected
         self.course_preferences = {c: p for c, p in new_prefs.items() if c in valid_selected}
+        self.imported_exact_match = {pair for pair in exact_imported if pair.split(":")[0] in valid_selected}
+
         self._save_courses_and_preferences()
         self.populate_listbox()
         self._update_courses_counter()

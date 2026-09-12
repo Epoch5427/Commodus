@@ -52,7 +52,6 @@ def make_session(verify_ssl: bool = True) -> requests.Session:
         "User-Agent": "scheds-fetcher-python/1.0",
         "Accept": "application/json, text/plain, */*"
     })
-    # cookies kept by Session; retry on transient server errors
     retries = Retry(total=3, backoff_factor=0.6, status_forcelist=(429, 500, 502, 503, 504))
     s.mount("https://", HTTPAdapter(max_retries=retries))
     s.mount("http://", HTTPAdapter(max_retries=retries))
@@ -62,7 +61,6 @@ def warmup(session: requests.Session):
     try:
         session.get(WARMUP_URL, timeout=5)
     except Exception:
-        # warmup is best-effort
         pass
 
 # === Build payload following SearchRequest and SectionSearchParameters ===
@@ -100,14 +98,45 @@ def build_search_request(course_code: str, start_index: int, length: int, period
         "length": length
     }
 
-def try_unescape_and_strip(resp_text: str) -> str:
-    t = resp_text
-    if len(t) >= 2 and ((t[0] == '"' and t[-1] == '"') or (t[0] == "'" and t[-1] == "'")):
-        t = t[1:-1]
+def fix_mojibake(text: str) -> str:
+    """
+    Detects and repairs text where UTF-8 bytes were misinterpreted as CP1252/Windows-1252
+    (e.g., 'â€™' -> '’', 'â€“' -> '–', 'â€œ' -> '“', 'â€”' -> '—').
+    """
+    if not text or not isinstance(text, str):
+        return text
+
+    # Common mojibake signatures caused by CP1252 misinterpretations
+    mojibake_signatures = ("â€™", "â€˜", "â€œ", "â€\x9d", "â€”", "â€“", "â€¦", "Ã©", "Ã", "Â")
+    if any(sig in text for sig in mojibake_signatures):
+        try:
+            # Re-encode back to CP1252 raw bytes, then properly decode as UTF-8
+            return text.encode("cp1252").decode("utf-8")
+        except (UnicodeEncodeError, UnicodeDecodeError):
+            pass
+    return text
+
+def parse_json_safely(raw_text: str) -> Any:
+    """
+    Safely parses JSON responses, correctly handling string-wrapped or
+    double-serialized JSON payloads without corrupting Unicode characters.
+    """
+    t = raw_text.strip()
     try:
-        return t.encode("utf-8").decode("unicode_escape")
+        data = json.loads(t)
     except Exception:
-        return t
+        if len(t) >= 2 and ((t[0] == '"' and t[-1] == '"') or (t[0] == "'" and t[-1] == "'")):
+            t = t[1:-1]
+        data = json.loads(t)
+
+    # If the endpoint returned a JSON-encoded string containing another JSON payload
+    if isinstance(data, str):
+        try:
+            data = json.loads(data)
+        except Exception:
+            pass
+
+    return data
 
 def parse_time_string(s: str) -> str:
     if not s:
@@ -129,11 +158,13 @@ def parse_time_string(s: str) -> str:
     return s
 
 def parse_sections_from_response(resp_text: str) -> List[Dict[str, Any]]:
-    raw = try_unescape_and_strip(resp_text)
     parsed_sections: List[Dict[str, Any]] = []
     try:
-        j = json.loads(raw)
+        j = parse_json_safely(resp_text)
     except Exception:
+        return []
+
+    if not isinstance(j, dict):
         return []
 
     data = j.get("data") or {}
@@ -142,12 +173,12 @@ def parse_sections_from_response(resp_text: str) -> List[Dict[str, Any]]:
         return []
 
     for sec in sections:
-        event_name = sec.get("eventName") or ""
-        event_id = sec.get("eventId") or ""
+        event_name = fix_mojibake(sec.get("eventName") or "").strip()
+        event_id = fix_mojibake(sec.get("eventId") or "").strip()
         full_title = f"{event_id}: {event_name}" if event_id else event_name
 
-        section_code = sec.get("section") or ""
-        subtype = sec.get("eventSubType") or sec.get("eventType") or ""
+        section_code = str(sec.get("section") or "").strip()
+        subtype = fix_mojibake(sec.get("eventSubType") or sec.get("eventType") or "").strip()
         seats = sec.get("seatsLeft")
         seats_str = str(seats) if seats is not None else "0"
         credits = sec.get("credits")
@@ -175,7 +206,7 @@ def parse_sections_from_response(resp_text: str) -> List[Dict[str, Any]]:
             for instr in instructors_arr:
                 name = instr.get("fullName") or instr.get("name")
                 if name:
-                    instructor_names.append(name)
+                    instructor_names.append(fix_mojibake(name).strip())
         instructor_str = ", ".join(instructor_names) if instructor_names else "Not Assigned"
 
         schedules_arr = sec.get("schedules") or []
@@ -188,7 +219,7 @@ def parse_sections_from_response(resp_text: str) -> List[Dict[str, Any]]:
                 start_f = parse_time_string(start)
                 end_f = parse_time_string(end)
                 time_str = f"{start_f} - {end_f}" if (start_f and end_f) else ""
-                sch_location = sch.get("location") or sch.get("roomId") or ""
+                sch_location = fix_mojibake(sch.get("location") or sch.get("roomId") or "").strip()
                 
                 parsed_schedules.append({
                     "day": day,
@@ -196,7 +227,7 @@ def parse_sections_from_response(resp_text: str) -> List[Dict[str, Any]]:
                     "location": sch_location
                 })
 
-        location_string = sec.get("location") or sec.get("roomId") or ""
+        location_string = fix_mojibake(sec.get("location") or sec.get("roomId") or "").strip()
 
         parsed_sections.append({
             "course_code": event_id,
@@ -222,6 +253,10 @@ def fetch_course(session: requests.Session, course_code: str, period: str = "") 
         resp = session.post(BASE_URL, json=payload, timeout=REQUEST_TIMEOUT)
         if resp.status_code != 200:
             raise requests.HTTPError(f"HTTP {resp.status_code}: {resp.text[:300]}")
+
+        # Explicitly enforce UTF-8 decoding on the raw HTTP bytes
+        resp.encoding = "utf-8"
+
         sections = parse_sections_from_response(resp.text)
         if not sections:
             break

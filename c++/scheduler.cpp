@@ -74,7 +74,6 @@ inline void writeJsonString(std::ostream &os, const std::string &s) {
     os << '"';
 }
 
-// Emits format: <score>\t[ [course, type, id, loc, inst, day, start, end, seats], ... ]\n
 void outputSchedule(const ScheduleResult &r) {
     std::cout << r.score << '\t' << '[';
     for (size_t i = 0; i < r.meetings.size(); ++i) {
@@ -148,15 +147,16 @@ std::vector<Meeting> parseMeetings(const std::string &courseCode, const json &se
 {
     std::vector<Meeting> meetings;
     int seatsVal = -1;
-    if (sectionJson.contains("seatsLeft") && sectionJson["seatsLeft"].is_string())
+    if (sectionJson.contains("seatsLeft"))
     {
-        try
+        if (sectionJson["seatsLeft"].is_string())
         {
-            seatsVal = std::stoi(sectionJson["seatsLeft"].get<std::string>());
+            try { seatsVal = std::stoi(sectionJson["seatsLeft"].get<std::string>()); }
+            catch (...) { seatsVal = -1; }
         }
-        catch (const std::exception &e)
+        else if (sectionJson["seatsLeft"].is_number_integer())
         {
-            seatsVal = -1;
+            seatsVal = sectionJson["seatsLeft"].get<int>();
         }
     }
     std::string instructor = sectionJson.value("instructor", "Not Assigned");
@@ -229,6 +229,19 @@ std::vector<Meeting> parseMeetings(const std::string &courseCode, const json &se
     return meetings;
 }
 
+inline std::string findMatchingLectureId(const std::map<std::string, LectureOption> &opts, const std::string &parentId) {
+    if (opts.count(parentId)) return parentId;
+    if (parentId.empty()) return "";
+    int pNum = -1;
+    try { pNum = std::stoi(parentId); } catch(...) { return ""; }
+    for (const auto &[lecId, _] : opts) {
+        try {
+            if (std::stoi(lecId) == pNum) return lecId;
+        } catch(...) {}
+    }
+    return "";
+}
+
 std::vector<Course> loadCoursesFromJson(const std::string &filename)
 {
     std::ifstream ifs(filename);
@@ -241,6 +254,7 @@ std::vector<Course> loadCoursesFromJson(const std::string &filename)
     {
         Course currentCourse;
         currentCourse.name = courseCode;
+
         for (const auto &sectionJson : sectionsJson)
         {
             if (sectionJson.contains("fullTitle") && sectionJson["fullTitle"].is_string())
@@ -259,6 +273,7 @@ std::vector<Course> loadCoursesFromJson(const std::string &filename)
                     break;
             }
         }
+
         std::map<std::string, LectureOption> lectureOptionsMap;
         for (const auto &sectionJson : sectionsJson)
         {
@@ -271,6 +286,7 @@ std::vector<Course> loadCoursesFromJson(const std::string &filename)
                     lectureOptionsMap[opt.lectureId] = opt;
             }
         }
+
         for (const auto &sectionJson : sectionsJson)
         {
             std::string subtype = sectionJson.value("subtype", "");
@@ -285,18 +301,33 @@ std::vector<Course> loadCoursesFromJson(const std::string &filename)
                     else
                         break;
                 }
-                if (lectureOptionsMap.count(parentId))
+
+                std::string matchedId = findMatchingLectureId(lectureOptionsMap, parentId);
+                if (!matchedId.empty())
                 {
                     std::vector<Meeting> meetings = parseMeetings(courseCode, sectionJson);
                     if (!meetings.empty()) {
                         if (subtype == "Lab")
-                            lectureOptionsMap[parentId].labs.push_back(meetings);
+                            lectureOptionsMap[matchedId].labs.push_back(meetings);
                         else
-                            lectureOptionsMap[parentId].tutorials.push_back(meetings);
+                            lectureOptionsMap[matchedId].tutorials.push_back(meetings);
+                    }
+                }
+                else if (parentId.empty() && !lectureOptionsMap.empty())
+                {
+                    std::vector<Meeting> meetings = parseMeetings(courseCode, sectionJson);
+                    if (!meetings.empty()) {
+                        for (auto &[id, opt] : lectureOptionsMap) {
+                            if (subtype == "Lab")
+                                opt.labs.push_back(meetings);
+                            else
+                                opt.tutorials.push_back(meetings);
+                        }
                     }
                 }
             }
         }
+
         for (auto const &[id, opt] : lectureOptionsMap)
             currentCourse.options.push_back(opt);
         if (!currentCourse.options.empty())
@@ -345,6 +376,9 @@ bool isValid(const std::vector<Meeting> &pack, const Constraints &constraints)
 {
     for (const auto &m : pack)
     {
+        if (constraints.filterZeroSeats && m.seats == 0)
+            return false;
+
         if (m.day == 0 || m.start < 0)
             continue;
 
@@ -454,6 +488,24 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
     }
     const Course &course = courses[idx];
     const std::set<std::string> *specificSectionsForCourse = constraints.specificSections.count(course.name) ? &constraints.specificSections.at(course.name) : nullptr;
+
+    bool has_lecture_pref = false;
+    bool has_lab_pref = false;
+    bool has_tut_pref = false;
+    if (specificSectionsForCourse) {
+        for (const auto& sec : *specificSectionsForCourse) {
+            for (const auto& o : course.options) {
+                if (o.lectureId == sec) has_lecture_pref = true;
+                for (const auto& lab : o.labs) {
+                    if (!lab.empty() && lab.front().id == sec) has_lab_pref = true;
+                }
+                for (const auto& tut : o.tutorials) {
+                    if (!tut.empty() && tut.front().id == sec) has_tut_pref = true;
+                }
+            }
+        }
+    }
+
     for (const auto &opt : course.options)
     {
         if (constraints.filterZeroSeats)
@@ -468,37 +520,63 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
             if (is_full)
                 continue;
         }
-        if (specificSectionsForCourse && any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
-                                                { return !s.empty() && (isdigit(s[0])); }))
+        if (has_lecture_pref)
         {
             if (specificSectionsForCourse->find(opt.lectureId) == specificSectionsForCourse->end())
                 continue;
         }
 
         std::vector<std::vector<Meeting>> availableLabs = opt.labs;
-        if (specificSectionsForCourse)
+        if (constraints.filterZeroSeats)
+        {
+            availableLabs.erase(
+                std::remove_if(availableLabs.begin(), availableLabs.end(), [](const std::vector<Meeting> &ms) {
+                    for (const auto &m : ms) {
+                        if (m.seats == 0) return true;
+                    }
+                    return false;
+                }),
+                availableLabs.end()
+            );
+        }
+        if (has_lab_pref)
         {
             availableLabs.erase(remove_if(availableLabs.begin(), availableLabs.end(), [&](const std::vector<Meeting> &ms)
                                           {
                                               if(ms.empty()) return false;
-                                              return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
-                                                          { return !s.empty() && toupper(s[0]) == 'L'; }) &&
-                                                   specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
+                                              return specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
                                           }),
                                 availableLabs.end());
         }
+
         std::vector<std::vector<Meeting>> availableTutorials = opt.tutorials;
-        if (specificSectionsForCourse)
+        if (constraints.filterZeroSeats)
+        {
+            availableTutorials.erase(
+                std::remove_if(availableTutorials.begin(), availableTutorials.end(), [](const std::vector<Meeting> &ms) {
+                    for (const auto &m : ms) {
+                        if (m.seats == 0) return true;
+                    }
+                    return false;
+                }),
+                availableTutorials.end()
+            );
+        }
+        if (has_tut_pref)
         {
             availableTutorials.erase(remove_if(availableTutorials.begin(), availableTutorials.end(), [&](const std::vector<Meeting> &ms)
                                                {
                                                    if(ms.empty()) return false;
-                                                   return any_of(specificSectionsForCourse->begin(), specificSectionsForCourse->end(), [](const std::string &s)
-                                                               { return !s.empty() && toupper(s[0]) == 'T'; }) &&
-                                                        specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
+                                                   return specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
                                                }),
                                      availableTutorials.end());
         }
+
+        if (!opt.labs.empty() && availableLabs.empty())
+            continue;
+        if (!opt.tutorials.empty() && availableTutorials.empty())
+            continue;
+
         int labsN = std::max(1, (int)availableLabs.size());
         int tutsN = std::max(1, (int)availableTutorials.size());
         for (int li = 0; li < labsN; ++li)

@@ -495,9 +495,10 @@ Adw.PreferencesDialog prefs_dialog {
       title: _("Offline Database");
       description: _("Options intended for development and local testing");
 
-      Adw.SwitchRow local_load_switch {
+      Adw.ExpanderRow local_load_switch {
         title: _("Enable Local File Picker");
-      }
+        show-enable-switch: true;
+
 
       Adw.ActionRow {
         title: _("Load JSON File");
@@ -508,6 +509,7 @@ Adw.PreferencesDialog prefs_dialog {
           sensitive: false;
           styles ["pill"]
         }
+      }
       }
     }
   }

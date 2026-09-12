@@ -49,6 +49,20 @@
   </screenshots>
 
     <releases>
+      <release version="0.9.9" date="2026-09-12">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.9</url>
+      <description translate="no">
+        <p>Bug Fixes and QoL improvements</p>
+        <ul>
+          <li>Fixed the exclude full classes filter so that it now takes into account tutorials and labs</li>
+          <li>Fixed the database scraper UTF-8 formatting</li>
+          <li>Section selection now uses checkboxes rather than radio buttons and allows for the selection of specific tutorial and or lab sections</li>
+          <li>Importing a schedule now shows the exact schedule imported while still allowing the user to view alternative labs and tutorials</li>
+          <li>Toasts are now dismissed when navigating favorites</li>
+
+        </ul>
+      </description>
+    </release>
       <release version="0.9.8" date="2026-08-21">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v0.9.8</url>
       <description translate="no">

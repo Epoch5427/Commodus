@@ -56,11 +56,11 @@ class CommodusApplication(Adw.Application):
         about = Adw.AboutDialog(application_name='Commodus',
                                 application_icon='io.github.Epoch5427.Commodus',
                                 developer_name='Epoch',
-                                version='0.9.8',
+                                version='0.9.9',
                                 developers=['Epoch'],
                                 copyright='© 2026 Epoch')
         # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
-        about.set_translator_credits(_('translator-credits'))
+        #about.set_translator_credits(_('translator-credits'))
         about.present(self.props.active_window)
 
     def on_preferences_action(self, widget, _):
@@ -91,6 +91,3 @@ def main(version):
     """The application's entry point."""
     app = CommodusApplication()
     return app.run(sys.argv)
-
-
-
