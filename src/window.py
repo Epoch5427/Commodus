@@ -1,4 +1,7 @@
 #TODO Loading saved sections loads 01A for both tutorials and labs even when only 1 was selected
+#TODO Make generate kill previous process if already in progress
+#TODO Fix the starred symbol
+#TODO Add the fetch_nu_courses.py to the app as an update button
 #TODO Bring back the two column instructor schedule block design with first and last name trimming
 #TODO Rework the theme selector to be more modern (reference gnome text editor)
 from gi.repository import Adw, Gtk, Gio, GLib, Gdk, Pango, GObject
@@ -1163,7 +1166,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.current_schedule_idx = 0
         self.favorites.clear()
         self.fav_btn.set_sensitive(False)
-        self.fav_btn.set_icon_name("non-starred-symbolic")
+        self.fav_btn.set_icon_name("non-starred-2-symbolic")
 
         if self.generation_process:
             try:
@@ -1317,7 +1320,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             self.fav_btn.set_icon_name("starred-symbolic")
             self.fav_btn.set_tooltip_text("Unfavorite Schedule")
         else:
-            self.fav_btn.set_icon_name("non-starred-symbolic")
+            self.fav_btn.set_icon_name("non-starred-2-symbolic")
             self.fav_btn.set_tooltip_text("Favorite Schedule")
 
         schedule_data = self._get_schedule_at(index)
@@ -2002,7 +2005,7 @@ class CommodusWindow(Adw.ApplicationWindow):
 
         if self.current_schedule_idx in self.favorites:
             self.favorites.remove(self.current_schedule_idx)
-            self.fav_btn.set_icon_name("non-starred-symbolic")
+            self.fav_btn.set_icon_name("non-starred-2-symbolic")
             self.fav_btn.set_tooltip_text("Favorite Schedule")
             self.show_toast("Removed from favorites")
         else:
@@ -2626,7 +2629,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.current_schedule_idx = 0
         self.favorites.clear()
         self.fav_btn.set_sensitive(False)
-        self.fav_btn.set_icon_name("non-starred-symbolic")
+        self.fav_btn.set_icon_name("non-starred-2-symbolic")
 
         self.populate_listbox()
         self._clear_schedule_grid()

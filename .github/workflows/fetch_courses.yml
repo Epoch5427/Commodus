@@ -3,7 +3,7 @@ name: Fetch NU Courses
 on:
   schedule:
     # Runs at minute 0 of every 12th hour (e.g., 12:00 AM and 12:00 PM UTC)
-    - cron: '0 */12 * * *'
+    - cron: '0 */1 * * *'
   workflow_dispatch:
     # Allows manual trigger from the Actions tab
 
