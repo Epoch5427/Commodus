@@ -193,7 +193,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self.theme_system_btn.connect("toggled", self._on_theme_toggled, 0)
         self.theme_light_btn.connect("toggled", self._on_theme_toggled, 1)
         self.theme_dark_btn.connect("toggled", self._on_theme_toggled, 2)
-        self.block_info_combo.connect("notify::selected", lambda *_: self.draw_schedule_index(self.current_schedule_idx))
+        self.block_info_combo.connect("notify::selected", lambda *_: self.draw_schedule_index(self.current_schedule_idx) if self.schedules else None)
 
         key_ctrl = Gtk.EventControllerKey()
         key_ctrl.connect("key-pressed", self.on_key_pressed)
