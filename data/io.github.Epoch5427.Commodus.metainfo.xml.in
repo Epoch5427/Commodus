@@ -39,16 +39,25 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/user-attachments/assets/66840e83-5f38-4cd4-985c-9ec6ccba78f3</image>
+      <image>https://github.com/user-attachments/assets/b965d639-ecfb-41b9-b671-47f109d3000a</image>
       <caption>Interactive timeline showing a generated schedule with detailed course overlays.</caption>
     </screenshot>
     <screenshot>
-      <image>https://github.com/user-attachments/assets/9c98398b-84ef-47df-9e94-3c36f98b7ba9</image>
+      <image>https://github.com/user-attachments/assets/8fd8ffe0-5046-43bb-a059-32f4ed4b042e</image>
       <caption>Granular constraint filtering, including day exclusions and time boundaries.</caption>
     </screenshot>
   </screenshots>
 
     <releases>
+      <release version="1.0.1" date="2026-09-17">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v1.0.1</url>
+      <description translate="no">
+        <p>Updated GNOME Platform</p>
+        <ul>
+          <li>Updated to GNOME 51 runtime</li>
+        </ul>
+      </description>
+    </release>
       <release version="1.0.0" date="2026-09-17">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v1.0.0</url>
       <description translate="no">
