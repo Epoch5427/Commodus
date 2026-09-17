@@ -55,8 +55,8 @@ struct Constraints
     int gapDay = 0;
 
     std::map<std::string, std::vector<std::string>> preferredInstructors;
-    bool filterZeroSeats = false;
-    std::map<std::string, std::set<std::string>> specificSections;
+    std::set<std::string> filterZeroSeatsCourses;
+    std::map<std::string, std::map<std::string, std::set<std::string>>> specificSections;
 };
 
 inline void writeJsonString(std::ostream &os, const std::string &s) {
@@ -180,6 +180,9 @@ std::vector<Meeting> parseMeetings(const std::string &courseCode, const json &se
             {
                 m.start = parseTime(timeRangeStr.substr(0, dashPos));
                 m.end = parseTime(timeRangeStr.substr(dashPos + 1));
+                if (m.start != -1 && m.end != -1 && (m.end - m.start) % 30 == 29) {
+                    m.end += 1;
+                }
             }
             else
             {
@@ -211,6 +214,9 @@ std::vector<Meeting> parseMeetings(const std::string &courseCode, const json &se
             {
                 m.start = parseTime(timeRangeStr.substr(0, dashPos));
                 m.end = parseTime(timeRangeStr.substr(dashPos + 1));
+                if (m.start != -1 && m.end != -1 && (m.end - m.start) % 30 == 29) {
+                    m.end += 1;
+                }
             }
             else
             {
@@ -376,7 +382,7 @@ bool isValid(const std::vector<Meeting> &pack, const Constraints &constraints)
 {
     for (const auto &m : pack)
     {
-        if (constraints.filterZeroSeats && m.seats == 0)
+        if (constraints.filterZeroSeatsCourses.count(m.course) && m.seats == 0)
             return false;
 
         if (m.day == 0 || m.start < 0)
@@ -487,28 +493,16 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
         return;
     }
     const Course &course = courses[idx];
-    const std::set<std::string> *specificSectionsForCourse = constraints.specificSections.count(course.name) ? &constraints.specificSections.at(course.name) : nullptr;
+    const auto *specificSectionsForCourse = constraints.specificSections.count(course.name) ? &constraints.specificSections.at(course.name) : nullptr;
 
-    bool has_lecture_pref = false;
-    bool has_lab_pref = false;
-    bool has_tut_pref = false;
-    if (specificSectionsForCourse) {
-        for (const auto& sec : *specificSectionsForCourse) {
-            for (const auto& o : course.options) {
-                if (o.lectureId == sec) has_lecture_pref = true;
-                for (const auto& lab : o.labs) {
-                    if (!lab.empty() && lab.front().id == sec) has_lab_pref = true;
-                }
-                for (const auto& tut : o.tutorials) {
-                    if (!tut.empty() && tut.front().id == sec) has_tut_pref = true;
-                }
-            }
-        }
-    }
+    bool has_lecture_pref = specificSectionsForCourse && specificSectionsForCourse->count("Lecture") && !specificSectionsForCourse->at("Lecture").empty();
+    bool has_lab_pref = specificSectionsForCourse && specificSectionsForCourse->count("Lab") && !specificSectionsForCourse->at("Lab").empty();
+    bool has_tut_pref = specificSectionsForCourse && specificSectionsForCourse->count("Tutorial") && !specificSectionsForCourse->at("Tutorial").empty();
 
     for (const auto &opt : course.options)
     {
-        if (constraints.filterZeroSeats)
+        bool filter_zero_seats = constraints.filterZeroSeatsCourses.count(course.name);
+        if (filter_zero_seats)
         {
             bool is_full = false;
             for (const auto &lm : opt.lectureMeetings)
@@ -522,12 +516,12 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
         }
         if (has_lecture_pref)
         {
-            if (specificSectionsForCourse->find(opt.lectureId) == specificSectionsForCourse->end())
+            if (specificSectionsForCourse->at("Lecture").find(opt.lectureId) == specificSectionsForCourse->at("Lecture").end())
                 continue;
         }
 
         std::vector<std::vector<Meeting>> availableLabs = opt.labs;
-        if (constraints.filterZeroSeats)
+        if (filter_zero_seats)
         {
             availableLabs.erase(
                 std::remove_if(availableLabs.begin(), availableLabs.end(), [](const std::vector<Meeting> &ms) {
@@ -544,13 +538,13 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
             availableLabs.erase(remove_if(availableLabs.begin(), availableLabs.end(), [&](const std::vector<Meeting> &ms)
                                           {
                                               if(ms.empty()) return false;
-                                              return specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
+                                              return specificSectionsForCourse->at("Lab").find(ms.front().id) == specificSectionsForCourse->at("Lab").end();
                                           }),
                                 availableLabs.end());
         }
 
         std::vector<std::vector<Meeting>> availableTutorials = opt.tutorials;
-        if (constraints.filterZeroSeats)
+        if (filter_zero_seats)
         {
             availableTutorials.erase(
                 std::remove_if(availableTutorials.begin(), availableTutorials.end(), [](const std::vector<Meeting> &ms) {
@@ -567,7 +561,7 @@ void backtrack(const std::vector<Course> &courses, int idx, std::vector<Meeting>
             availableTutorials.erase(remove_if(availableTutorials.begin(), availableTutorials.end(), [&](const std::vector<Meeting> &ms)
                                                {
                                                    if(ms.empty()) return false;
-                                                   return specificSectionsForCourse->find(ms.front().id) == specificSectionsForCourse->end();
+                                                   return specificSectionsForCourse->at("Tutorial").find(ms.front().id) == specificSectionsForCourse->at("Tutorial").end();
                                                }),
                                      availableTutorials.end());
         }
@@ -672,7 +666,11 @@ int main(int argc, char* argv[]) {
             constraints.gapDay = std::stoi(argv[++i]);
         } else if (arg == "--exclude-full" && i + 1 < argc) {
             std::string val = argv[++i];
-            constraints.filterZeroSeats = (val == "true");
+            std::stringstream ss(val);
+            std::string course;
+            while (std::getline(ss, course, ',')) {
+                constraints.filterZeroSeatsCourses.insert(course);
+            }
         } else if (arg == "--optimize-by" && i + 1 < argc) {
             opt_metric = argv[++i];
         } else if (arg == "--secondary-optimize-by" && i + 1 < argc) {
@@ -694,11 +692,21 @@ int main(int argc, char* argv[]) {
             std::stringstream ss(secs_str);
             std::string pair;
             while (std::getline(ss, pair, '|')) {
-                size_t colon_pos = pair.find(':');
-                if (colon_pos != std::string::npos) {
-                    std::string course = pair.substr(0, colon_pos);
-                    std::string sec = pair.substr(colon_pos + 1);
-                    constraints.specificSections[course].insert(sec);
+                size_t first_colon = pair.find(':');
+                if (first_colon != std::string::npos) {
+                    std::string course = pair.substr(0, first_colon);
+                    std::string rest = pair.substr(first_colon + 1);
+                    size_t second_colon = rest.find(':');
+                    if (second_colon != std::string::npos) {
+                        std::string type = rest.substr(0, second_colon);
+                        std::string sec = rest.substr(second_colon + 1);
+                        constraints.specificSections[course][type].insert(sec);
+                    } else {
+                        // fallback for old format
+                        constraints.specificSections[course]["Lecture"].insert(rest);
+                        constraints.specificSections[course]["Lab"].insert(rest);
+                        constraints.specificSections[course]["Tutorial"].insert(rest);
+                    }
                 }
             }
         }

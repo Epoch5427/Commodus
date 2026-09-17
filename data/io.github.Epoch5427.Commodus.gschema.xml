@@ -68,6 +68,11 @@
       <default>true</default>
       <summary>Exclude full classes</summary>
     </key>
+    <key name="exclude-full-courses" type="as">
+      <default>[]</default>
+      <summary>Excluded Full Courses</summary>
+      <description>List of courses explicitly checked in the exclude full classes expander.</description>
+    </key>
     <key name="tuner" type="i">
       <default>0</default>
       <summary>Primary optimization metric index</summary>
@@ -77,10 +82,21 @@
       <summary>Secondary optimization metric index</summary>
     </key>
 
+    <!-- Curriculum Presets -->
+    <key name="saved-major" type="s">
+      <default>''</default>
+      <summary>Saved Major</summary>
+    </key>
+    <key name="saved-semester" type="s">
+      <default>''</default>
+      <summary>Saved Semester</summary>
+    </key>
+
     <!-- App Preferences -->
-    <key name="dark-mode" type="b">
-      <default>false</default>
-      <summary>Force dark mode</summary>
+    <key name="theme" type="i">
+      <default>0</default>
+      <summary>Application Theme</summary>
+      <description>0: System, 1: Light, 2: Dark</description>
     </key>
     <key name="wrap-mode" type="b">
       <default>false</default>
@@ -89,6 +105,11 @@
     <key name="local-load" type="b">
       <default>false</default>
       <summary>Enable local JSON picker</summary>
+    </key>
+    <key name="block-info" type="i">
+      <default>0</default>
+      <summary>Schedule block information</summary>
+      <description>Index of detail displayed on schedule blocks (0: Instructor, 1: Room, 2: Seats, 3: Credits, 4: Start + End Time).</description>
     </key>
 
     <!-- Excluded Days -->

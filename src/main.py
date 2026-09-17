@@ -56,7 +56,13 @@ class CommodusApplication(Adw.Application):
         about = Adw.AboutDialog(application_name='Commodus',
                                 application_icon='io.github.Epoch5427.Commodus',
                                 developer_name='Epoch',
-                                version='0.9.9',
+                                version='1.0.0',
+                                website='https://github.com/Epoch5427/Commodus',
+                                release_notes="""<p>Initial Release</p>
+                                <ul>
+                                <li>Added the ability to trigger a database update from inside the app</li>
+                                </ul>""",
+                                issue_url='https://github.com/Epoch5427/Commodus/issues',
                                 developers=['Epoch'],
                                 copyright='© 2026 Epoch')
         # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.

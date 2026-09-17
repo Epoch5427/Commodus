@@ -73,10 +73,12 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                   Adw.ComboRow major_combo {
                     title: _("Major");
+                    tooltip-text: _("Select Preset Courses For This Major + Semester");
                   }
 
                   Adw.ComboRow semester_combo {
                     title: _("Semester");
+                    tooltip-text: _("Select Preset Courses For This Major + Semester");
                     sensitive: false;
                   }
                 }
@@ -86,15 +88,30 @@ template $CommodusWindow: Adw.ApplicationWindow {
                   title: _("Courses");
 
                   [header-suffix]
+
+                  Button update_db_btn {
+                    icon-name: "view-refresh-symbolic";
+                    tooltip-text: "Update Course Database";
+                    styles ["flat"]
+                  }
+
+                  Box {
+                  orientation: horizontal;
+                  halign: fill;
+                  hexpand: true;
+                  margin-bottom: 7;
+                  spacing: 7;
+
+                  SearchEntry searchentry {
+                    placeholder-text: _("Search Courses");
+                    hexpand: true;
+                    }
+
                   Button clear_sec {
                     icon-name: "user-trash-symbolic";
                     tooltip-text: _("Clear Selection");
                     styles ["flat","destructive-action"]
-                  }
-
-                  SearchEntry searchentry {
-                    placeholder-text: _("Search courses...");
-                    margin-bottom: 7;
+                    }
                   }
 
                   ScrolledWindow {
@@ -115,6 +132,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
                     text: _("0/7");
                     show-text: true;
                     margin-top: 14;
+                    tooltip-text: _("Number Of Courses Selected");
                   }
                 }
 
@@ -125,6 +143,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
                   Adw.ExpanderRow {
                     title: _("Exclude Days");
                     show-enable-switch: false;
+                    tooltip-text: _("Generated Schedules Will Not Include Blocks In Any Selected Days");
 
                     Box {
                       halign: center;
@@ -146,6 +165,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
                     title: _("Time Boundary");
                     show-enable-switch: true;
                     enable-expansion: false;
+                    tooltip-text: _("Set The Maximum And Minimum Times Blocks Can Occupy");
 
                     Adw.ActionRow {
                       title: _("Start Time");
@@ -156,6 +176,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                         SpinButton start_hours {
                           wrap: true;
+                          tooltip-text: _("In 24H Format");
                           adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
                         }
 
@@ -177,6 +198,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                         SpinButton end_hours {
                           wrap: true;
+                          tooltip-text: _("In 24H Format");
                           adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 23; };
                         }
 
@@ -194,6 +216,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
                     title: _("Specify Gap");
                     show-enable-switch: true;
                     enable-expansion: false;
+                    tooltip-text: _("Set A Period Of Time Which Cannot Have Blocks");
 
                     Adw.ComboRow gap_day {
                       title: _("Day");
@@ -220,6 +243,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                         SpinButton gap_start_hours {
                           wrap: true;
+                          tooltip-text: _("In 24H Format");
                           adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
                         }
 
@@ -241,6 +265,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                         SpinButton gap_end_hours {
                           wrap: true;
+                          tooltip-text: _("In 24H Format");
                           adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
                         }
 
@@ -254,8 +279,21 @@ template $CommodusWindow: Adw.ApplicationWindow {
                     }
                   }
 
-                  Adw.SwitchRow ls_switch {
+                  Adw.ExpanderRow ls_expander {
                     title: _("Exclude Full Classes");
+                    show-enable-switch: true;
+                    enable-expansion: false;
+                    expanded: false;
+                    tooltip-text: _("Do Not Include Classes Without Seats In Generation");
+
+                    ListBox ls_listbox {
+                      selection-mode: none;
+                      margin-start: 0;
+                      margin-end: 0;
+                      margin-top: 0;
+                      margin-bottom: 0;
+                      styles ["boxed-list"]
+                    }
                   }
                 }
 
@@ -265,6 +303,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                   Adw.ComboRow tuner {
                     title: _("Prioritize");
+                    tooltip-text: _("Sort Schedules Based On One Of The Following Properties");
                     model: StringList {
                       strings [
                         "Compact Days",
@@ -277,6 +316,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                   Adw.ComboRow sec_tuner {
                     title: _("Tie-Breaker");
+                    tooltip-text: _("Re-sort Tied Schedules Based On One Of The Following Properties");
                     model: StringList {
                       strings [
                         "None",
@@ -381,8 +421,8 @@ template $CommodusWindow: Adw.ApplicationWindow {
               }
 
               Button compare_btn {
-                icon-name: "view-refresh-symbolic";
-                tooltip-text: _("Compare & Reschedule");
+                icon-name: "branch-arrow-symbolic";
+                tooltip-text: _("Branch From Schedule");
                 sensitive: false;
               }
 
@@ -457,8 +497,65 @@ Adw.PreferencesDialog prefs_dialog {
       title: _("Color Settings");
       description: _("Change the color scheme of the application");
 
-      Adw.SwitchRow dm_switch {
-        title: _("Force Dark Mode");
+      Box {
+        halign: center;
+        margin-start: 6;
+        margin-top: 14;
+        margin-bottom: 14;
+        spacing: 12;
+
+        CheckButton theme_system_btn {
+          tooltip-text: _("System Theme");
+          styles ["theme-button", "theme-button-system"]
+
+          Image {
+            icon-name: "checkmark-symbolic";
+            halign: center;
+            valign: center;
+          }
+        }
+
+        CheckButton theme_light_btn {
+          tooltip-text: _("Light Theme");
+          group: theme_system_btn;
+          styles ["theme-button", "theme-button-light"]
+
+          Image {
+            icon-name: "checkmark-symbolic";
+            halign: center;
+            valign: center;
+          }
+        }
+
+        CheckButton theme_dark_btn {
+          tooltip-text: _("Dark Theme");
+          group: theme_system_btn;
+          styles ["theme-button", "theme-button-dark"]
+
+          Image {
+            icon-name: "checkmark-symbolic";
+            halign: center;
+            valign: center;
+          }
+        }
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Schedule Blocks");
+      description: _("Customize the information displayed on schedule cards");
+
+      Adw.ComboRow block_info_combo {
+        title: _("Block Information");
+        model: StringList {
+          strings [
+            "Instructor",
+            "Location",
+            "Seats",
+            "Credits",
+            "Time"
+          ]
+        };
       }
     }
   }
@@ -473,6 +570,7 @@ Adw.PreferencesDialog prefs_dialog {
 
       Adw.SwitchRow wrap_switch {
         title: _("Wrap Around Schedules");
+        tooltip-text: _("Makes Clicking Back On Schedule 1 Wrap Around To The Last Schedule And Vice Versa");
       }
     }
 
@@ -498,6 +596,7 @@ Adw.PreferencesDialog prefs_dialog {
       Adw.ExpanderRow local_load_switch {
         title: _("Enable Local File Picker");
         show-enable-switch: true;
+        expanded: false;
 
 
       Adw.ActionRow {
@@ -505,6 +604,7 @@ Adw.PreferencesDialog prefs_dialog {
         [suffix]
         Button fpickerbutton {
           label: _("Browse");
+          tooltip-text: _("Do NOT Click If You Don't Know What You Are Doing");
           valign: center;
           sensitive: false;
           styles ["pill"]

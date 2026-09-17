@@ -51,6 +51,10 @@ Commodus is designed as a hybrid application leveraging the strengths of both Py
 
 ## Installation & Running
 
+### Linux Flatpak Install
+*   Download the Commodus.flatpakrepo file then double click it and install the repo using your flatpak software center of choice
+*   Search for _Commodus_ in your software center then click install 
+
 ### Requirements
 *   Python 3.10+
 *   GTK4 & Libadwaita
