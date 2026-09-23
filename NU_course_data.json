@@ -9,7 +9,7 @@
       "location": "233",
       "instructor": "Sabah Abdelhakam Sayed Soliman",
       "credits": "3.00",
-      "seatsLeft": "10"
+      "seatsLeft": "8"
     },
     {
       "fullTitle": "ACCT201: Financial Accounting",
@@ -20,7 +20,7 @@
       "location": "111",
       "instructor": "Asmaa Ahmed Elnaka",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "8"
     }
   ],
   "ACCT202": [
@@ -55,7 +55,7 @@
       "location": "230",
       "instructor": "Sabah Abdelhakam Sayed Soliman",
       "credits": "3.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ACCT202: Managerial Accounting",
@@ -88,7 +88,7 @@
       "location": "111",
       "instructor": "Asmaa Ahmed Elnaka",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     }
   ],
   "ACCT601": [
@@ -433,7 +433,7 @@
       "location": "350-A",
       "instructor": "Mariam Mahmoud Gamaledin",
       "credits": "2.00",
-      "seatsLeft": "23"
+      "seatsLeft": "24"
     },
     {
       "fullTitle": "APBI304: Biosecurity and Research Bioethics",
@@ -505,7 +505,7 @@
       "location": "301",
       "instructor": "Alyaa Ibrahem Salim",
       "credits": "2.00",
-      "seatsLeft": "17"
+      "seatsLeft": "16"
     },
     {
       "fullTitle": "APBI409: Nano-biotechnology & Bio-Nanotechnology",
@@ -516,7 +516,7 @@
       "location": "301",
       "instructor": "Alyaa Ibrahem Salim",
       "credits": "2.00",
-      "seatsLeft": "31"
+      "seatsLeft": "30"
     }
   ],
   "APBI410": [
@@ -542,7 +542,7 @@
       "location": "138",
       "instructor": "Samar Adel Abdelkhalek Almarzwky",
       "credits": "2.00",
-      "seatsLeft": "36"
+      "seatsLeft": "38"
     }
   ],
   "ARC213": [
@@ -697,17 +697,6 @@
   "ARC232": [
     {
       "fullTitle": "ARC232: Theory of Architecture I:Envir. Behavior",
-      "section": "01B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
-      "location": "316",
-      "instructor": "Noureen Ahmed Abdelghani, Hana Alaa Mohamed, Ann Mohamed Nasr",
-      "credits": "0.00",
-      "seatsLeft": "4"
-    },
-    {
-      "fullTitle": "ARC232: Theory of Architecture I:Envir. Behavior",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -715,7 +704,7 @@
       "location": "316",
       "instructor": "Dina Kamaledin Shehayeb",
       "credits": "3.00",
-      "seatsLeft": "4"
+      "seatsLeft": "3"
     },
     {
       "fullTitle": "ARC232: Theory of Architecture I:Envir. Behavior",
@@ -727,6 +716,17 @@
       "instructor": "Noureen Ahmed Abdelghani, Hana Alaa Mohamed, Ann Mohamed Nasr",
       "credits": "0.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ARC232: Theory of Architecture I:Envir. Behavior",
+      "section": "01B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
+      "location": "316",
+      "instructor": "Noureen Ahmed Abdelghani, Hana Alaa Mohamed, Ann Mohamed Nasr",
+      "credits": "0.00",
+      "seatsLeft": "3"
     }
   ],
   "ARC241": [
@@ -737,7 +737,7 @@
       "subtype": "Lecture",
       "schedule": "Thursday, 8:30 AM - 10:29 AM",
       "location": "316",
-      "instructor": "Not Assigned",
+      "instructor": "Sara Ibrahim Khalifa",
       "credits": "3.00",
       "seatsLeft": "9"
     },
@@ -815,6 +815,17 @@
   "ARC342": [
     {
       "fullTitle": "ARC342: People-centered Urban Design",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Thursday, 3:30 PM - 4:29 PM",
+      "location": "333",
+      "instructor": "Omar Walid Ahmed",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ARC342: People-centered Urban Design",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -830,17 +841,6 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Thursday, 2:30 PM - 3:29 PM",
-      "location": "333",
-      "instructor": "Omar Walid Ahmed",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ARC342: People-centered Urban Design",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Thursday, 3:30 PM - 4:29 PM",
       "location": "333",
       "instructor": "Omar Walid Ahmed",
       "credits": "0.00",
@@ -1097,7 +1097,7 @@
       "location": "301",
       "instructor": "Galal Raafat Elmissary",
       "credits": "2.00",
-      "seatsLeft": "6"
+      "seatsLeft": "7"
     }
   ],
   "ARTS-201": [
@@ -1121,7 +1121,7 @@
       "location": "301",
       "instructor": "Galal Raafat Elmissary",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ARTS-201: Introduction to Photography",
@@ -1143,7 +1143,7 @@
       "location": "301",
       "instructor": "Galal Raafat Elmissary",
       "credits": "3.00",
-      "seatsLeft": "17"
+      "seatsLeft": "16"
     },
     {
       "fullTitle": "ARTS-201: Introduction to Photography",
@@ -1154,7 +1154,7 @@
       "location": "301",
       "instructor": "Galal Raafat Elmissary",
       "credits": "3.00",
-      "seatsLeft": "35"
+      "seatsLeft": "36"
     },
     {
       "fullTitle": "ARTS-201: Introduction to Photography",
@@ -1211,7 +1211,7 @@
       "location": "139",
       "instructor": "Ibrahim Yousry Ibrahim",
       "credits": "3.00",
-      "seatsLeft": "47"
+      "seatsLeft": "48"
     },
     {
       "fullTitle": "ARTS-205: Music Theory",
@@ -1268,7 +1268,7 @@
       "subtype": "Lecture",
       "schedule": "Sunday, 8:30 AM - 10:29 AM",
       "location": "347",
-      "instructor": "Not Assigned",
+      "instructor": "Omar Mohamed Essam",
       "credits": "3.00",
       "seatsLeft": "8"
     },
@@ -1399,7 +1399,7 @@
       "location": "249",
       "instructor": "Mayar Mostafa Hamdy, Mahmoud Mohsen Omran",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "BIO204: Histology",
@@ -1410,7 +1410,7 @@
       "location": "249",
       "instructor": "Mayar Mostafa Hamdy, Mahmoud Mohsen Omran",
       "credits": "0.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "BIO204: Histology",
@@ -1592,7 +1592,7 @@
       "location": "350-B",
       "instructor": "Raghda Abdelsattar Ramadan",
       "credits": "4.00",
-      "seatsLeft": "17"
+      "seatsLeft": "16"
     },
     {
       "fullTitle": "BIO409: Animal Tissue Culture",
@@ -1647,7 +1647,7 @@
       "location": "235",
       "instructor": "Silvia George Makkar, Marina Akram Youssef",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "BIO409: Animal Tissue Culture",
@@ -1889,7 +1889,7 @@
       "location": "232",
       "instructor": "Heba Samir Mahmoud",
       "credits": "3.00",
-      "seatsLeft": "3"
+      "seatsLeft": "0"
     }
   ],
   "BSAD302": [
@@ -1902,7 +1902,7 @@
       "location": "232",
       "instructor": "Vasilya Sultanova",
       "credits": "3.00",
-      "seatsLeft": "22"
+      "seatsLeft": "23"
     }
   ],
   "BSAD401": [
@@ -1987,7 +1987,7 @@
       "location": "N/A",
       "instructor": "Mennatallah Ahmed Kaoud",
       "credits": "3.00",
-      "seatsLeft": "7"
+      "seatsLeft": "6"
     },
     {
       "fullTitle": "BSAD480: Graduation Project I",
@@ -2057,7 +2057,7 @@
       "location": "",
       "instructor": "Emadeldin Hussain Yousef",
       "credits": "3.00",
-      "seatsLeft": "13"
+      "seatsLeft": "12"
     }
   ],
   "CBIO101": [
@@ -2335,7 +2335,7 @@
       "location": "350-A",
       "instructor": "Mariam Mahmoud Gamaledin",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "CBIO408: Systems Biology & Modeling of Biological",
@@ -2346,7 +2346,7 @@
       "location": "350-B",
       "instructor": "Mariam Mahmoud Gamaledin",
       "credits": "3.00",
-      "seatsLeft": "12"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "CBIO408: Systems Biology & Modeling of Biological",
@@ -2379,7 +2379,7 @@
       "location": "052",
       "instructor": "Fares Islam Mansour, Nourine Mamdouh Sabry",
       "credits": "0.00",
-      "seatsLeft": "16"
+      "seatsLeft": "17"
     },
     {
       "fullTitle": "CBIO408: Systems Biology & Modeling of Biological",
@@ -2390,7 +2390,7 @@
       "location": "052",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "12"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "CBIO408: Systems Biology & Modeling of Biological",
@@ -2817,7 +2817,7 @@
       "location": "",
       "instructor": "Heba Kamal Aslan",
       "credits": "3.00",
-      "seatsLeft": "42"
+      "seatsLeft": "41"
     }
   ],
   "CIT670": [
@@ -3140,7 +3140,7 @@
       "location": "N/A",
       "instructor": "Not Assigned",
       "credits": "1.00",
-      "seatsLeft": "59"
+      "seatsLeft": "58"
     }
   ],
   "CIT800": [
@@ -3218,7 +3218,7 @@
       "location": "240",
       "instructor": "Walaa Sherif Wasfy",
       "credits": "3.00",
-      "seatsLeft": "4"
+      "seatsLeft": "3"
     },
     {
       "fullTitle": "COMM301: Intro.to Mass Communication",
@@ -3229,10 +3229,21 @@
       "location": "111",
       "instructor": "Neveen Hassan Badr",
       "credits": "0.00",
-      "seatsLeft": "4"
+      "seatsLeft": "3"
     }
   ],
   "COMM401": [
+    {
+      "fullTitle": "COMM401: Internship & Service Learning(CS)",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Practical",
+      "schedule": "N/A, N/A",
+      "location": "N/A",
+      "instructor": "Ahmed Fathy Elnokrashy",
+      "credits": "3.00",
+      "seatsLeft": "77"
+    },
     {
       "fullTitle": "COMM401: Internship & Service Learning(BBA)",
       "section": "02",
@@ -3243,240 +3254,9 @@
       "instructor": "Mostafa Hatem Elbolok",
       "credits": "3.00",
       "seatsLeft": "20"
-    },
-    {
-      "fullTitle": "COMM401: Internship & Service Learning(CS)",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Practical",
-      "schedule": "N/A, N/A",
-      "location": "N/A",
-      "instructor": "Ahmed Fathy Elnokrashy",
-      "credits": "3.00",
-      "seatsLeft": "75"
     }
   ],
   "CSC101": [
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "06A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 9:30 AM - 10:29 AM",
-      "location": "053",
-      "instructor": "Nada Atef Abdelrazik",
-      "credits": "0.00",
-      "seatsLeft": "13"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "06B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Tuesday, 12:30 PM - 1:29 PM",
-      "location": "053",
-      "instructor": "Salma Said Ramadan",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "07A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 10:30 AM - 11:29 AM",
-      "location": "053",
-      "instructor": "Laila Khaled Mohamed",
-      "credits": "0.00",
-      "seatsLeft": "4"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "07B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 11:30 AM - 12:29 PM",
-      "location": "053",
-      "instructor": "Laila Khaled Mohamed",
-      "credits": "0.00",
-      "seatsLeft": "2"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "05A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Monday, 2:30 PM - 4:29 PM",
-      "location": "359",
-      "instructor": "Salma Said Ramadan",
-      "credits": "0.00",
-      "seatsLeft": "2"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "05B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "358",
-      "instructor": "Fatma Mohamed Okasha",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "06A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
-      "location": "359",
-      "instructor": "Salma Said Ramadan",
-      "credits": "0.00",
-      "seatsLeft": "11"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "06B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Sunday, 8:30 AM - 10:29 AM",
-      "location": "358",
-      "instructor": "Laila Khaled Mohamed",
-      "credits": "0.00",
-      "seatsLeft": "6"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "07A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
-      "location": "359",
-      "instructor": "Salma Said Ramadan",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "07B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Monday, 8:30 AM - 10:29 AM",
-      "location": "358",
-      "instructor": "Fatma Mohamed Okasha",
-      "credits": "0.00",
-      "seatsLeft": "7"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 12:30 PM - 1:29 PM",
-      "location": "052",
-      "instructor": "Habiba Mohamed Ibrahim",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "01B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 1:30 PM - 2:29 PM",
-      "location": "052",
-      "instructor": "Habiba Mohamed Ibrahim",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 12:30 PM - 1:29 PM",
-      "location": "053",
-      "instructor": "Basmala Elsayed Alsabagh",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "02B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 1:30 PM - 2:29 PM",
-      "location": "053",
-      "instructor": "Basmala Elsayed Alsabagh",
-      "credits": "0.00",
-      "seatsLeft": "5"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "03A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 12:30 PM - 1:29 PM",
-      "location": "053",
-      "instructor": "Fatma Mohamed Okasha",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "03B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 1:30 PM - 2:29 PM",
-      "location": "053",
-      "instructor": "Fatma Mohamed Okasha",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "04A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 8:30 AM - 9:29 AM",
-      "location": "053",
-      "instructor": "Nada Atef Abdelrazik",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "04B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 9:30 AM - 10:29 AM",
-      "location": "053",
-      "instructor": "Laila Khaled Mohamed",
-      "credits": "0.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "05A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 8:30 AM - 9:29 AM",
-      "location": "053",
-      "instructor": "Laila Khaled Mohamed",
-      "credits": "0.00",
-      "seatsLeft": "4"
-    },
-    {
-      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
-      "section": "05B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 9:30 AM - 10:29 AM",
-      "location": "264",
-      "instructor": "Salma Said Ramadan",
-      "credits": "0.00",
-      "seatsLeft": "7"
-    },
     {
       "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
       "section": "02",
@@ -3641,6 +3421,116 @@
       "instructor": "Samar Ashraf Hassan",
       "credits": "3.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "06A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 9:30 AM - 10:29 AM",
+      "location": "053",
+      "instructor": "Nada Atef Abdelrazik",
+      "credits": "0.00",
+      "seatsLeft": "13"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "06B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 12:30 PM - 1:29 PM",
+      "location": "053",
+      "instructor": "Salma Said Ramadan",
+      "credits": "0.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "07A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 10:30 AM - 11:29 AM",
+      "location": "053",
+      "instructor": "Laila Khaled Mohamed",
+      "credits": "0.00",
+      "seatsLeft": "4"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "07B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 11:30 AM - 12:29 PM",
+      "location": "053",
+      "instructor": "Laila Khaled Mohamed",
+      "credits": "0.00",
+      "seatsLeft": "2"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "05A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Monday, 2:30 PM - 4:29 PM",
+      "location": "359",
+      "instructor": "Salma Said Ramadan",
+      "credits": "0.00",
+      "seatsLeft": "2"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "05B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "358",
+      "instructor": "Fatma Mohamed Okasha",
+      "credits": "0.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "06A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
+      "location": "359",
+      "instructor": "Salma Said Ramadan",
+      "credits": "0.00",
+      "seatsLeft": "11"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "06B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 8:30 AM - 10:29 AM",
+      "location": "358",
+      "instructor": "Laila Khaled Mohamed",
+      "credits": "0.00",
+      "seatsLeft": "6"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "07A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
+      "location": "359",
+      "instructor": "Salma Said Ramadan",
+      "credits": "0.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "CSC101: Intro.to Comp.Thinking&Problem Solving",
+      "section": "07B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Monday, 8:30 AM - 10:29 AM",
+      "location": "358",
+      "instructor": "Fatma Mohamed Okasha",
+      "credits": "0.00",
+      "seatsLeft": "7"
     }
   ],
   "CSC102": [
@@ -4620,25 +4510,25 @@
   "CSC204": [
     {
       "fullTitle": "CSC204: Data Structures and Algorithms",
-      "section": "01",
+      "section": "03",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Monday, 4:30 PM - 6:29 PM",
-      "location": "114",
+      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
+      "location": "142",
       "instructor": "Ahmed Mahmoud Elshafee",
       "credits": "3.00",
       "seatsLeft": "0"
     },
     {
       "fullTitle": "CSC204: Data Structures and Algorithms",
-      "section": "02",
+      "section": "04",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Tuesday, 6:30 PM - 8:29 PM",
-      "location": "114",
-      "instructor": "Ahmed Mahmoud Elshafee",
+      "schedule": "Saturday, 12:30 PM - 2:29 PM",
+      "location": "132",
+      "instructor": "Sameh Abdelrahman Salem",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "27"
     },
     {
       "fullTitle": "CSC204: Data Structures and Algorithms",
@@ -4772,7 +4662,7 @@
       "location": "145",
       "instructor": "Mai Mohammed Said Mabrouk",
       "credits": "3.00",
-      "seatsLeft": "31"
+      "seatsLeft": "32"
     },
     {
       "fullTitle": "CSC211: Logic Design",
@@ -4783,7 +4673,7 @@
       "location": "132",
       "instructor": "Salim Farag Hegazy",
       "credits": "3.00",
-      "seatsLeft": "10"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "CSC211: Logic Design",
@@ -4805,7 +4695,7 @@
       "location": "F26",
       "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
-      "seatsLeft": "21"
+      "seatsLeft": "22"
     },
     {
       "fullTitle": "CSC211: Logic Design",
@@ -4827,7 +4717,7 @@
       "location": "F44",
       "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
-      "seatsLeft": "6"
+      "seatsLeft": "5"
     },
     {
       "fullTitle": "CSC211: Logic Design",
@@ -4871,7 +4761,7 @@
       "location": "27",
       "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
-      "seatsLeft": "8"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "CSC211: Logic Design",
@@ -4904,7 +4794,7 @@
       "location": "27",
       "instructor": "Mohamed Emad Ragab",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "CSC211: Logic Design",
@@ -4919,6 +4809,17 @@
     }
   ],
   "CSC221": [
+    {
+      "fullTitle": "CSC221: Database Systems",
+      "section": "05B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Saturday, 10:30 AM - 12:29 PM",
+      "location": "264",
+      "instructor": "Ganna Essam Ahmed",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
     {
       "fullTitle": "CSC221: Database Systems",
       "section": "01",
@@ -5068,17 +4969,6 @@
       "session": "Session 01",
       "subtype": "Lab",
       "schedule": "Saturday, 8:30 AM - 10:29 AM",
-      "location": "264",
-      "instructor": "Ganna Essam Ahmed",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "CSC221: Database Systems",
-      "section": "05B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Saturday, 10:30 AM - 12:29 PM",
       "location": "264",
       "instructor": "Ganna Essam Ahmed",
       "credits": "0.00",
@@ -5312,7 +5202,7 @@
       "location": "132",
       "instructor": "Sameh Abdelrahman Salem",
       "credits": "3.00",
-      "seatsLeft": "42"
+      "seatsLeft": "41"
     },
     {
       "fullTitle": "CSCI207: Data Structures and Algorithms",
@@ -5323,7 +5213,7 @@
       "location": "G29",
       "instructor": "Mohamed Ibrahim Ragab",
       "credits": "0.00",
-      "seatsLeft": "12"
+      "seatsLeft": "11"
     }
   ],
   "CSCI208": [
@@ -5397,6 +5287,28 @@
   "CSCI212": [
     {
       "fullTitle": "CSCI212: Logic Design and Lab",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Saturday, 10:30 AM - 11:29 AM",
+      "location": "27",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "10"
+    },
+    {
+      "fullTitle": "CSCI212: Logic Design and Lab",
+      "section": "01B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Saturday, 11:30 AM - 12:29 PM",
+      "location": "27",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "11"
+    },
+    {
+      "fullTitle": "CSCI212: Logic Design and Lab",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -5427,28 +5339,6 @@
       "instructor": "Rehab Abo Alhassan Ahmed",
       "credits": "0.00",
       "seatsLeft": "25"
-    },
-    {
-      "fullTitle": "CSCI212: Logic Design and Lab",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Saturday, 10:30 AM - 11:29 AM",
-      "location": "27",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "CSCI212: Logic Design and Lab",
-      "section": "01B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Saturday, 11:30 AM - 12:29 PM",
-      "location": "27",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "11"
     }
   ],
   "CSCI217": [
@@ -5636,105 +5526,6 @@
   "CSCI311": [
     {
       "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Thursday, 10:30 AM - 12:29 PM",
-      "location": "150",
-      "instructor": "Salim Farag Hegazy",
-      "credits": "3.00",
-      "seatsLeft": "15"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
-      "location": "116",
-      "instructor": "Salim Farag Hegazy",
-      "credits": "3.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "03",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 10:30 AM - 12:29 PM",
-      "location": "148",
-      "instructor": "Salim Farag Hegazy",
-      "credits": "3.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "04",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Saturday, 8:30 AM - 10:29 AM",
-      "location": "F48",
-      "instructor": "Reem Ibrahim Alhalawani",
-      "credits": "3.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "05",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Saturday, 12:30 PM - 2:29 PM",
-      "location": "F48",
-      "instructor": "Reem Ibrahim Alhalawani",
-      "credits": "3.00",
-      "seatsLeft": "31"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 6:30 PM - 8:29 PM",
-      "location": "01-A",
-      "instructor": "Mohamed Samir Murad",
-      "credits": "0.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "01B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Saturday, 4:30 PM - 6:29 PM",
-      "location": "01-A",
-      "instructor": "Mohamed Samir Murad",
-      "credits": "0.00",
-      "seatsLeft": "5"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Thursday, 2:30 PM - 4:29 PM",
-      "location": "01-A",
-      "instructor": "Mohamed Samir Murad",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
-      "section": "02B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Thursday, 8:30 AM - 10:29 AM",
-      "location": "052",
-      "instructor": "Mohamed Samir Murad",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "CSCI311: Introduction to Computer Architecture",
       "section": "03A",
       "session": "Session 01",
       "subtype": "Lab",
@@ -5787,53 +5578,64 @@
       "instructor": "Mohamed Samir Murad",
       "credits": "0.00",
       "seatsLeft": "1"
-    }
-  ],
-  "CSCI313": [
+    },
     {
-      "fullTitle": "CSCI313: Software Engineering",
+      "fullTitle": "CSCI311: Introduction to Computer Architecture",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
-      "location": "148",
-      "instructor": "Ayman Soliman Selmy Mohamed",
+      "schedule": "Thursday, 10:30 AM - 12:29 PM",
+      "location": "150",
+      "instructor": "Salim Farag Hegazy",
       "credits": "3.00",
-      "seatsLeft": "47"
+      "seatsLeft": "15"
     },
     {
-      "fullTitle": "CSCI313: Software Engineering",
+      "fullTitle": "CSCI311: Introduction to Computer Architecture",
       "section": "02",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "148",
-      "instructor": "Ayman Soliman Selmy Mohamed",
+      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
+      "location": "116",
+      "instructor": "Salim Farag Hegazy",
       "credits": "3.00",
-      "seatsLeft": "36"
+      "seatsLeft": "0"
     },
     {
-      "fullTitle": "CSCI313: Software Engineering",
+      "fullTitle": "CSCI311: Introduction to Computer Architecture",
       "section": "03",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
+      "schedule": "Sunday, 10:30 AM - 12:29 PM",
       "location": "148",
-      "instructor": "Ayman Soliman Selmy Mohamed",
+      "instructor": "Salim Farag Hegazy",
+      "credits": "3.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "CSCI311: Introduction to Computer Architecture",
+      "section": "04",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Saturday, 8:30 AM - 10:29 AM",
+      "location": "F48",
+      "instructor": "Reem Ibrahim Alhalawani",
       "credits": "3.00",
       "seatsLeft": "0"
     },
     {
-      "fullTitle": "CSCI313: Software Engineering",
-      "section": "04",
+      "fullTitle": "CSCI311: Introduction to Computer Architecture",
+      "section": "05",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
-      "location": "148",
-      "instructor": "Ayman Soliman Selmy Mohamed",
+      "schedule": "Saturday, 12:30 PM - 2:29 PM",
+      "location": "F48",
+      "instructor": "Reem Ibrahim Alhalawani",
       "credits": "3.00",
-      "seatsLeft": "0"
-    },
+      "seatsLeft": "31"
+    }
+  ],
+  "CSCI313": [
     {
       "fullTitle": "CSCI313: Software Engineering",
       "section": "05",
@@ -6020,6 +5822,50 @@
       "instructor": "Basmala Elsayed Alsabagh",
       "credits": "0.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "CSCI313: Software Engineering",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
+      "location": "148",
+      "instructor": "Ayman Soliman Selmy Mohamed",
+      "credits": "3.00",
+      "seatsLeft": "47"
+    },
+    {
+      "fullTitle": "CSCI313: Software Engineering",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "148",
+      "instructor": "Ayman Soliman Selmy Mohamed",
+      "credits": "3.00",
+      "seatsLeft": "36"
+    },
+    {
+      "fullTitle": "CSCI313: Software Engineering",
+      "section": "03",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
+      "location": "148",
+      "instructor": "Ayman Soliman Selmy Mohamed",
+      "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "CSCI313: Software Engineering",
+      "section": "04",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
+      "location": "148",
+      "instructor": "Ayman Soliman Selmy Mohamed",
+      "credits": "3.00",
+      "seatsLeft": "0"
     }
   ],
   "CSCI315": [
@@ -6067,7 +5913,7 @@
       "location": "114",
       "instructor": "Mohamed Hamdy Elmikaty",
       "credits": "3.00",
-      "seatsLeft": "6"
+      "seatsLeft": "5"
     },
     {
       "fullTitle": "CSCI322: Data Analysis",
@@ -6155,7 +6001,7 @@
       "location": "G18",
       "instructor": "Mohamed Ibrahim Ragab",
       "credits": "0.00",
-      "seatsLeft": "5"
+      "seatsLeft": "4"
     },
     {
       "fullTitle": "CSCI322: Data Analysis",
@@ -6594,7 +6440,7 @@
       "location": "139",
       "instructor": "Amira Tarek Mahmoud",
       "credits": "3.00",
-      "seatsLeft": "19"
+      "seatsLeft": "18"
     },
     {
       "fullTitle": "CSCI419: Theory of Computing",
@@ -6616,7 +6462,7 @@
       "location": "G29",
       "instructor": "Engi Mohamed Abdullah",
       "credits": "0.00",
-      "seatsLeft": "12"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "CSCI419: Theory of Computing",
@@ -6675,7 +6521,7 @@
       "location": "132",
       "instructor": "Ahmed Fathy Elnokrashy",
       "credits": "3.00",
-      "seatsLeft": "33"
+      "seatsLeft": "32"
     },
     {
       "fullTitle": "CSCI452: 3D Computer Graphics and Visualization",
@@ -6686,7 +6532,7 @@
       "location": "G18",
       "instructor": "Donia Khaled Nasr",
       "credits": "0.00",
-      "seatsLeft": "14"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "CSCI452: 3D Computer Graphics and Visualization",
@@ -6721,7 +6567,7 @@
       "location": "7",
       "instructor": "Sama Ayman Zaki",
       "credits": "0.00",
-      "seatsLeft": "7"
+      "seatsLeft": "6"
     },
     {
       "fullTitle": "CSCI461: Introduction to Big Data",
@@ -6743,7 +6589,7 @@
       "location": "134",
       "instructor": "Ebrahim Zaghloul Abdelbaky",
       "credits": "3.00",
-      "seatsLeft": "35"
+      "seatsLeft": "34"
     },
     {
       "fullTitle": "CSCI461: Introduction to Big Data",
@@ -6765,7 +6611,7 @@
       "location": "134",
       "instructor": "Ebrahim Zaghloul Abdelbaky",
       "credits": "3.00",
-      "seatsLeft": "7"
+      "seatsLeft": "6"
     },
     {
       "fullTitle": "CSCI461: Introduction to Big Data",
@@ -6787,7 +6633,7 @@
       "location": "G18",
       "instructor": "Salma Khaled Hegazy",
       "credits": "0.00",
-      "seatsLeft": "15"
+      "seatsLeft": "14"
     },
     {
       "fullTitle": "CSCI461: Introduction to Big Data",
@@ -6811,7 +6657,7 @@
       "location": "145",
       "instructor": "Sahar Ali Fawzy",
       "credits": "3.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "CSCI463: Introduction to Computer Networks",
@@ -6877,7 +6723,7 @@
       "location": "216-B",
       "instructor": "Esraa Ali Elkassas",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "CSCI463: Introduction to Computer Networks",
@@ -7306,7 +7152,7 @@
       "location": "106",
       "instructor": "Sherif Elsaied Abdelsalam",
       "credits": "3.00",
-      "seatsLeft": "35"
+      "seatsLeft": "34"
     },
     {
       "fullTitle": "CVL282: Civil Engineering Drafting",
@@ -7317,7 +7163,7 @@
       "location": "F23",
       "instructor": "Mohamed Mohsen Omran",
       "credits": "0.00",
-      "seatsLeft": "5"
+      "seatsLeft": "4"
     },
     {
       "fullTitle": "CVL282: Civil Engineering Drafting",
@@ -7328,7 +7174,7 @@
       "location": "7",
       "instructor": "Mohamed Mohsen Omran",
       "credits": "0.00",
-      "seatsLeft": "5"
+      "seatsLeft": "4"
     }
   ],
   "CVL312": [
@@ -7692,17 +7538,6 @@
   "EBS111": [
     {
       "fullTitle": "EBS111: Selected Topics in Entrepreneurship",
-      "section": "05",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 2:30 PM - 5:29 PM",
-      "location": "148",
-      "instructor": "Ayman Magd Eldin Hamdy",
-      "credits": "3.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "EBS111: Selected Topics in Entrepreneurship",
       "section": "04",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -7710,7 +7545,7 @@
       "location": "154",
       "instructor": "Ayman Magd Eldin Hamdy",
       "credits": "3.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "EBS111: Selected Topics in Entrepreneurship",
@@ -7744,53 +7579,20 @@
       "instructor": "Mohamed Abbas Gomaa",
       "credits": "3.00",
       "seatsLeft": "0"
-    }
-  ],
-  "ECE151": [
+    },
     {
-      "fullTitle": "ECE151: Introduction to Programming",
+      "fullTitle": "EBS111: Selected Topics in Entrepreneurship",
       "section": "05",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "138",
-      "instructor": "Zeinab Hassan",
+      "schedule": "Sunday, 2:30 PM - 5:29 PM",
+      "location": "148",
+      "instructor": "Ayman Magd Eldin Hamdy",
       "credits": "3.00",
-      "seatsLeft": "17"
-    },
-    {
-      "fullTitle": "ECE151: Introduction to Programming",
-      "section": "05A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
-      "location": "138",
-      "instructor": "Malak Abdelmoniem Soliman",
-      "credits": "0.00",
       "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ECE151: Introduction to Programming",
-      "section": "05B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 10:30 AM - 12:29 PM",
-      "location": "142",
-      "instructor": "Malak Abdelmoniem Soliman",
-      "credits": "0.00",
-      "seatsLeft": "15"
-    },
-    {
-      "fullTitle": "ECE151: Introduction to Programming",
-      "section": "05C",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
-      "location": "138",
-      "instructor": "Malak Abdelmoniem Soliman",
-      "credits": "0.00",
-      "seatsLeft": "7"
-    },
+    }
+  ],
+  "ECE151": [
     {
       "fullTitle": "ECE151: Introduction to Programming",
       "section": "01",
@@ -7966,6 +7768,50 @@
       "instructor": "Hanaa Abdulkareem Mahdi",
       "credits": "0.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "138",
+      "instructor": "Zeinab Hassan",
+      "credits": "3.00",
+      "seatsLeft": "17"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
+      "location": "138",
+      "instructor": "Malak Abdelmoniem Soliman",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Monday, 10:30 AM - 12:29 PM",
+      "location": "142",
+      "instructor": "Malak Abdelmoniem Soliman",
+      "credits": "0.00",
+      "seatsLeft": "15"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
+      "location": "138",
+      "instructor": "Malak Abdelmoniem Soliman",
+      "credits": "0.00",
+      "seatsLeft": "7"
     }
   ],
   "ECE211": [
@@ -8804,7 +8650,7 @@
       "location": "216-B",
       "instructor": "Magda Yousef Mohamed",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "ECE334: Digital Communications",
@@ -8826,7 +8672,7 @@
       "location": "F46",
       "instructor": "Yasmine Aly Fahmy",
       "credits": "3.00",
-      "seatsLeft": "10"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "ECE334: Digital Communications",
@@ -8837,7 +8683,7 @@
       "location": "155",
       "instructor": "Magda Yousef Mohamed",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "9"
     },
     {
       "fullTitle": "ECE334: Digital Communications",
@@ -9340,7 +9186,7 @@
       "location": "110",
       "instructor": "Hana Haitham Abdelrahim",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ECE344: Control Systems",
@@ -9428,7 +9274,7 @@
       "location": "111",
       "instructor": "Hana Haitham Abdelrahim",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ECE344: Control Systems",
@@ -9483,7 +9329,7 @@
       "location": "F9",
       "instructor": "Doha Raek Hamza",
       "credits": "3.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ECE344: Control Systems",
@@ -9656,6 +9502,39 @@
   "ECE353": [
     {
       "fullTitle": "ECE353: Software Engineering",
+      "section": "02A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 3:30 PM - 4:29 PM",
+      "location": "G18",
+      "instructor": "Martina Kamel Miekhiel",
+      "credits": "0.00",
+      "seatsLeft": "10"
+    },
+    {
+      "fullTitle": "ECE353: Software Engineering",
+      "section": "02B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 11:30 AM - 12:29 PM",
+      "location": "110",
+      "instructor": "Martina Kamel Miekhiel",
+      "credits": "0.00",
+      "seatsLeft": "11"
+    },
+    {
+      "fullTitle": "ECE353: Software Engineering",
+      "section": "02C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 10:30 AM - 11:29 AM",
+      "location": "G18",
+      "instructor": "Martina Kamel Miekhiel",
+      "credits": "0.00",
+      "seatsLeft": "14"
+    },
+    {
+      "fullTitle": "ECE353: Software Engineering",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -9752,39 +9631,6 @@
       "instructor": "Martina Kamel Miekhiel",
       "credits": "0.00",
       "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ECE353: Software Engineering",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 3:30 PM - 4:29 PM",
-      "location": "G18",
-      "instructor": "Martina Kamel Miekhiel",
-      "credits": "0.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "ECE353: Software Engineering",
-      "section": "02B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 11:30 AM - 12:29 PM",
-      "location": "110",
-      "instructor": "Martina Kamel Miekhiel",
-      "credits": "0.00",
-      "seatsLeft": "11"
-    },
-    {
-      "fullTitle": "ECE353: Software Engineering",
-      "section": "02C",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 10:30 AM - 11:29 AM",
-      "location": "G18",
-      "instructor": "Martina Kamel Miekhiel",
-      "credits": "0.00",
-      "seatsLeft": "14"
     }
   ],
   "ECE354": [
@@ -9944,7 +9790,7 @@
       "location": "F9",
       "instructor": "Ahmed Hassan Madian",
       "credits": "3.00",
-      "seatsLeft": "14"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "ECE423: Digital System Design",
@@ -9966,7 +9812,7 @@
       "location": "F46",
       "instructor": "Mohamed Adel Milad",
       "credits": "0.00",
-      "seatsLeft": "11"
+      "seatsLeft": "10"
     },
     {
       "fullTitle": "ECE423: Digital System Design",
@@ -9988,7 +9834,7 @@
       "location": "G25",
       "instructor": "Mohamed Adel Milad",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ECE423: Digital System Design",
@@ -10038,28 +9884,6 @@
     }
   ],
   "ECE439": [
-    {
-      "fullTitle": "ECE439: Mobile Communication",
-      "section": "02B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 12:30 PM - 1:29 PM",
-      "location": "265",
-      "instructor": "Mariam Salah Kandil",
-      "credits": "0.00",
-      "seatsLeft": "9"
-    },
-    {
-      "fullTitle": "ECE439: Mobile Communication",
-      "section": "02C",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 1:30 PM - 2:29 PM",
-      "location": "265",
-      "instructor": "Mariam Salah Kandil",
-      "credits": "0.00",
-      "seatsLeft": "6"
-    },
     {
       "fullTitle": "ECE439: Mobile Communication",
       "section": "01",
@@ -10168,7 +9992,29 @@
       "location": "216-B",
       "instructor": "Mariam Salah Kandil",
       "credits": "0.00",
-      "seatsLeft": "18"
+      "seatsLeft": "17"
+    },
+    {
+      "fullTitle": "ECE439: Mobile Communication",
+      "section": "02B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 12:30 PM - 1:29 PM",
+      "location": "265",
+      "instructor": "Mariam Salah Kandil",
+      "credits": "0.00",
+      "seatsLeft": "10"
+    },
+    {
+      "fullTitle": "ECE439: Mobile Communication",
+      "section": "02C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 1:30 PM - 2:29 PM",
+      "location": "265",
+      "instructor": "Mariam Salah Kandil",
+      "credits": "0.00",
+      "seatsLeft": "6"
     }
   ],
   "ECE447": [
@@ -10721,7 +10567,7 @@
       "location": "138",
       "instructor": "Mohamed Mourad Mabrook",
       "credits": "3.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ECEN101C: Electric Circuits (CS)",
@@ -10743,7 +10589,7 @@
       "location": "144",
       "instructor": "Silvana Atef Fathy Nazir Girges",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ECEN101C: Electric Circuits (CS)",
@@ -10765,7 +10611,7 @@
       "location": "28",
       "instructor": "Samah Mohamed Mahmoud Ragab",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ECEN101C: Electric Circuits (CS)",
@@ -11061,7 +10907,7 @@
       "location": "N/A",
       "instructor": "Ahmed Hassan Madian",
       "credits": "3.00",
-      "seatsLeft": "10"
+      "seatsLeft": "9"
     }
   ],
   "ECON202": [
@@ -11085,7 +10931,7 @@
       "location": "240",
       "instructor": "Mohamed Sayed Abed",
       "credits": "3.00",
-      "seatsLeft": "14"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "ECON202: Microeconomics",
@@ -11129,7 +10975,7 @@
       "location": "106",
       "instructor": "Shaimaa Elsayed Hegazy",
       "credits": "0.00",
-      "seatsLeft": "14"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "ECON202: Microeconomics",
@@ -11193,7 +11039,7 @@
       "location": "Not specified",
       "instructor": "Menna Allah Hassan Osman",
       "credits": "0.00",
-      "seatsLeft": "0"
+      "seatsLeft": "2"
     },
     {
       "fullTitle": "ENGL001: Intensive English",
@@ -11247,7 +11093,7 @@
       "location": "Not specified",
       "instructor": "Fatma Aboulsoud Abdelrahim",
       "credits": "0.00",
-      "seatsLeft": "3"
+      "seatsLeft": "2"
     },
     {
       "fullTitle": "ENGL001: Intensive English",
@@ -11328,7 +11174,7 @@
       "location": "Not specified",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     }
   ],
   "ENGL001-A": [
@@ -11551,7 +11397,7 @@
       "location": "Not specified",
       "instructor": "Alaa Ali Elbadry",
       "credits": "0.00",
-      "seatsLeft": "3"
+      "seatsLeft": "2"
     },
     {
       "fullTitle": "ENGL002: English I",
@@ -12527,7 +12373,7 @@
       "location": "Not specified",
       "instructor": "Amira Sherif Sabbahi",
       "credits": "0.00",
-      "seatsLeft": "14"
+      "seatsLeft": "15"
     },
     {
       "fullTitle": "ENGL003: English II",
@@ -12571,7 +12417,7 @@
       "location": "Not specified",
       "instructor": "Hend Mahmoud Ibrahim Elsayed",
       "credits": "0.00",
-      "seatsLeft": "12"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "ENGL003: English II",
@@ -12604,7 +12450,7 @@
       "location": "F36",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL003: English II",
@@ -12715,7 +12561,7 @@
       "location": "Not specified",
       "instructor": "Not Assigned",
       "credits": "3.00",
-      "seatsLeft": "4"
+      "seatsLeft": "3"
     },
     {
       "fullTitle": "ENGL-101: English I",
@@ -12823,7 +12669,7 @@
       "location": "Not specified",
       "instructor": "Meral Mohamed Hussein",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL-101: English I",
@@ -12850,7 +12696,7 @@
       "location": "Not specified",
       "instructor": "Rasha Mohamed Mahmoud",
       "credits": "3.00",
-      "seatsLeft": "4"
+      "seatsLeft": "3"
     },
     {
       "fullTitle": "ENGL-101: English I",
@@ -12890,7 +12736,7 @@
       "location": "F29",
       "instructor": "Hend Mohamed Elsheikh",
       "credits": "3.00",
-      "seatsLeft": "7"
+      "seatsLeft": "8"
     },
     {
       "fullTitle": "ENGL-102: English II",
@@ -12912,7 +12758,7 @@
       "location": "F31",
       "instructor": "Not Assigned",
       "credits": "3.00",
-      "seatsLeft": "16"
+      "seatsLeft": "15"
     },
     {
       "fullTitle": "ENGL-102: English II",
@@ -12980,7 +12826,7 @@
       "location": "Not specified",
       "instructor": "Menna Allah Hassan Osman",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -13002,7 +12848,7 @@
       "location": "Not specified",
       "instructor": "Meral Mohamed Hussein",
       "credits": "3.00",
-      "seatsLeft": "4"
+      "seatsLeft": "5"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -13068,7 +12914,7 @@
       "location": "F29",
       "instructor": "Menna Allah Hassan Osman",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -13112,7 +12958,7 @@
       "location": "Not specified",
       "instructor": "Menna Allah Hassan Osman",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -13233,7 +13079,7 @@
       "location": "Not specified",
       "instructor": "Not Assigned",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -13299,7 +13145,7 @@
       "location": "Not specified",
       "instructor": "Meral Mohamed Hussein",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -13409,7 +13255,7 @@
       "location": "F31",
       "instructor": "Dina Mohamed Oleimy",
       "credits": "3.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "ENGL201: Writing Skills",
@@ -13424,215 +13270,6 @@
     }
   ],
   "ENGL202": [
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "12",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Sunday",
-          "time": "8:30 AM - 10:29 AM",
-          "location": "F27"
-        },
-        {
-          "day": "Wednesday",
-          "time": "3:30 PM - 4:29 PM",
-          "location": "F27"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Dina Mohamed Oleimy",
-      "credits": "3.00",
-      "seatsLeft": "22"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "13",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Thursday",
-          "time": "9:30 AM - 10:29 AM",
-          "location": "F27"
-        },
-        {
-          "day": "Tuesday",
-          "time": "8:30 AM - 10:29 AM",
-          "location": "F27"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Not Assigned",
-      "credits": "3.00",
-      "seatsLeft": "20"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "14",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Thursday",
-          "time": "2:30 PM - 4:29 PM",
-          "location": "F29"
-        },
-        {
-          "day": "Tuesday",
-          "time": "10:30 AM - 11:29 AM",
-          "location": "F27"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Yasmine Mahmoud Shahin",
-      "credits": "3.00",
-      "seatsLeft": "20"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "15",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Monday",
-          "time": "10:30 AM - 11:29 AM",
-          "location": "F26"
-        },
-        {
-          "day": "Wednesday",
-          "time": "10:30 AM - 12:29 PM",
-          "location": "F26"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Radwa Ali Elbamby",
-      "credits": "3.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "16",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Sunday",
-          "time": "10:30 AM - 11:29 AM",
-          "location": "F26"
-        },
-        {
-          "day": "Tuesday",
-          "time": "2:30 PM - 4:29 PM",
-          "location": "F26"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Not Assigned",
-      "credits": "3.00",
-      "seatsLeft": "17"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "17",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Sunday",
-          "time": "10:30 AM - 12:29 PM",
-          "location": "F27"
-        },
-        {
-          "day": "Tuesday",
-          "time": "8:30 AM - 9:29 AM",
-          "location": "F28"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Aya Ashraf Awad",
-      "credits": "3.00",
-      "seatsLeft": "22"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "18",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Thursday, 1:30 PM - 4:29 PM",
-      "location": "F33",
-      "instructor": "Jomana Alaa Abdelhady",
-      "credits": "3.00",
-      "seatsLeft": "12"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "19",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Monday, 11:30 AM - 2:29 PM",
-      "location": "F32",
-      "instructor": "Amena Mahmoud Elshafie",
-      "credits": "3.00",
-      "seatsLeft": "4"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "20",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 8:30 AM - 11:29 AM",
-      "location": "F32",
-      "instructor": "Hend Mohamed Elsheikh",
-      "credits": "3.00",
-      "seatsLeft": "4"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "21",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 11:30 AM - 2:29 PM",
-      "location": "F32",
-      "instructor": "Hend Mohamed Elsheikh",
-      "credits": "3.00",
-      "seatsLeft": "6"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "22",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 1:30 PM - 4:29 PM",
-      "location": "F32",
-      "instructor": "Rana Yehyia Sultan",
-      "credits": "3.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "23",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 8:30 AM - 11:29 AM",
-      "location": "F33",
-      "instructor": "Maryse Moushir Riad",
-      "credits": "3.00",
-      "seatsLeft": "15"
-    },
-    {
-      "fullTitle": "ENGL202: Communication & Presentation Skills",
-      "section": "24",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 8:30 AM - 11:29 AM",
-      "location": "F32",
-      "instructor": "Adham Mahmoud Zidan",
-      "credits": "3.00",
-      "seatsLeft": "3"
-    },
     {
       "fullTitle": "ENGL202: Communication & Presentation Skills",
       "section": "01",
@@ -13730,7 +13367,7 @@
       "location": "F32",
       "instructor": "Ghada Mohamed AlAkhdar",
       "credits": "3.00",
-      "seatsLeft": "12"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "ENGL202: Communication & Presentation Skills",
@@ -13741,7 +13378,7 @@
       "location": "F32",
       "instructor": "Radwa Mohamed Fathy",
       "credits": "3.00",
-      "seatsLeft": "15"
+      "seatsLeft": "16"
     },
     {
       "fullTitle": "ENGL202: Communication & Presentation Skills",
@@ -13752,7 +13389,7 @@
       "location": "F32",
       "instructor": "Amira Sherif Sabbahi",
       "credits": "3.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "ENGL202: Communication & Presentation Skills",
@@ -13797,6 +13434,138 @@
       "instructor": "Yasmine Mahmoud Shahin",
       "credits": "3.00",
       "seatsLeft": "20"
+    },
+    {
+      "fullTitle": "ENGL202: Communication & Presentation Skills",
+      "section": "12",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Sunday",
+          "time": "8:30 AM - 10:29 AM",
+          "location": "F27"
+        },
+        {
+          "day": "Wednesday",
+          "time": "3:30 PM - 4:29 PM",
+          "location": "F27"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Dina Mohamed Oleimy",
+      "credits": "3.00",
+      "seatsLeft": "22"
+    },
+    {
+      "fullTitle": "ENGL202: Communication & Presentation Skills",
+      "section": "13",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Thursday",
+          "time": "9:30 AM - 10:29 AM",
+          "location": "F27"
+        },
+        {
+          "day": "Tuesday",
+          "time": "8:30 AM - 10:29 AM",
+          "location": "F27"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Not Assigned",
+      "credits": "3.00",
+      "seatsLeft": "17"
+    },
+    {
+      "fullTitle": "ENGL202: Communication & Presentation Skills",
+      "section": "14",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Thursday",
+          "time": "2:30 PM - 4:29 PM",
+          "location": "F29"
+        },
+        {
+          "day": "Tuesday",
+          "time": "10:30 AM - 11:29 AM",
+          "location": "F27"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Yasmine Mahmoud Shahin",
+      "credits": "3.00",
+      "seatsLeft": "20"
+    },
+    {
+      "fullTitle": "ENGL202: Communication & Presentation Skills",
+      "section": "15",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Monday",
+          "time": "10:30 AM - 11:29 AM",
+          "location": "F26"
+        },
+        {
+          "day": "Wednesday",
+          "time": "10:30 AM - 12:29 PM",
+          "location": "F26"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Radwa Ali Elbamby",
+      "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ENGL202: Communication & Presentation Skills",
+      "section": "16",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Sunday",
+          "time": "10:30 AM - 11:29 AM",
+          "location": "F26"
+        },
+        {
+          "day": "Tuesday",
+          "time": "2:30 PM - 4:29 PM",
+          "location": "F26"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Not Assigned",
+      "credits": "3.00",
+      "seatsLeft": "17"
+    },
+    {
+      "fullTitle": "ENGL202: Communication & Presentation Skills",
+      "section": "17",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Sunday",
+          "time": "10:30 AM - 12:29 PM",
+          "location": "F27"
+        },
+        {
+          "day": "Tuesday",
+          "time": "8:30 AM - 9:29 AM",
+          "location": "F28"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Aya Ashraf Awad",
+      "credits": "3.00",
+      "seatsLeft": "22"
     }
   ],
   "FINC301": [
@@ -13809,7 +13578,7 @@
       "location": "240",
       "instructor": "Wael Mostafa Hassan Mohamed",
       "credits": "3.00",
-      "seatsLeft": "26"
+      "seatsLeft": "23"
     },
     {
       "fullTitle": "FINC301: Introduction to Finance",
@@ -13820,7 +13589,7 @@
       "location": "111",
       "instructor": "Pansee Gamaledin Elrashid",
       "credits": "0.00",
-      "seatsLeft": "26"
+      "seatsLeft": "23"
     }
   ],
   "FINC303": [
@@ -13879,7 +13648,7 @@
       "location": "233",
       "instructor": "Hadeer Mounir",
       "credits": "3.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "FINC305: Corporate Finance",
@@ -13912,7 +13681,7 @@
       "location": "230",
       "instructor": "Pansee Gamaledin Elrashid",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     }
   ],
   "FINC402": [
@@ -13936,7 +13705,7 @@
       "location": "104",
       "instructor": "Pansee Gamaledin Elrashid",
       "credits": "0.00",
-      "seatsLeft": "18"
+      "seatsLeft": "19"
     }
   ],
   "FINC405": [
@@ -14010,7 +13779,7 @@
       "location": "311",
       "instructor": "Asmaa Sayed Mansour",
       "credits": "2.00",
-      "seatsLeft": "9"
+      "seatsLeft": "8"
     },
     {
       "fullTitle": "HUMA001/101: Intro.to Scientific & Critical Thinking",
@@ -14021,7 +13790,7 @@
       "location": "311",
       "instructor": "Asmaa Sayed Mansour",
       "credits": "2.00",
-      "seatsLeft": "31"
+      "seatsLeft": "30"
     },
     {
       "fullTitle": "HUMA001/101: Intro.to Scientific & Critical Thinking",
@@ -14043,7 +13812,7 @@
       "location": "311",
       "instructor": "Asmaa Sayed Mansour",
       "credits": "2.00",
-      "seatsLeft": "30"
+      "seatsLeft": "29"
     },
     {
       "fullTitle": "HUMA001/101: Intro.to Scientific & Critical Thinking",
@@ -14054,7 +13823,7 @@
       "location": "311",
       "instructor": "Asmaa Sayed Mansour",
       "credits": "2.00",
-      "seatsLeft": "37"
+      "seatsLeft": "36"
     },
     {
       "fullTitle": "HUMA001/101: Intro.to Scientific & Critical Thinking",
@@ -14065,7 +13834,7 @@
       "location": "307",
       "instructor": "Ghada Mohamed AlAkhdar",
       "credits": "2.00",
-      "seatsLeft": "50"
+      "seatsLeft": "51"
     },
     {
       "fullTitle": "HUMA001/101: Intro.to Scientific & Critical Thinking",
@@ -14098,7 +13867,7 @@
       "location": "307",
       "instructor": "Ghada Mohamed AlAkhdar",
       "credits": "2.00",
-      "seatsLeft": "52"
+      "seatsLeft": "51"
     }
   ],
   "HUMA002": [
@@ -14111,7 +13880,7 @@
       "location": "307",
       "instructor": "Muhammad Maher Abdulghaffar",
       "credits": "2.00",
-      "seatsLeft": "52"
+      "seatsLeft": "53"
     },
     {
       "fullTitle": "HUMA002: Introduction to Ethics",
@@ -14135,7 +13904,7 @@
       "location": "307",
       "instructor": "Muhammad Maher Abdulghaffar",
       "credits": "1.00",
-      "seatsLeft": "9"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "HUMA102: Introduction to Ethics",
@@ -14157,7 +13926,7 @@
       "location": "307",
       "instructor": "Muhammad Maher Abdulghaffar",
       "credits": "1.00",
-      "seatsLeft": "2"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "HUMA102: Introduction to Ethics",
@@ -14497,6 +14266,17 @@
   "IND324": [
     {
       "fullTitle": "IND324: Logistics and Supply Chain Management",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Thursday, 12:30 PM - 2:29 PM",
+      "location": "358",
+      "instructor": "Sally Saad Kassem",
+      "credits": "3.00",
+      "seatsLeft": "57"
+    },
+    {
+      "fullTitle": "IND324: Logistics and Supply Chain Management",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -14516,31 +14296,9 @@
       "instructor": "Yousef Hassan Abdelwahab",
       "credits": "0.00",
       "seatsLeft": "27"
-    },
-    {
-      "fullTitle": "IND324: Logistics and Supply Chain Management",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Thursday, 12:30 PM - 2:29 PM",
-      "location": "358",
-      "instructor": "Sally Saad Kassem",
-      "credits": "3.00",
-      "seatsLeft": "57"
     }
   ],
   "IND325": [
-    {
-      "fullTitle": "IND325: Project Management",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 8:30 AM - 10:29 AM",
-      "location": "B12B",
-      "instructor": "Sherif Abdelrahman Elatriby",
-      "credits": "3.00",
-      "seatsLeft": "48"
-    },
     {
       "fullTitle": "IND325: Project Management",
       "section": "01A",
@@ -14551,6 +14309,17 @@
       "instructor": "Yousef Hassan Abdelwahab",
       "credits": "0.00",
       "seatsLeft": "18"
+    },
+    {
+      "fullTitle": "IND325: Project Management",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Tuesday, 8:30 AM - 10:29 AM",
+      "location": "B12B",
+      "instructor": "Sherif Abdelrahman Elatriby",
+      "credits": "3.00",
+      "seatsLeft": "48"
     }
   ],
   "IND332": [
@@ -14777,7 +14546,7 @@
       "location": "B10",
       "instructor": "Ahmed Hamdy",
       "credits": "3.00",
-      "seatsLeft": "47"
+      "seatsLeft": "46"
     },
     {
       "fullTitle": "IND457: Management Information Systems",
@@ -14788,7 +14557,7 @@
       "location": "B10",
       "instructor": "Abdulrahman Masoud",
       "credits": "0.00",
-      "seatsLeft": "17"
+      "seatsLeft": "16"
     }
   ],
   "IND493": [
@@ -14847,7 +14616,7 @@
       "location": "F46",
       "instructor": "Mohamed Mahmoud Aly, Bakinam Tarek Ahmed Essawy, Irene Samy Gibreel, Ahmed Hassan Madian, Mahmoud Emam Ragab Nasr Shaaban",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "INT111: Engineering Disciplines:History&Concepts",
@@ -14957,7 +14726,7 @@
       "location": "053",
       "instructor": "Aya Mohamed Elshahat, Abdelrahman Ahmed Kamal, Omar Zohair Rashad, Salma Hossameldin Mohamed Fahmy Zakzouk",
       "credits": "0.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "INT111: Engineering Disciplines:History&Concepts",
@@ -15137,7 +14906,7 @@
       "location": "F46",
       "instructor": "Ayat Osama Gallab",
       "credits": "3.00",
-      "seatsLeft": "2"
+      "seatsLeft": "3"
     },
     {
       "fullTitle": "INT113: Engineering History",
@@ -15148,7 +14917,7 @@
       "location": "216-B",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "2"
     },
     {
       "fullTitle": "INT113: Engineering History",
@@ -15444,6 +15213,61 @@
   "MATH100": [
     {
       "fullTitle": "MATH100: Pre-calculus",
+      "section": "03",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Monday, 10:30 AM - 12:29 PM",
+      "location": "138",
+      "instructor": "Ethar Ahmed Abdelsalam",
+      "credits": "0.00",
+      "seatsLeft": "4"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "03A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "F38",
+      "instructor": "Zeyad Ahmed Hadhood",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "04",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Sunday, 8:30 AM - 10:29 AM",
+      "location": "138",
+      "instructor": "Ayat Osama Gallab",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "04A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Monday, 12:30 PM - 2:29 PM",
+      "location": "142",
+      "instructor": "Zeyad Ahmed Hadhood",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "03B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
+      "location": "F9",
+      "instructor": "Zeyad Ahmed Hadhood",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -15507,61 +15331,6 @@
       "instructor": "Zeyad Ahmed Hadhood",
       "credits": "0.00",
       "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "03",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Monday, 10:30 AM - 12:29 PM",
-      "location": "138",
-      "instructor": "Ethar Ahmed Abdelsalam",
-      "credits": "0.00",
-      "seatsLeft": "4"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "03A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "F38",
-      "instructor": "Zeyad Ahmed Hadhood",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "04",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 8:30 AM - 10:29 AM",
-      "location": "138",
-      "instructor": "Ayat Osama Gallab",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "04A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Monday, 12:30 PM - 2:29 PM",
-      "location": "142",
-      "instructor": "Zeyad Ahmed Hadhood",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "03B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
-      "location": "F9",
-      "instructor": "Zeyad Ahmed Hadhood",
-      "credits": "0.00",
-      "seatsLeft": "0"
     }
   ],
   "MATH101": [
@@ -15574,7 +15343,7 @@
       "location": "159",
       "instructor": "Fayyad Galal Ibrahim",
       "credits": "3.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "MATH101: Pre-Calculus",
@@ -15585,7 +15354,7 @@
       "location": "F43",
       "instructor": "Hager Mohamed Eldaadaa",
       "credits": "0.00",
-      "seatsLeft": "3"
+      "seatsLeft": "2"
     },
     {
       "fullTitle": "MATH101: Pre-Calculus",
@@ -15758,7 +15527,7 @@
       "location": "F45",
       "instructor": "Ahmed Sayed Etman",
       "credits": "3.00",
-      "seatsLeft": "53"
+      "seatsLeft": "52"
     },
     {
       "fullTitle": "MATH111i: Analytical Geometry & Calculus I",
@@ -15769,7 +15538,7 @@
       "location": "129",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "28"
+      "seatsLeft": "27"
     },
     {
       "fullTitle": "MATH111i: Analytical Geometry & Calculus I",
@@ -15924,6 +15693,28 @@
   "MATH120": [
     {
       "fullTitle": "MATH120: Pre-calculus Mathematics",
+      "section": "03",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
+      "location": "138",
+      "instructor": "Fayyad Galal Ibrahim",
+      "credits": "0.00",
+      "seatsLeft": "23"
+    },
+    {
+      "fullTitle": "MATH120: Pre-calculus Mathematics",
+      "section": "03A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Thursday, 8:30 AM - 10:29 AM",
+      "location": "154",
+      "instructor": "Hager Mohamed Eldaadaa",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH120: Pre-calculus Mathematics",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -15998,28 +15789,6 @@
       "instructor": "Hager Mohamed Eldaadaa",
       "credits": "0.00",
       "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH120: Pre-calculus Mathematics",
-      "section": "03",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
-      "location": "138",
-      "instructor": "Fayyad Galal Ibrahim",
-      "credits": "0.00",
-      "seatsLeft": "23"
-    },
-    {
-      "fullTitle": "MATH120: Pre-calculus Mathematics",
-      "section": "03A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Thursday, 8:30 AM - 10:29 AM",
-      "location": "154",
-      "instructor": "Hager Mohamed Eldaadaa",
-      "credits": "0.00",
-      "seatsLeft": "0"
     }
   ],
   "MATH121": [
@@ -16065,7 +15834,7 @@
       "location": "8",
       "instructor": "Hany Abdelghafar Abdelatty",
       "credits": "3.00",
-      "seatsLeft": "8"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "MATH121: Calculus I and Analytical Geometry",
@@ -16175,7 +15944,7 @@
       "location": "F43",
       "instructor": "Eman Khalid Ibrahim",
       "credits": "0.00",
-      "seatsLeft": "6"
+      "seatsLeft": "5"
     }
   ],
   "MATH122": [
@@ -16280,7 +16049,7 @@
       "location": "104",
       "instructor": "Bassant Wahid Farouk",
       "credits": "0.00",
-      "seatsLeft": "34"
+      "seatsLeft": "33"
     },
     {
       "fullTitle": "MATH201B: Introduction to Probability & Statistics",
@@ -16291,7 +16060,7 @@
       "location": "232",
       "instructor": "Mahmoud Samy Khaled",
       "credits": "3.00",
-      "seatsLeft": "34"
+      "seatsLeft": "33"
     }
   ],
   "MATH202": [
@@ -16657,7 +16426,7 @@
       "location": "F48",
       "instructor": "Shaimaa Ebid Kamel",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "MATH223: Differential Equations",
@@ -16668,7 +16437,7 @@
       "location": "F48",
       "instructor": "Shaimaa Ebid Kamel",
       "credits": "3.00",
-      "seatsLeft": "31"
+      "seatsLeft": "30"
     },
     {
       "fullTitle": "MATH223: Differential Equations",
@@ -16679,7 +16448,7 @@
       "location": "154",
       "instructor": "Sama Mohamed Abdelmalik",
       "credits": "0.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "MATH223: Differential Equations",
@@ -16701,7 +16470,7 @@
       "location": "154",
       "instructor": "Sama Mohamed Abdelmalik",
       "credits": "0.00",
-      "seatsLeft": "17"
+      "seatsLeft": "16"
     },
     {
       "fullTitle": "MATH223: Differential Equations",
@@ -16725,7 +16494,7 @@
       "location": "145",
       "instructor": "Waleed Adel Auof",
       "credits": "4.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MATH301: Linear Algebra",
@@ -16747,7 +16516,7 @@
       "location": "145",
       "instructor": "Waleed Adel Auof",
       "credits": "4.00",
-      "seatsLeft": "43"
+      "seatsLeft": "44"
     },
     {
       "fullTitle": "MATH301: Linear Algebra",
@@ -16769,7 +16538,7 @@
       "location": "144",
       "instructor": "Tasneem Tarek Mahmoud Hassan Abdelkareem",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MATH301: Linear Algebra",
@@ -16813,7 +16582,7 @@
       "location": "230",
       "instructor": "Reem Ahmed Ali",
       "credits": "0.00",
-      "seatsLeft": "25"
+      "seatsLeft": "26"
     },
     {
       "fullTitle": "MATH301: Linear Algebra",
@@ -17023,7 +16792,7 @@
       "location": "138",
       "instructor": "Hossam Hassan Aboalela, Mohamed Mohamed Elshabrawy",
       "credits": "3.00",
-      "seatsLeft": "15"
+      "seatsLeft": "16"
     },
     {
       "fullTitle": "MEC111: Engineering Mechanics I",
@@ -17122,7 +16891,7 @@
       "location": "159",
       "instructor": "Iman Ali Shalabi",
       "credits": "0.00",
-      "seatsLeft": "6"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "MEC111: Engineering Mechanics I",
@@ -17319,7 +17088,7 @@
       "location": "S43",
       "instructor": "Nourelhoda Mohamed Saad Bishady",
       "credits": "0.00",
-      "seatsLeft": "13"
+      "seatsLeft": "14"
     },
     {
       "fullTitle": "MENG424: Embedded Systems and Computer Interface",
@@ -17330,7 +17099,7 @@
       "location": "S43",
       "instructor": "Nourelhoda Mohamed Saad Bishady",
       "credits": "0.00",
-      "seatsLeft": "19"
+      "seatsLeft": "18"
     }
   ],
   "MENG426": [
@@ -17343,7 +17112,7 @@
       "location": "S44",
       "instructor": "Haytham Mohsen Yassin",
       "credits": "3.00",
-      "seatsLeft": "34"
+      "seatsLeft": "33"
     },
     {
       "fullTitle": "MENG426: Industrial Control Systems",
@@ -17365,7 +17134,7 @@
       "location": "S51",
       "instructor": "Omnia Ahmed Ibrahim",
       "credits": "0.00",
-      "seatsLeft": "4"
+      "seatsLeft": "3"
     }
   ],
   "MENG444": [
@@ -17461,7 +17230,7 @@
       "location": "101",
       "instructor": "Sahar Ahmed Salem",
       "credits": "0.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "MGMT201: Fundamentals of Management",
@@ -17531,7 +17300,7 @@
       "location": "139",
       "instructor": "Sally Kamal Aly Omran",
       "credits": "3.00",
-      "seatsLeft": "47"
+      "seatsLeft": "48"
     },
     {
       "fullTitle": "MGMT303: Human Resources Management",
@@ -17542,7 +17311,7 @@
       "location": "232",
       "instructor": "Sally Kamal Aly Omran",
       "credits": "3.00",
-      "seatsLeft": "44"
+      "seatsLeft": "41"
     },
     {
       "fullTitle": "MGMT303: Human Resources Management",
@@ -17553,7 +17322,7 @@
       "location": "111",
       "instructor": "Haidy Hassan Amin",
       "credits": "0.00",
-      "seatsLeft": "47"
+      "seatsLeft": "48"
     },
     {
       "fullTitle": "MGMT303: Human Resources Management",
@@ -17564,7 +17333,7 @@
       "location": "111",
       "instructor": "Haidy Hassan Amin",
       "credits": "0.00",
-      "seatsLeft": "44"
+      "seatsLeft": "41"
     }
   ],
   "MGMT401": [
@@ -17577,7 +17346,20 @@
       "location": "240",
       "instructor": "Sherif Mohsen Shaltout",
       "credits": "3.00",
-      "seatsLeft": "14"
+      "seatsLeft": "13"
+    }
+  ],
+  "MGMT701": [
+    {
+      "fullTitle": "MGMT701: Human Resource Management",
+      "section": "01",
+      "session": "Session 02",
+      "subtype": "Lecture",
+      "schedule": "Saturday, 10:00 AM - 1:59 PM",
+      "location": "",
+      "instructor": "Sally Kamal Aly Omran",
+      "credits": "3.00",
+      "seatsLeft": "25"
     }
   ],
   "MICR201": [
@@ -17697,6 +17479,17 @@
   "MICR404": [
     {
       "fullTitle": "MICR404: Industrial Microbiology",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
+      "location": "307",
+      "instructor": "Marwa Nabil Abdelaziz",
+      "credits": "3.00",
+      "seatsLeft": "5"
+    },
+    {
+      "fullTitle": "MICR404: Industrial Microbiology",
       "section": "02",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -17749,17 +17542,6 @@
       "instructor": "Howida Samir Fathy, Yomna Youssef Ismail",
       "credits": "0.00",
       "seatsLeft": "26"
-    },
-    {
-      "fullTitle": "MICR404: Industrial Microbiology",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
-      "location": "307",
-      "instructor": "Marwa Nabil Abdelaziz",
-      "credits": "3.00",
-      "seatsLeft": "5"
     }
   ],
   "MICR405": [
@@ -17877,7 +17659,7 @@
       "location": "142",
       "instructor": "Mostafa Hatem Elbolok",
       "credits": "3.00",
-      "seatsLeft": "9"
+      "seatsLeft": "8"
     },
     {
       "fullTitle": "MKTG309: Sales Management & Growth Marketing",
@@ -17888,7 +17670,7 @@
       "location": "104",
       "instructor": "Haidy Hassan Amin",
       "credits": "0.00",
-      "seatsLeft": "9"
+      "seatsLeft": "8"
     }
   ],
   "MKTG403": [
@@ -17949,7 +17731,7 @@
       "location": "307",
       "instructor": "Mariam Khaled Sabry",
       "credits": "0.00",
-      "seatsLeft": "14"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "MNG213: Mechanics of Materials",
@@ -17982,7 +17764,7 @@
       "location": "G26",
       "instructor": "Tamer Heshmat Kasem",
       "credits": "3.00",
-      "seatsLeft": "14"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "MNG213: Mechanics of Materials",
@@ -18582,17 +18364,6 @@
   "MNG436": [
     {
       "fullTitle": "MNG436: Power Electronics and Motor Drives",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
-      "location": "S29",
-      "instructor": "Raafat Elsayed Shalaby",
-      "credits": "3.00",
-      "seatsLeft": "15"
-    },
-    {
-      "fullTitle": "MNG436: Power Electronics and Motor Drives",
       "section": "02B",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -18612,6 +18383,17 @@
       "instructor": "Aya Mohamed Abdellatif",
       "credits": "0.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MNG436: Power Electronics and Motor Drives",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
+      "location": "S29",
+      "instructor": "Raafat Elsayed Shalaby",
+      "credits": "3.00",
+      "seatsLeft": "15"
     }
   ],
   "MNG462": [
@@ -18692,7 +18474,7 @@
       "location": "S44",
       "instructor": "Rahma Abdelhamid Mahmoud",
       "credits": "0.00",
-      "seatsLeft": "6"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "MNG466: Automotive Mechatronics",
@@ -18703,7 +18485,7 @@
       "location": "358",
       "instructor": "Rahma Abdelhamid Mahmoud",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     }
   ],
   "MNG474": [
@@ -19053,7 +18835,7 @@
       "location": "",
       "instructor": "Nadia Abou Elmakarem AlAnsary",
       "credits": "3.00",
-      "seatsLeft": "34"
+      "seatsLeft": "33"
     }
   ],
   "MOT649A": [
@@ -19430,7 +19212,7 @@
       "location": "S29",
       "instructor": "Ahmed Nader Rizk",
       "credits": "3.00",
-      "seatsLeft": "53"
+      "seatsLeft": "52"
     }
   ],
   "MSD699A": [
@@ -19508,7 +19290,7 @@
       "location": "359",
       "instructor": "Mohamed Gamal Rizk",
       "credits": "0.00",
-      "seatsLeft": "3"
+      "seatsLeft": "4"
     },
     {
       "fullTitle": "MTH111: Analytical Geometry & Calculus I",
@@ -19651,7 +19433,7 @@
       "location": "F48",
       "instructor": "Mohamed Ibrahim Wafa",
       "credits": "3.00",
-      "seatsLeft": "12"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "MTH111: Analytical Geometry & Calculus I",
@@ -19662,7 +19444,7 @@
       "location": "F45",
       "instructor": "Mohamed Ibrahim Wafa",
       "credits": "3.00",
-      "seatsLeft": "13"
+      "seatsLeft": "14"
     },
     {
       "fullTitle": "MTH111: Analytical Geometry & Calculus I",
@@ -19761,7 +19543,7 @@
       "location": "9",
       "instructor": "Mohamed Gamal Rizk",
       "credits": "0.00",
-      "seatsLeft": "5"
+      "seatsLeft": "6"
     }
   ],
   "MTH112": [
@@ -19932,7 +19714,7 @@
       "location": "148",
       "instructor": "Mohamed Elshafei Awad",
       "credits": "3.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MTH214: Linear Algebra&Intro.to Machine Learning",
@@ -20042,7 +19824,7 @@
       "location": "144",
       "instructor": "Doaa Kamal Abdelrahman Hussien",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "MTH214: Linear Algebra&Intro.to Machine Learning",
@@ -20516,7 +20298,7 @@
       "location": "32",
       "instructor": "Mira Sameh Elsoukary, Rawan Mohamed Edris Khamis",
       "credits": "0.00",
-      "seatsLeft": "1"
+      "seatsLeft": "0"
     },
     {
       "fullTitle": "NSCI103: Selected Topics in Natural Sciences",
@@ -20527,7 +20309,7 @@
       "location": "32",
       "instructor": "Mira Sameh Elsoukary, Rawan Mohamed Edris Khamis",
       "credits": "0.00",
-      "seatsLeft": "13"
+      "seatsLeft": "14"
     }
   ],
   "OPMG301": [
@@ -20702,7 +20484,7 @@
       "location": "232",
       "instructor": "Laila Sherif Hamdy",
       "credits": "3.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "OPMG405: Project Management",
@@ -20713,7 +20495,7 @@
       "location": "110",
       "instructor": "Mai Mahmoud Ramadan",
       "credits": "0.00",
-      "seatsLeft": "0"
+      "seatsLeft": "1"
     }
   ],
   "OPMG407": [
@@ -20726,7 +20508,7 @@
       "location": "230",
       "instructor": "Mohamed Elsayed Elmehalawi",
       "credits": "3.00",
-      "seatsLeft": "31"
+      "seatsLeft": "30"
     },
     {
       "fullTitle": "OPMG407: Procurement Management",
@@ -20737,7 +20519,7 @@
       "location": "110",
       "instructor": "Mariam Mamdouh Hassan",
       "credits": "0.00",
-      "seatsLeft": "31"
+      "seatsLeft": "30"
     }
   ],
   "PHY101": [
@@ -20778,182 +20560,6 @@
   "PHY111": [
     {
       "fullTitle": "PHY111: Physics I",
-      "section": "05A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
-      "location": "263",
-      "instructor": "Farah Ahmed Anwar",
-      "credits": "0.00",
-      "seatsLeft": "7"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "05A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 4:30 PM - 5:29 PM",
-      "location": "32",
-      "instructor": "Farah Ahmed Anwar",
-      "credits": "0.00",
-      "seatsLeft": "5"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "05B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Monday, 10:30 AM - 12:29 PM",
-      "location": "306",
-      "instructor": "Farah Ahmed Anwar",
-      "credits": "0.00",
-      "seatsLeft": "7"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "05B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 9:30 AM - 10:29 AM",
-      "location": "32",
-      "instructor": "Mira Sameh Elsoukary",
-      "credits": "0.00",
-      "seatsLeft": "9"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "06A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Monday, 12:30 PM - 2:29 PM",
-      "location": "306",
-      "instructor": "Farah Ahmed Anwar",
-      "credits": "0.00",
-      "seatsLeft": "2"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "06A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 3:30 PM - 4:29 PM",
-      "location": "32",
-      "instructor": "Farah Ahmed Anwar",
-      "credits": "0.00",
-      "seatsLeft": "5"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "06B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
-      "location": "139",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "8"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "06B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 11:30 AM - 12:29 PM",
-      "location": "32",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "5"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "07A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 4:30 PM - 6:29 PM",
-      "location": "9",
-      "instructor": "Mira Sameh Elsoukary",
-      "credits": "0.00",
-      "seatsLeft": "12"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "07A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Tuesday, 9:30 AM - 10:29 AM",
-      "location": "32",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "12"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "07B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Sunday, 4:30 PM - 6:29 PM",
-      "location": "350-B",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "13"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "07B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Tuesday, 8:30 AM - 9:29 AM",
-      "location": "32",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "13"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "08A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Sunday, 8:30 AM - 10:29 AM",
-      "location": "129",
-      "instructor": "Farah Ahmed Anwar",
-      "credits": "0.00",
-      "seatsLeft": "11"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "08A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 9:30 AM - 10:29 AM",
-      "location": "32",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "08B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Sunday, 8:30 AM - 10:29 AM",
-      "location": "132",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "9"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
-      "section": "08B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Tuesday, 4:30 PM - 5:29 PM",
-      "location": "32",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "PHY111: Physics I",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -20983,7 +20589,7 @@
       "location": "132",
       "instructor": "Mai Osama Sallam",
       "credits": "3.00",
-      "seatsLeft": "8"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -21027,7 +20633,7 @@
       "location": "F46",
       "instructor": "Essam Ahmed Gomaa",
       "credits": "3.00",
-      "seatsLeft": "25"
+      "seatsLeft": "26"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -21159,7 +20765,7 @@
       "location": "350-B",
       "instructor": "Not Assigned",
       "credits": "0.00",
-      "seatsLeft": "8"
+      "seatsLeft": "7"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -21170,7 +20776,7 @@
       "location": "32",
       "instructor": "Farah Ahmed Anwar",
       "credits": "0.00",
-      "seatsLeft": "2"
+      "seatsLeft": "1"
     },
     {
       "fullTitle": "PHY111: Physics I",
@@ -21215,6 +20821,182 @@
       "instructor": "Not Assigned",
       "credits": "0.00",
       "seatsLeft": "2"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "05A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
+      "location": "263",
+      "instructor": "Farah Ahmed Anwar",
+      "credits": "0.00",
+      "seatsLeft": "7"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "05A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 4:30 PM - 5:29 PM",
+      "location": "32",
+      "instructor": "Farah Ahmed Anwar",
+      "credits": "0.00",
+      "seatsLeft": "5"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "05B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Monday, 10:30 AM - 12:29 PM",
+      "location": "306",
+      "instructor": "Farah Ahmed Anwar",
+      "credits": "0.00",
+      "seatsLeft": "7"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "05B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 9:30 AM - 10:29 AM",
+      "location": "32",
+      "instructor": "Mira Sameh Elsoukary",
+      "credits": "0.00",
+      "seatsLeft": "9"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "06A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Monday, 12:30 PM - 2:29 PM",
+      "location": "306",
+      "instructor": "Farah Ahmed Anwar",
+      "credits": "0.00",
+      "seatsLeft": "2"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "06A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 3:30 PM - 4:29 PM",
+      "location": "32",
+      "instructor": "Farah Ahmed Anwar",
+      "credits": "0.00",
+      "seatsLeft": "5"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "06B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
+      "location": "139",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "8"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "06B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 11:30 AM - 12:29 PM",
+      "location": "32",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "5"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "07A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 4:30 PM - 6:29 PM",
+      "location": "9",
+      "instructor": "Mira Sameh Elsoukary",
+      "credits": "0.00",
+      "seatsLeft": "13"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "07A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 9:30 AM - 10:29 AM",
+      "location": "32",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "13"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "07B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 4:30 PM - 6:29 PM",
+      "location": "350-B",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "13"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "07B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 8:30 AM - 9:29 AM",
+      "location": "32",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "13"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "08A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 8:30 AM - 10:29 AM",
+      "location": "129",
+      "instructor": "Farah Ahmed Anwar",
+      "credits": "0.00",
+      "seatsLeft": "11"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "08A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Monday, 9:30 AM - 10:29 AM",
+      "location": "32",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "10"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "08B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 8:30 AM - 10:29 AM",
+      "location": "132",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "9"
+    },
+    {
+      "fullTitle": "PHY111: Physics I",
+      "section": "08B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 4:30 PM - 5:29 PM",
+      "location": "32",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "10"
     }
   ],
   "PHY112": [
@@ -21339,7 +21121,7 @@
       "location": "F47",
       "instructor": "Mohamed Mohamed Elshabrawy",
       "credits": "3.00",
-      "seatsLeft": "26"
+      "seatsLeft": "27"
     },
     {
       "fullTitle": "PHY121: Engineering Mechanics I",
@@ -21361,7 +21143,7 @@
       "location": "159",
       "instructor": "Rahma Abdelhamid Mahmoud",
       "credits": "0.00",
-      "seatsLeft": "11"
+      "seatsLeft": "12"
     }
   ],
   "PHYS101C": [
@@ -21396,7 +21178,7 @@
       "location": "F47",
       "instructor": "Mai Osama Sallam",
       "credits": "4.00",
-      "seatsLeft": "21"
+      "seatsLeft": "22"
     },
     {
       "fullTitle": "PHYS101C: Physics I",
@@ -21528,7 +21310,7 @@
       "location": "240",
       "instructor": "Sara Mansour Ali",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "PHYS101C: Physics I",
@@ -21550,7 +21332,7 @@
       "location": "33",
       "instructor": "Sara Mansour Ali",
       "credits": "0.00",
-      "seatsLeft": "10"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "PHYS101C: Physics I",
@@ -21723,7 +21505,7 @@
       "location": "114",
       "instructor": "Reem Abdelfattah Elkhodary",
       "credits": "3.00",
-      "seatsLeft": "10"
+      "seatsLeft": "11"
     },
     {
       "fullTitle": "SSCI101: S.T.in Egyptian & Arab Heritage",
@@ -21758,7 +21540,7 @@
       "location": "132",
       "instructor": "Rasha Ahmed Elebiary",
       "credits": "3.00",
-      "seatsLeft": "7"
+      "seatsLeft": "6"
     },
     {
       "fullTitle": "SSCI102: S.T.in World Cultures & Diversity",
@@ -21804,7 +21586,7 @@
       "location": "F38",
       "instructor": "Eslam Abdelgawad Ehamzawy",
       "credits": "2.00",
-      "seatsLeft": "26"
+      "seatsLeft": "24"
     }
   ],
   "SSCI-301": [
@@ -21905,7 +21687,7 @@
       "location": "350-B",
       "instructor": "Youssef Hatem Elbakry",
       "credits": "0.00",
-      "seatsLeft": "14"
+      "seatsLeft": "13"
     },
     {
       "fullTitle": "SSCI-301: Project Management",
@@ -21993,7 +21775,7 @@
       "location": "116",
       "instructor": "Mohamed Taha Abdelfattah Taha",
       "credits": "3.00",
-      "seatsLeft": "28"
+      "seatsLeft": "27"
     },
     {
       "fullTitle": "SSCI-301: Project Management",
