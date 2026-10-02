@@ -5,18 +5,33 @@ gnome = import('gnome')
 python = import('python')
 
 # --- Blueprint setup ---
-blueprint_compiler = find_program('blueprint-compiler', required: true)   # NEW
+blueprint_compiler = find_program('blueprint-compiler', required: true)
 
 # Add your .blp files here
-blueprint_sources = files('window.blp')                              # NEW
+blueprint_sources = files(
+  'UI/shortcuts-dialog.blp',
+  'UI/window.blp',
+  'UI/import_dialog.blp',
+  'UI/branch_dialog.blp',
+)
 
 # Compile .blp → .ui
-ui_files = custom_target('ui',                                            # NEW
-  input: blueprint_sources,                                               # NEW
-  output: 'window.ui',                                                    # NEW
-  command: [blueprint_compiler, 'compile', '@INPUT@'],                    # NEW
-  capture: true                                                           # NEW
-)                                                                         # NEW
+ui_files = custom_target('ui',
+  input: blueprint_sources,
+  output: [
+    'shortcuts-dialog.ui',
+    'window.ui',
+    'import_dialog.ui',
+    'branch_dialog.ui',
+  ],
+  command: [
+    blueprint_compiler,
+    'batch-compile',
+    '@OUTDIR@',
+    meson.current_source_dir() / 'UI',
+    '@INPUT@',
+  ],
+)
 # --- end Blueprint setup ---
 
 gnome.compile_resources('commodus',
@@ -24,7 +39,15 @@ gnome.compile_resources('commodus',
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,
-  dependencies: ui_files,   # NEW: ensure .ui is built before resources
+  source_dir: [
+    meson.current_source_dir(),          # Looks in src/
+    meson.current_build_dir(),           # Looks in build/src/ (for window.ui)
+    meson.project_build_root() / 'data', # Looks in build/data/ (for metainfo.xml)
+  ],
+  dependencies: [
+    ui_files,
+    appstream_file,                      # Ensures metainfo is generated first
+  ],
 )
 
 conf = configuration_data()
@@ -46,6 +69,12 @@ commodus_sources = [
   '__init__.py',
   'main.py',
   'window.py',
+  'branch_dialog.py',
+  'import_dialog.py',
+  'diagnostics.py',
+  'scheduler_runner.py',
+  'timetable_view.py',
+  'database_service.py',
 ]
 
 install_data(commodus_sources, install_dir: moduledir)

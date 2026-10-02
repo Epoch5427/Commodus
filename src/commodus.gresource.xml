@@ -4,6 +4,12 @@
   <gresource prefix="/io/github/Epoch5427/Commodus">
     <file preprocess="xml-stripblanks">window.ui</file>
     <file preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
+    <file preprocess="xml-stripblanks">import_dialog.ui</file>
+    <file preprocess="xml-stripblanks">branch_dialog.ui</file>
+  </gresource>
+  <!-- Appstream Data & About Dialog -->
+  <gresource prefix="/io/github/Epoch5427/Commodus">
+    <file preprocess="xml-stripblanks">io.github.Epoch5427.Commodus.metainfo.xml</file>
   </gresource>
 
   <!-- Application Icons -->

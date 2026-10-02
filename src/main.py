@@ -53,16 +53,13 @@ class CommodusApplication(Adw.Application):
 
     def on_about_action(self, *args):
         """Callback for the app.about action."""
-        about = Adw.AboutDialog(application_name='Commodus',
-                                application_icon='io.github.Epoch5427.Commodus',
-                                developer_name='Epoch',
-                                version='1.0.1',
-                                website='https://github.com/Epoch5427/Commodus',
-                                issue_url='https://github.com/Epoch5427/Commodus/issues',
-                                developers=['Epoch'],
-                                copyright='© 2026 Epoch')
+        # 1. GResource path to metainfo file
+        resource_path = ("/io/github/Epoch5427/Commodus/io.github.Epoch5427.Commodus.metainfo.xml")
+        version = "1.1.0"
+        about = Adw.AboutDialog.new_from_appdata(resource_path, version)
         # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
-        #about.set_translator_credits(_('translator-credits'))
+        # about.set_translator_credits(_('translator-credits'))
+
         about.present(self.props.active_window)
 
     def on_preferences_action(self, widget, _):

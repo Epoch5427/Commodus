@@ -49,6 +49,23 @@
   </screenshots>
 
     <releases>
+      <release version="1.1.0" date="2026-09-19">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v1.1.0</url>
+      <description translate="no">
+        <p>Many Bug Fixes And QoL Improvements</p>
+        <ul>
+          <li>Fixed a bug in the latest update that caused the update_db spinner not to appear</li>
+          <li>Fixed a diagnostics bug where it used to report unlock course even when said course only had 1 section</li>
+          <li>Added a new toggle to the appearance page for showing full course titles rather than course codes</li>
+          <li>Added a shortcut (Ctrl+I) to cycle between the different secondary information options</li>
+          <li>Made the app load the database without locking up the main UI</li>
+          <li>Added an automated what's new section to the about page</li>
+          <li>Started Refactoring the code to make it easier to maintain and test</li>
+          <li>Optimized schedule navigation by only redrawing blocks rather than redrawing the whole grid</li>
+          <li>Fixed a bug that caused manually updating the database to occasionally corrupt the local database</li>
+        </ul>
+      </description>
+    </release>
       <release version="1.0.1" date="2026-09-17">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v1.0.1</url>
       <description translate="no">

@@ -1,0 +1,66 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $CommodusBranchDialog : Adw.Dialog {
+  title: _("Branch From Schedule");
+  content-width: 480;
+  content-height: 540;
+
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      show-start-title-buttons: false;
+      show-end-title-buttons: false;
+
+      [start]
+      Button cancel_btn {
+        label: _("Cancel");
+        tooltip-text: _("Discard changes and close");
+      }
+
+      [end]
+      Button generate_btn {
+        label: _("Reschedule");
+        tooltip-text: _("Generate new schedules with these course and section choices");
+        styles ["suggested-action"]
+      }
+    }
+
+    content: ScrolledWindow {
+      vexpand: true;
+      hscrollbar-policy: never;
+
+      Box {
+        orientation: vertical;
+        spacing: 18;
+        margin-top: 14;
+        margin-bottom: 20;
+        margin-start: 16;
+        margin-end: 16;
+
+        Adw.PreferencesGroup current_group {
+          title: _("In This Schedule");
+
+          ListBox current_listbox {
+            selection-mode: none;
+            styles ["boxed-list"]
+          }
+        }
+
+        Adw.PreferencesGroup catalog_group {
+          title: _("Add Courses");
+
+          SearchEntry catalog_search {
+            placeholder-text: _("Search catalog...");
+            margin-bottom: 8;
+          }
+
+          ListBox catalog_listbox {
+            selection-mode: none;
+            styles ["boxed-list"]
+          }
+        }
+      }
+    };
+  }
+}

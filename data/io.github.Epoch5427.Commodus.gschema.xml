@@ -102,6 +102,10 @@
       <default>false</default>
       <summary>Wrap schedule cycling</summary>
     </key>
+    <key name="use-fulltitle" type="b">
+      <default>true</default>
+      <summary>Display Full Course Title</summary>
+    </key>
     <key name="local-load" type="b">
       <default>false</default>
       <summary>Enable local JSON picker</summary>

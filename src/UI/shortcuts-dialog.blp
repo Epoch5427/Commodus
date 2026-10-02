@@ -1,0 +1,72 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ShortcutsDialog shortcuts_dialog {
+  Adw.ShortcutsSection {
+    title: _("General");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Show Shortcuts");
+      action-name: "app.shortcuts";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Show Preferences");
+      action-name: "app.preferences";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Quit");
+      action-name: "app.quit";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Go Back");
+      accelerator: "Escape";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Schedule View");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Generate Schedule");
+      accelerator: "<Primary>G";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Previous Schedule");
+      accelerator: "Left";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Next Schedule");
+      accelerator: "Right";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Previous Favorite");
+      accelerator: "<Shift>Left";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Next Favorite");
+      accelerator: "<Shift>Right";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Toggle Side Bar");
+      accelerator: "<Primary>S";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Copy Schedule");
+      accelerator: "<Primary>C";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Cycle Secondary Info");
+      accelerator: "<Primary>I";
+    }
+  }
+}

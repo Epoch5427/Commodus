@@ -420,7 +420,7 @@ template $CommodusWindow: Adw.ApplicationWindow {
                 sensitive: false;
               }
 
-              Button compare_btn {
+              Button branch_btn {
                 icon-name: "branch-arrow-symbolic";
                 tooltip-text: _("Branch From Schedule");
                 sensitive: false;
@@ -486,7 +486,7 @@ menu primary_menu {
 
 Adw.PreferencesDialog prefs_dialog {
   content-width: 600;
-  content-height: 420;
+  content-height: 445;
   title: _("Preferences");
 
   Adw.PreferencesPage appearance_page {
@@ -545,8 +545,14 @@ Adw.PreferencesDialog prefs_dialog {
       title: _("Schedule Blocks");
       description: _("Customize the information displayed on schedule cards");
 
+      Adw.SwitchRow fulltitle_switch {
+        title: _("Use Full Title");
+        subtitle: _("Replace course code with full title in blocks");
+      }
+
       Adw.ComboRow block_info_combo {
         title: _("Block Information");
+        tooltip-text: _("Shortcut: Ctrl+I");
         model: StringList {
           strings [
             "Instructor",
