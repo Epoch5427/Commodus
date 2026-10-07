@@ -49,6 +49,19 @@
   </screenshots>
 
     <releases>
+      <release version="1.2.0" date="2026-10-06">
+      <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v1.2.0</url>
+      <description translate="no">
+        <p>New Features</p>
+        <ul>
+          <li>Added the ability to swap a section, ignoring all constraints and the usual section restrictions, by right clicking it</li>
+          <li>Added stricter checks for the import function</li>
+          <li>Optimized the C++ backend to generate schedules faster</li>
+          <li>Now using credits rather than course count for course limits</li>
+          <li>Added an extra check to make sure threads are properly killed</li>
+        </ul>
+      </description>
+    </release>
       <release version="1.1.0" date="2026-09-19">
       <url type="details">https://github.com/Epoch5427/Commodus/releases/tag/v1.1.0</url>
       <description translate="no">

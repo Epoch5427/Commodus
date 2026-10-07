@@ -129,10 +129,11 @@ template $CommodusWindow: Adw.ApplicationWindow {
 
                   ProgressBar numcourses {
                     fraction: 0.0;
-                    text: _("0/7");
+                    text: _("0 Credits");
                     show-text: true;
                     margin-top: 14;
-                    tooltip-text: _("Number Of Courses Selected");
+                    tooltip-text: _("Total Credits (Underload)");
+                    styles["destructive"]
                   }
                 }
 
@@ -486,7 +487,7 @@ menu primary_menu {
 
 Adw.PreferencesDialog prefs_dialog {
   content-width: 600;
-  content-height: 445;
+  content-height: 480;
   title: _("Preferences");
 
   Adw.PreferencesPage appearance_page {
@@ -577,6 +578,16 @@ Adw.PreferencesDialog prefs_dialog {
       Adw.SwitchRow wrap_switch {
         title: _("Wrap Around Schedules");
         tooltip-text: _("Makes Clicking Back On Schedule 1 Wrap Around To The Last Schedule And Vice Versa");
+      }
+    }
+
+    Adw.PreferencesGroup {
+      title: _("Section Replacement");
+      description: _("Configure block replacement behavior");
+
+      Adw.SwitchRow cross_section_switch {
+        title: _("Allow Cross-Section Swapping");
+        subtitle: _("Show sections from outside the enrolled lecture group");
       }
     }
 

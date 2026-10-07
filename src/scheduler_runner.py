@@ -105,11 +105,13 @@ class SchedulerRunner(GObject.Object):
         return cmd
 
     def cancel(self):
-        """Signals the process to terminate."""
         self._is_cancelled = True
         if self._process:
             try:
                 self._process.terminate()
+                self._process.wait(timeout=1.0) # wait 1 second
+            except subprocess.TimeoutExpired:
+                self._process.kill() # force kill if hung
             except Exception:
                 pass
 

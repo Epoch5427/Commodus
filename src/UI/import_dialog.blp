@@ -3,7 +3,7 @@ using Adw 1;
 
 template $CommodusImportDialog : Adw.Dialog {
   title: _("Import Schedule");
-  content-width: 480;
+  content-width: 655;
   content-height: 460;
 
   Adw.ToolbarView {
@@ -67,10 +67,15 @@ template $CommodusImportDialog : Adw.Dialog {
           }
         }
 
+        ScrolledWindow {
+        vscrollbar-policy: never;
+
         Label status_label {
+          margin-bottom: 20;
           label: _("Paste exported schedule text above.");
           halign: start;
           styles ["dim-label", "caption"]
+        }
         }
       }
     };

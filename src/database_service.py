@@ -210,3 +210,4 @@ class DatabaseService(GObject.Object):
                 GLib.idle_add(self.emit, 'fetch-failed', f"Error loading local database: {e}")
 
         threading.Thread(target=load_task, daemon=True).start()
+

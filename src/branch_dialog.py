@@ -181,10 +181,43 @@ class BranchDialog(Adw.Dialog):
         self.current_listbox.append(row)
         self.generate_btn.set_sensitive(len(self.active_courses) > 0)
 
+    def _get_course_credits(self, course_code):
+        c_info = self.course_data.get(course_code, [])
+        if not c_info: return 0.0
+
+        def parse_cred(val):
+            try:
+                # Handle edge cases like "3-4" credits by taking the max
+                if isinstance(val, str) and "-" in val:
+                    return float(val.split("-")[-1].strip())
+                return float(val)
+            except (ValueError, TypeError):
+                return None
+
+        # Prefer Lecture sections for credit calculation to avoid zero-credit labs
+        for section in c_info:
+            if section.get("subtype") == "Lecture" or section.get("type") == "Lecture":
+                cred_val = section.get("creditHours", section.get("hours", section.get("credits", 0)))
+                parsed = parse_cred(cred_val)
+                if parsed is not None:
+                    return parsed
+
+        # Fallback to the first section with a valid > 0 credit value
+        for section in c_info:
+            cred_val = section.get("creditHours", section.get("hours", section.get("credits", 0)))
+            parsed = parse_cred(cred_val)
+            if parsed is not None and parsed > 0:
+                return parsed
+
+        return 0.0
+
     def _on_add_clicked(self, _b, code, btn):
         if code not in self.active_courses:
-            if len(self.active_courses) >= 7:
-                self.toast_fn("Maximum of 7 courses reached")
+            total_credits = sum(self._get_course_credits(c) for c in self.active_courses)
+            tentative_credits = total_credits + self._get_course_credits(code)
+
+            if tentative_credits > 21:
+                self.toast_fn("Maximum credit load (21) reached")
                 return
 
             is_sched = code in self.current_courses_data

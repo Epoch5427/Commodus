@@ -2,7 +2,7 @@
 
 import re
 from typing import Dict, List
-from gi.repository import Adw, Gtk, GLib, Pango
+from gi.repository import Adw, Gtk, GLib, Pango, Gdk
 
 COURSE_COLORS = [
     "#3584e4",  # Blue
@@ -24,10 +24,11 @@ DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 class TimetableView:
     """Manages the timetable grid skeleton and renders schedule meeting cards."""
 
-    def __init__(self, grid: Gtk.Grid):
+    def __init__(self, grid: Gtk.Grid, on_right_click_block=None):
         self.grid = grid
         self._day_overlays: Dict[int, Gtk.Overlay] = {}
         self._active_cards: Dict[int, List[Gtk.Widget]] = {col: [] for col in range(1, 8)}
+        self.on_right_click_block = on_right_click_block
 
         self._init_grid_properties()
         self._init_skeleton()
@@ -156,8 +157,15 @@ class TimetableView:
             f"Time: {meeting['start']//60:02d}:{meeting['start']%60:02d} - {meeting['end']//60:02d}:{meeting['end']%60:02d}\n"
             f"Instructor: {meeting['instructor']}\n"
             f"Location: {meeting['location']}\n"
-            f"Seats: {meeting['seats']}"
+            f"Seats: {meeting['seats']}\n"
+            f"\nRight-click to swap section"
         )
+
+        # Right click gesture
+        click_gesture = Gtk.GestureClick.new()
+        click_gesture.set_button(Gdk.BUTTON_SECONDARY)
+        click_gesture.connect("pressed", self._on_card_right_clicked, meeting)
+        card.add_controller(click_gesture)
 
         inner = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
         inner.set_margin_top(4)
@@ -241,3 +249,9 @@ class TimetableView:
         elif choice == 4:  # Time
             return f"{meeting['start']//60:02d}:{meeting['start']%60:02d} - {meeting['end']//60:02d}:{meeting['end']%60:02d}"
         return ""
+
+    def _on_card_right_clicked(self, gesture, n_press, x, y, meeting):
+        if self.on_right_click_block:
+            card = gesture.get_widget()
+            self.on_right_click_block(card, meeting)
+        gesture.set_state(Gtk.EventSequenceState.CLAIMED)

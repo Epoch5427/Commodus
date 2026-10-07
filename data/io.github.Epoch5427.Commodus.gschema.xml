@@ -98,6 +98,11 @@
       <summary>Application Theme</summary>
       <description>0: System, 1: Light, 2: Dark</description>
     </key>
+    <key name="allow-cross-section" type="b">
+      <default>false</default>
+      <summary>Allow cross-section replacement</summary>
+      <description>Allow replacing schedule blocks with sections outside the enrolled lecture group.</description>
+    </key>
     <key name="wrap-mode" type="b">
       <default>false</default>
       <summary>Wrap schedule cycling</summary>

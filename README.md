@@ -10,7 +10,7 @@
 
 # Commodus
 
-An elegant, modern university schedule generator and optimizer built for **Nile University**, powered by **GTK4/Libadwaita** and a blazing-fast **C++ backtracking solver** [1].
+An elegant, modern university schedule generator and optimizer built for **Nile University**, powered by **GTK4/Libadwaita** and a blazing-fast **C++ backtracking solver**.
 
 Commodus helps you take control of your academic calendar. Instead of spending hours manually juggling sections, classes, and instructors, Commodus automatically generates every possible conflict-free schedule combination based on your unique constraints.
 
@@ -18,7 +18,7 @@ Commodus helps you take control of your academic calendar. Instead of spending h
 
 ## Features
 
-*   **Blazing-Fast Solver:** Powered by a customized backtrack-matching algorithm written in C++ [1] to find and evaluate hundreds of valid timetables in milliseconds.
+*   **Blazing-Fast Solver:** Powered by a customized backtrack-matching algorithm written in C++ to find and evaluate hundreds of valid timetables in milliseconds.
 *   **Intuitive Libadwaita Interface:** Built natively using GNOME's flagship UI toolkit, supporting seamless adaptive light/dark modes and responsive window layouts.
 *   **Smart Timeline Grid:** A high-density timeline that scales dynamically. Shorter classes automatically hide lesser-needed labels to prevent overlap, and full details remain readily accessible via hovering tooltips.
 *   **Compare & Reschedule:** A granular overlay tool that lets you selectively lock down specific sections, swap open courses, and regenerate schedules around your fixed choices.
@@ -45,7 +45,7 @@ Commodus helps you take control of your academic calendar. Instead of spending h
 
 Commodus is designed as a hybrid application leveraging the strengths of both Python and compiled C++:
 *   **Frontend:** Python 3 utilizing `PyGObject` for native GTK4/Libadwaita desktop controls and system state management.
-*   **Backend:** A robust, standalone C++ executable (`scheduler`) that receives layout parameters via command-line arguments and returns output as flat JSON payloads [1] for instant UI rendering.
+*   **Backend:** A robust, standalone C++ executable (`scheduler`) that receives layout parameters via command-line arguments and returns output as flat JSON payloads for instant UI rendering.
 
 ---
 

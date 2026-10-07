@@ -98,6 +98,7 @@ class CommodusWindow(Adw.ApplicationWindow):
     theme_light_btn = Gtk.Template.Child()
     theme_dark_btn = Gtk.Template.Child()
     wrap_switch = Gtk.Template.Child()
+    cross_section_switch = Gtk.Template.Child()
     delete_save = Gtk.Template.Child()
     local_load_switch = Gtk.Template.Child()
     fpickerbutton = Gtk.Template.Child()
@@ -129,16 +130,18 @@ class CommodusWindow(Adw.ApplicationWindow):
         self._next_long_pressed = False
         self._prev_long_pressed = False
 
-        self.timetable = TimetableView(self.schedule)
+        self.timetable = TimetableView(self.schedule, self._on_right_click_block)
+
+        self.placeholder_label = Gtk.Label(label="Loading Course Catalog...")
+        self.placeholder_label.add_css_class("dim-label")
 
         placeholder = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
-        placeholder.set_margin_top(16)
-        placeholder.set_margin_bottom(16)
-        placeholder.set_margin_start(12)
-        placeholder.set_margin_end(12)
-        placeholder_label = Gtk.Label(label="No courses match your search")
-        placeholder_label.add_css_class("dim-label")
-        placeholder.append(placeholder_label)
+        placeholder.set_halign(Gtk.Align.CENTER)
+        placeholder.set_valign(Gtk.Align.CENTER)
+        placeholder.set_hexpand(True)
+        placeholder.set_vexpand(True)
+        placeholder.append(self.placeholder_label)
+
         self.listbox.set_placeholder(placeholder)
 
         # Runner Signals:
@@ -476,6 +479,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         b("use-fulltitle", self.fulltitle_switch, "active", flags)
 
         b("wrap-mode", self.wrap_switch, "active", flags)
+        b("allow-cross-section", self.cross_section_switch, "active", flags)
         b("local-load", self.local_load_switch, "enable-expansion", flags)
 
         self.fpickerbutton.set_sensitive(self.local_load_switch.get_enable_expansion())
@@ -733,6 +737,7 @@ class CommodusWindow(Adw.ApplicationWindow):
     def _on_cached_database_loaded(self, _service, db_data, spec_data, local_db_path):
         if not self._network_fetch_completed:
             if db_data:
+                self.placeholder_label.set_text("No courses match your search")
                 self.data = db_data
                 self.json_path = local_db_path
                 self.populate_listbox()
@@ -745,6 +750,7 @@ class CommodusWindow(Adw.ApplicationWindow):
         self._network_fetch_completed = True
         had_prior_data = bool(self.data)
 
+        self.placeholder_label.set_text("No courses match your search")
         self.data = parsed_db
         self.json_path = local_db_path
         self.populate_listbox()
@@ -902,24 +908,73 @@ class CommodusWindow(Adw.ApplicationWindow):
         self._update_courses_counter()
         self.populate_listbox()
 
+    def _get_course_credits(self, course_code):
+        c_info = self.data.get(course_code, [])
+        if not c_info: return 0.0
+
+        def parse_cred(val):
+            try:
+                # Handle edge cases like "3-4" credits by taking the max
+                if isinstance(val, str) and "-" in val:
+                    return float(val.split("-")[-1].strip())
+                return float(val)
+            except (ValueError, TypeError):
+                return None
+
+        # Prefer Lecture sections for credit calculation to avoid zero-credit labs
+        for section in c_info:
+            if section.get("subtype") == "Lecture" or section.get("type") == "Lecture":
+                cred_val = section.get("creditHours", section.get("hours", section.get("credits", 0)))
+                parsed = parse_cred(cred_val)
+                if parsed is not None:
+                    return parsed
+
+        # Fallback to the first section with a valid > 0 credit value
+        for section in c_info:
+            cred_val = section.get("creditHours", section.get("hours", section.get("credits", 0)))
+            parsed = parse_cred(cred_val)
+            if parsed is not None and parsed > 0:
+                return parsed
+
+        return 0.0
+
+    def _get_total_credits(self, selected_set=None):
+        if selected_set is None:
+            selected_set = self.selected_courses
+        return sum(self._get_course_credits(c) for c in selected_set)
+
     def _update_courses_counter(self):
-        num = len(self.selected_courses)
+        total_credits = self._get_total_credits()
+        max_credits = 21.0
+        target_fraction = min(total_credits / max_credits, 1.0)
         oldnum = self.numcourses.get_fraction()
+
+        # Stop previous animation if one is currently in-flight
+        if hasattr(self, '_counter_anim') and self._counter_anim:
+            self._counter_anim.skip()
 
         target = Adw.PropertyAnimationTarget.new(self.numcourses, "fraction")
 
-        animation = Adw.TimedAnimation(
+        self._counter_anim = Adw.TimedAnimation(
             widget=self.numcourses,
             value_from=oldnum,
-            value_to=num/7,
+            value_to=target_fraction,
             duration=500,
             easing=Adw.Easing.EASE,
             target=target,
         )
 
-        self.numcourses.set_text(f"{num}/7")
-        self.numcourses.set_fraction(min(num / 7.0, 1.0))
-        animation.play()
+        if total_credits < 12:
+            status = "Underload"
+        elif total_credits > 18:
+            status = "Overload"
+        else:
+            status = "Normal"
+
+        cred_str = f"{int(total_credits)}" if total_credits.is_integer() else f"{total_credits}"
+        self.numcourses.set_text(f"{cred_str} Credits")
+        self.numcourses.set_tooltip_text(f"Total Credits: {cred_str}/21 ({status})")
+        self._counter_anim.play()
 
         self._update_ls_listbox()
 
@@ -928,10 +983,11 @@ class CommodusWindow(Adw.ApplicationWindow):
             GLib.source_remove(self._populate_source_id)
             self._populate_source_id = None
 
-        child = self.listbox.get_first_child()
-        while child:
-            self.listbox.remove(child)
-            child = self.listbox.get_first_child()
+        while True:
+            row = self.listbox.get_row_at_index(0)
+            if not row:
+                break
+            self.listbox.remove(row)
 
         saved_selection = self._saved_selected_courses if hasattr(self, '_saved_selected_courses') and self._saved_selected_courses else set(self.selected_courses)
         self.selected_courses = set(saved_selection)
@@ -1244,11 +1300,12 @@ class CommodusWindow(Adw.ApplicationWindow):
 
     def on_course_toggled(self, checkbox, course_code):
         if checkbox.get_active():
-            if len(self.selected_courses) < 7:
+            tentative_credits = self._get_total_credits() + self._get_course_credits(course_code)
+            if tentative_credits <= 21:
                 self.selected_courses.add(course_code)
             else:
                 checkbox.set_active(False)
-                self.show_toast("Maximum of 7 courses reached")
+                self.show_toast("Maximum credit load (21) reached")
         else:
             self.selected_courses.discard(course_code)
 
@@ -1737,6 +1794,332 @@ class CommodusWindow(Adw.ApplicationWindow):
         dialog.connect("reschedule-requested", lambda d, active_courses: self._execute_branch_generation(active_courses))
         dialog.present(self)
 
+    @staticmethod
+    def _parse_db_day(val):
+        if not val:
+            return 0
+        s = str(val).strip().lower()
+        day_map = {
+            "sun": 1, "sunday": 1,
+            "mon": 2, "monday": 2,
+            "tue": 3, "tues": 3, "tuesday": 3,
+            "wed": 4, "wednesday": 4,
+            "thu": 5, "thur": 5, "thursday": 5,
+            "fri": 6, "friday": 6,
+            "sat": 7, "saturday": 7,
+        }
+        return day_map.get(s, 0)
+
+    @classmethod
+    def _parse_time_str(cls, val):
+        if not val:
+            return -1
+        s = str(val).strip()
+        match = re.search(r'(\d{1,2}):(\d{2})\s*(am|pm)?', s, re.IGNORECASE)
+        if not match:
+            return -1
+        h, m = int(match.group(1)), int(match.group(2))
+        ampm = match.group(3)
+        if ampm:
+            ampm = ampm.lower()
+            if ampm == 'pm' and h < 12:
+                h += 12
+            elif ampm == 'am' and h == 12:
+                h = 0
+        return h * 60 + m
+
+    @classmethod
+    def _parse_time_range(cls, val):
+        if not val or "n/a" in str(val).lower():
+            return -1, -1
+        s = str(val).strip()
+        matches = list(re.finditer(r'(\d{1,2}:\d{2}\s*(?:am|pm)?)', s, re.IGNORECASE))
+        if len(matches) >= 2:
+            st = cls._parse_time_str(matches[0].group(1))
+            en = cls._parse_time_str(matches[1].group(1))
+            # Round off :29 / :59 boundary markers to full 30-minute slots
+            if en % 60 in (29, 59):
+                en += 1
+            return st, en
+        return -1, -1
+
+    def _parse_schedule_string(self, sched_str, parent_item, course, mtype, sec_id):
+        if not sched_str or "n/a" in sched_str.lower():
+            return []
+
+        results = []
+        day_regex = re.compile(r'\b(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sun|Mon|Tue|Wed|Thu|Fri|Sat)\b', re.IGNORECASE)
+
+        # In case multiple schedule intervals are joined by newline or semicolon
+        for part in re.split(r'[\n;/]+', sched_str):
+            part = part.strip()
+            if not part:
+                continue
+
+            day_match = day_regex.search(part)
+            if not day_match:
+                continue
+
+            day_num = self._parse_db_day(day_match.group(1))
+            if day_num == 0:
+                continue
+
+            st, en = self._parse_time_range(part)
+            if st < 0 or en < 0:
+                continue
+
+            loc = parent_item.get("location", "TBA")
+            if loc == "Not specified":
+                loc = "TBA"
+
+            inst = parent_item.get("instructor", "Not Assigned")
+            seats_raw = parent_item.get("seatsLeft", parent_item.get("seats", 0))
+            try:
+                seats = int(seats_raw)
+            except Exception:
+                seats = 0
+
+            results.append({
+                "course": course,
+                "type": mtype,
+                "id": sec_id,
+                "day": day_num,
+                "start": st,
+                "end": en,
+                "location": loc,
+                "instructor": inst,
+                "seats": seats
+            })
+        return results
+
+    def _parse_schedules_list(self, schedules_list, parent_item, course, mtype, sec_id):
+        results = []
+        for sub in schedules_list:
+            day_num = self._parse_db_day(sub.get("day", ""))
+            if day_num == 0:
+                continue
+
+            time_str = sub.get("time") or sub.get("schedule") or ""
+            st, en = self._parse_time_range(time_str)
+            if st < 0 or en < 0:
+                continue
+
+            loc = sub.get("location") or parent_item.get("location", "TBA")
+            if loc == "Not specified":
+                loc = "TBA"
+
+            inst = parent_item.get("instructor", "Not Assigned")
+            seats_raw = parent_item.get("seatsLeft", parent_item.get("seats", 0))
+            try:
+                seats = int(seats_raw)
+            except Exception:
+                seats = 0
+
+            results.append({
+                "course": course,
+                "type": mtype,
+                "id": sec_id,
+                "day": day_num,
+                "start": st,
+                "end": en,
+                "location": loc,
+                "instructor": inst,
+                "seats": seats
+            })
+        return results
+
+    def _extract_section_meetings(self, raw_items, course="", mtype="", sec_id=""):
+        meetings = []
+        for item in raw_items:
+            if "schedules" in item and isinstance(item["schedules"], list):
+                meetings.extend(self._parse_schedules_list(item["schedules"], item, course, mtype, sec_id))
+            elif "schedule" in item and isinstance(item["schedule"], str):
+                meetings.extend(self._parse_schedule_string(item["schedule"], item, course, mtype, sec_id))
+            elif "meetings" in item and isinstance(item["meetings"], list):
+                meetings.extend(self._parse_schedules_list(item["meetings"], item, course, mtype, sec_id))
+        return meetings
+
+    @staticmethod
+    def _get_section_prefix(sec_id):
+        if not sec_id:
+            return ""
+        m = re.match(r'^\d+', str(sec_id).strip())
+        if m:
+            return m.group(0).lstrip("0") or "0"
+        return str(sec_id).strip()
+
+    def _on_right_click_block(self, card, meeting):
+        course = meeting['course']
+        mtype = meeting['type']
+        curr_id = meeting['id']
+
+        current_sched = self._get_schedule_at(self.current_schedule_idx)
+        if not current_sched:
+            return
+
+        all_meetings = current_sched.get("meetings", [])
+        # All meetings of the schedule excluding the ones for this course and subtype
+        kept_meetings = [m for m in all_meetings if not (m['course'] == course and m['type'] == mtype)]
+
+        # When strict mode is active, only show sections matching the current lecture group
+        allow_cross = self.settings.get_boolean("allow-cross-section")
+        required_prefixes = set()
+        if not allow_cross:
+            for m in kept_meetings:
+                if m.get('course') == course and m.get('id'):
+                    p = self._get_section_prefix(m.get('id'))
+                    if p:
+                        required_prefixes.add(p)
+
+        candidate_sections = {}
+        for item in self.data.get(course, []):
+            if item.get("subtype") == mtype or item.get("type") == mtype:
+                sec_id = item.get("section") or item.get("id")
+                if sec_id:
+                    candidate_sections.setdefault(sec_id, []).append(item)
+
+        popover = Gtk.Popover()
+        popover.set_size_request(340, -1)
+        popover.set_parent(card)
+
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=14)
+        vbox.set_margin_top(16)
+        vbox.set_margin_bottom(16)
+        vbox.set_margin_start(16)
+        vbox.set_margin_end(16)
+        popover.set_child(vbox)
+
+        lbl = Gtk.Label(label=f"<b>Replace {mtype} {curr_id}</b>", use_markup=True)
+        #lbl.add_css_class("heading")
+        vbox.append(lbl)
+
+        scroll = Gtk.ScrolledWindow(propagate_natural_height=True, max_content_height=360)
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        vbox.append(scroll)
+
+        listbox = Gtk.ListBox(selection_mode=Gtk.SelectionMode.NONE)
+        listbox.add_css_class("boxed-list")
+        listbox.set_margin_end(5)
+        listbox.set_margin_start(5)
+        listbox.set_margin_top(5)
+        listbox.set_margin_bottom(5)
+        scroll.set_child(listbox)
+
+        def _on_swap_row_activated(lb, row):
+            if hasattr(row, 'parsed_meetings') and hasattr(row, 'sec_id'):
+                self._replace_schedule_block(popover, kept_meetings, row.parsed_meetings, course, mtype, row.sec_id)
+
+        listbox.connect("row-activated", _on_swap_row_activated)
+
+        def check_conflict(candidate_meetings, active_meetings):
+            for m1 in candidate_meetings:
+                d1 = m1.get("day", 0)
+                st1 = m1.get("start", -1)
+                en1 = m1.get("end", -1)
+                if d1 <= 0 or st1 < 0 or en1 < 0:
+                    continue
+
+                for m2 in active_meetings:
+                    d2 = m2.get("day", 0)
+                    st2 = m2.get("start", -1)
+                    en2 = m2.get("end", -1)
+                    if d2 <= 0 or st2 < 0 or en2 < 0:
+                        continue
+
+                    # Direct collision on the same day
+                    if d1 == d2:
+                        if st1 < en2 and en1 > st2:
+                            return True
+            return False
+
+        has_options = False
+        days_map = {1: "Sun", 2: "Mon", 3: "Tue", 4: "Wed", 5: "Thu", 6: "Fri", 7: "Sat"}
+        sorted_sec_ids = sorted(candidate_sections.keys())
+
+        for sec_id in sorted_sec_ids:
+            if sec_id == curr_id:
+                continue
+
+            # Skip sections outside the enrolled lecture group if cross-section is disabled
+            if required_prefixes:
+                sec_prefix = self._get_section_prefix(sec_id)
+                if sec_prefix not in required_prefixes:
+                    continue
+
+            raw_items = candidate_sections[sec_id]
+            parsed_meetings = self._extract_section_meetings(
+                raw_items, course=course, mtype=mtype, sec_id=sec_id
+            )
+
+            if not parsed_meetings:
+                continue
+
+            # Strict overlap checking against other schedule blocks (ignoring preset constraints)
+            if not check_conflict(parsed_meetings, kept_meetings):
+                inst = parsed_meetings[0]["instructor"]
+                seats = parsed_meetings[0]["seats"]
+                seats_str = f" • {seats} seats" if seats > 0 else (" • Full" if seats == 0 else "")
+
+                time_strs = []
+                for m in parsed_meetings:
+                    d = days_map.get(m.get("day"), "")
+                    st = m.get("start", -1)
+                    en = m.get("end", -1)
+                    if d and st >= 0 and en >= 0:
+                        time_strs.append(f"{d} {st//60:02d}:{st%60:02d} - {en//60:02d}:{en%60:02d}")
+
+                time_summary = ", ".join(time_strs) if time_strs else "TBA"
+
+                row = Adw.ActionRow(title=f"Section {sec_id}")
+                row.set_use_markup(True)
+                row.set_subtitle(f"{inst}{seats_str}\n{time_summary}")
+                row.set_subtitle_lines(2)
+                row.set_activatable(True)
+
+                row.sec_id = sec_id
+                row.parsed_meetings = parsed_meetings
+
+                listbox.append(row)
+                has_options = True
+
+        if not has_options:
+            none_lbl = Gtk.Label(label="No conflict-free alternatives")
+            none_lbl.add_css_class("dim-label")
+            none_lbl.set_margin_top(12)
+            none_lbl.set_margin_bottom(12)
+            listbox.append(none_lbl)
+
+        popover.connect("closed", lambda p: p.unparent() if p.get_parent() else None)
+        popover.popup()
+
+    def _replace_schedule_block(self, popover, kept_meetings, new_meetings_to_add, course, mtype, sec_id):
+        popover.popdown()
+        if popover.get_parent():
+            popover.unparent()
+
+        new_meetings = list(kept_meetings)
+        for m in new_meetings_to_add:
+            new_meetings.append({
+                "course": course,
+                "type": mtype,
+                "id": sec_id,
+                "location": m.get("location", "TBA"),
+                "instructor": m.get("instructor", "Not Assigned"),
+                "day": m.get("day", 0),
+                "start": m.get("start", -1),
+                "end": m.get("end", -1),
+                "seats": m.get("seats", 0)
+            })
+
+        old_sched = self._get_schedule_at(self.current_schedule_idx)
+        new_score = old_sched.get("score", 0.0) if old_sched else 0.0
+
+        new_schedule_dict = {"score": new_score, "meetings": new_meetings}
+        self.schedules[self.current_schedule_idx] = new_schedule_dict
+
+        self.draw_schedule_index(self.current_schedule_idx)
+        self.show_toast(f"Replaced {mtype} with Section {sec_id}")
+
     def _execute_branch_generation(self, active_courses):
         if not active_courses:
             self.show_error_dialog("Please select at least one course.")
@@ -1777,7 +2160,9 @@ class CommodusWindow(Adw.ApplicationWindow):
         exact_imported = set()
 
         if not text:
-            return new_selected, new_prefs, exact_imported
+            return new_selected, new_prefs, exact_imported, None
+
+        course_sections = {}
 
         for line in text.strip().split("\n"):
             line = line.strip()
@@ -1792,6 +2177,7 @@ class CommodusWindow(Adw.ApplicationWindow):
                 mtype = tokens[1]
                 sec_id = tokens[2]
                 exact_imported.add(f"{course}:{sec_id}")
+                course_sections.setdefault(course, set()).add((mtype, sec_id))
 
                 if mtype == "Lecture":
                     if course not in new_prefs:
@@ -1799,7 +2185,24 @@ class CommodusWindow(Adw.ApplicationWindow):
                     if f"Lecture:{sec_id}" not in new_prefs[course]["value"]:
                         new_prefs[course]["value"].append(f"Lecture:{sec_id}")
 
-        return new_selected, new_prefs, exact_imported
+        # Validate against tampered cross-sections or duplicate sections
+        for course, sec_set in course_sections.items():
+            # 1. Reject multiple different section IDs for the same subtype (e.g. Tutorial 01A and 01B)
+            subtypes = {}
+            for mtype, sec_id in sec_set:
+                subtypes.setdefault(mtype, set()).add(sec_id)
+            for mtype, sids in subtypes.items():
+                if len(sids) > 1:
+                    sids_str = ", ".join(sorted(sids))
+                    return set(), {}, set(), f"Tampered schedule: {course} contains multiple {mtype} sections ({sids_str})."
+
+            # 2. Reject cross-sections (sections with different lecture group prefixes)
+            prefixes = {self._get_section_prefix(sec_id) for _, sec_id in sec_set}
+            if len(prefixes) > 1:
+                sec_list = ", ".join(sorted({f"{mtype} {sec_id}" for mtype, sec_id in sec_set}))
+                return set(), {}, set(), f"Cross-section detected in {course}: incompatible sections ({sec_list})."
+
+        return new_selected, new_prefs, exact_imported, None
 
     def on_import_clicked(self, _button):
         dialog = ImportDialog(parse_preview_fn=self._parse_schedule_text)
@@ -1807,17 +2210,19 @@ class CommodusWindow(Adw.ApplicationWindow):
         dialog.present(self)
 
     def _parse_and_import_schedule(self, text):
-        new_selected, new_prefs, exact_imported = self._parse_schedule_text(text)
+        res = self._parse_schedule_text(text)
+        error_msg = None
+        if len(res) == 4:
+            new_selected, new_prefs, exact_imported, error_msg = res
+        else:
+            new_selected, new_prefs, exact_imported = res
+
+        if error_msg:
+            self.show_error_dialog(error_msg)
+            return False
 
         if not new_selected:
             self.show_error_dialog("Could not parse any valid courses from text.")
-            return False
-
-        missing = [c for c in new_selected if self.data and c not in self.data]
-        valid_selected = {c for c in new_selected if not self.data or c in self.data}
-
-        if not valid_selected:
-            self.show_error_dialog("None of the courses in the imported text exist in the loaded database.")
             return False
 
         self.selected_courses = valid_selected
@@ -1896,6 +2301,7 @@ class CommodusWindow(Adw.ApplicationWindow):
             print(f"File open error: {e.message}")
 
     def _on_local_json_loaded(self, _service, data, path):
+        self.placeholder_label.set_text("No courses match your search")
         self.data = data
         self.json_path = path
         self.populate_listbox()
