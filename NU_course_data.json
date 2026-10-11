@@ -815,6 +815,17 @@
   "ARC342": [
     {
       "fullTitle": "ARC342: People-centered Urban Design",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Thursday, 3:30 PM - 4:29 PM",
+      "location": "333",
+      "instructor": "Omar Walid Ahmed",
+      "credits": "0.00",
+      "seatsLeft": "4"
+    },
+    {
+      "fullTitle": "ARC342: People-centered Urban Design",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -830,17 +841,6 @@
       "session": "Session 01",
       "subtype": "Tutorial",
       "schedule": "Thursday, 2:30 PM - 3:29 PM",
-      "location": "333",
-      "instructor": "Omar Walid Ahmed",
-      "credits": "0.00",
-      "seatsLeft": "4"
-    },
-    {
-      "fullTitle": "ARC342: People-centered Urban Design",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Thursday, 3:30 PM - 4:29 PM",
       "location": "333",
       "instructor": "Omar Walid Ahmed",
       "credits": "0.00",
@@ -1923,28 +1923,6 @@
   "BSAD420": [
     {
       "fullTitle": "BSAD420: Strategic Management",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 11:30 AM - 2:29 PM",
-      "location": "114",
-      "instructor": "Mohamed Elsayed Elmehalawi",
-      "credits": "3.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "BSAD420: Strategic Management",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Monday, 11:30 AM - 12:29 PM",
-      "location": "311",
-      "instructor": "Neveen Hassan Badr",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "BSAD420: Strategic Management",
       "section": "02",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -1962,6 +1940,28 @@
       "schedule": "Thursday, 5:30 PM - 6:29 PM",
       "location": "111",
       "instructor": "Nourhan Ashraf Ragab",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "BSAD420: Strategic Management",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 11:30 AM - 2:29 PM",
+      "location": "114",
+      "instructor": "Mohamed Elsayed Elmehalawi",
+      "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "BSAD420: Strategic Management",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Monday, 11:30 AM - 12:29 PM",
+      "location": "311",
+      "instructor": "Neveen Hassan Badr",
       "credits": "0.00",
       "seatsLeft": "0"
     }
@@ -4002,6 +4002,39 @@
   "CSC103": [
     {
       "fullTitle": "CSC103: Fundamentals of Computing II",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Tuesday, 4:30 PM - 6:29 PM",
+      "location": "114",
+      "instructor": "Ahmed Mahmoud Elshafee",
+      "credits": "4.00",
+      "seatsLeft": "51"
+    },
+    {
+      "fullTitle": "CSC103: Fundamentals of Computing II",
+      "section": "02A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Monday, 12:30 PM - 2:29 PM",
+      "location": "G17",
+      "instructor": "Hend Emad Saber",
+      "credits": "0.00",
+      "seatsLeft": "21"
+    },
+    {
+      "fullTitle": "CSC103: Fundamentals of Computing II",
+      "section": "02A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "306",
+      "instructor": "Hend Emad Saber",
+      "credits": "0.00",
+      "seatsLeft": "21"
+    },
+    {
+      "fullTitle": "CSC103: Fundamentals of Computing II",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -4054,53 +4087,9 @@
       "instructor": "Shrouk Anwar Gabr",
       "credits": "0.00",
       "seatsLeft": "15"
-    },
-    {
-      "fullTitle": "CSC103: Fundamentals of Computing II",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 4:30 PM - 6:29 PM",
-      "location": "114",
-      "instructor": "Ahmed Mahmoud Elshafee",
-      "credits": "4.00",
-      "seatsLeft": "51"
-    },
-    {
-      "fullTitle": "CSC103: Fundamentals of Computing II",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 12:30 PM - 2:29 PM",
-      "location": "G17",
-      "instructor": "Hend Emad Saber",
-      "credits": "0.00",
-      "seatsLeft": "21"
-    },
-    {
-      "fullTitle": "CSC103: Fundamentals of Computing II",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "306",
-      "instructor": "Hend Emad Saber",
-      "credits": "0.00",
-      "seatsLeft": "21"
     }
   ],
   "CSC111": [
-    {
-      "fullTitle": "CSC111: Computer and Information Skills",
-      "section": "06C",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 8:30 AM - 10:29 AM",
-      "location": "27",
-      "instructor": "Mohamed Maher Hussien",
-      "credits": "0.00",
-      "seatsLeft": "6"
-    },
     {
       "fullTitle": "CSC111: Computer and Information Skills",
       "section": "03C",
@@ -4606,6 +4595,17 @@
       "instructor": "Mohamed Shady Ahmed",
       "credits": "0.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "CSC111: Computer and Information Skills",
+      "section": "06C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Monday, 8:30 AM - 10:29 AM",
+      "location": "27",
+      "instructor": "Mohamed Maher Hussien",
+      "credits": "0.00",
+      "seatsLeft": "6"
     }
   ],
   "CSC204": [
@@ -14951,6 +14951,94 @@
     },
     {
       "fullTitle": "INT121: Engineering Drawing",
+      "section": "05",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
+      "location": "142",
+      "instructor": "Ahmed Mohamed Abdelkhalek, Mohamed Ahmed Sayed Afifi, Alia Sameh Okasha, Mennatallah Said Tawfik",
+      "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Thursday, 10:30 AM - 12:29 PM",
+      "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Hajer Nabil Abdullah, Khaled Tukal ElTahan",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "01B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
+      "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Hajer Nabil Abdullah, Khaled Tukal ElTahan",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "01C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 12:30 PM - 2:29 PM",
+      "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Khaled Tukal ElTahan, Mohamed Nasr Mohamed Emadeldin Osman",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "02A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Thursday, 12:30 PM - 2:29 PM",
+      "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Hajer Nabil Abdullah, Khaled Tukal ElTahan",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "02B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
+      "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Khaled Tukal ElTahan, Ahmed Ali Mohamed Gaafar",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "02C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 8:30 AM - 10:29 AM",
+      "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Hajer Nabil Abdullah, Khaled Tukal ElTahan",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "03A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 12:30 PM - 2:29 PM",
+      "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Khaled Tukal ElTahan, Ahmed Ali Mohamed Gaafar",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
       "section": "03B",
       "session": "Session 01",
       "subtype": "Lab",
@@ -14984,22 +15072,33 @@
     },
     {
       "fullTitle": "INT121: Engineering Drawing",
-      "section": "05",
+      "section": "06",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Wednesday, 8:30 AM - 10:29 AM",
-      "location": "142",
+      "schedule": "Tuesday, 8:30 AM - 10:29 AM",
+      "location": "364",
       "instructor": "Ahmed Mohamed Abdelkhalek, Mohamed Ahmed Sayed Afifi, Alia Sameh Okasha, Mennatallah Said Tawfik",
       "credits": "3.00",
       "seatsLeft": "0"
     },
     {
       "fullTitle": "INT121: Engineering Drawing",
-      "section": "01A",
+      "section": "06A",
       "session": "Session 01",
       "subtype": "Lab",
-      "schedule": "Thursday, 10:30 AM - 12:29 PM",
+      "schedule": "Monday, 6:30 PM - 8:29 PM",
       "location": "216-A",
+      "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Hajer Nabil Abdullah, Khaled Tukal ElTahan",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "INT121: Engineering Drawing",
+      "section": "06B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Thursday, 12:30 PM - 2:29 PM",
+      "location": "330",
       "instructor": "Yasmine Safwat Abdelaziz, Mariam Hamdy Abdelhamid, Hajer Nabil Abdullah, Khaled Tukal ElTahan",
       "credits": "0.00",
       "seatsLeft": "0"
@@ -15030,6 +15129,61 @@
     }
   ],
   "MATH100": [
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "116",
+      "instructor": "Ethar Ahmed Abdelsalam",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
+      "location": "F48",
+      "instructor": "Rawhy Ismail Madbouly",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 4:30 PM - 6:29 PM",
+      "location": "358",
+      "instructor": "Zeyad Ahmed Hadhood",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "01B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Thursday, 12:30 PM - 2:29 PM",
+      "location": "230",
+      "instructor": "Zeyad Ahmed Hadhood",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH100: Pre-calculus",
+      "section": "02A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
+      "location": "F48",
+      "instructor": "Yasmien Emad Younis",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
     {
       "fullTitle": "MATH100: Pre-calculus",
       "section": "03",
@@ -15093,61 +15247,6 @@
       "schedule": "Monday, 2:30 PM - 4:29 PM",
       "location": "150",
       "instructor": "Zeyad Ahmed Hadhood",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "116",
-      "instructor": "Ethar Ahmed Abdelsalam",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
-      "location": "F48",
-      "instructor": "Rawhy Ismail Madbouly",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Sunday, 4:30 PM - 6:29 PM",
-      "location": "358",
-      "instructor": "Zeyad Ahmed Hadhood",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "01B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Thursday, 12:30 PM - 2:29 PM",
-      "location": "230",
-      "instructor": "Zeyad Ahmed Hadhood",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH100: Pre-calculus",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
-      "location": "F48",
-      "instructor": "Yasmien Emad Younis",
       "credits": "0.00",
       "seatsLeft": "0"
     }
@@ -15214,39 +15313,6 @@
   "MATH110B": [
     {
       "fullTitle": "MATH110B: Concepts of Mathematics for Business",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Sunday, 1:30 PM - 2:29 PM",
-      "location": "350-A",
-      "instructor": "Bassant Wahid Farouk",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH110B: Concepts of Mathematics for Business",
-      "section": "03A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Sunday, 2:30 PM - 3:29 PM",
-      "location": "240",
-      "instructor": "Bassant Wahid Farouk",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH110B: Concepts of Mathematics for Business",
-      "section": "04A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Tuesday, 1:30 PM - 2:29 PM",
-      "location": "101",
-      "instructor": "Bassant Wahid Farouk",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH110B: Concepts of Mathematics for Business",
       "section": "02A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -15298,6 +15364,39 @@
       "location": "232",
       "instructor": "Rania Mamdouh Kamal Mostafa",
       "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH110B: Concepts of Mathematics for Business",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 1:30 PM - 2:29 PM",
+      "location": "350-A",
+      "instructor": "Bassant Wahid Farouk",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH110B: Concepts of Mathematics for Business",
+      "section": "03A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Sunday, 2:30 PM - 3:29 PM",
+      "location": "240",
+      "instructor": "Bassant Wahid Farouk",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH110B: Concepts of Mathematics for Business",
+      "section": "04A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Tuesday, 1:30 PM - 2:29 PM",
+      "location": "101",
+      "instructor": "Bassant Wahid Farouk",
+      "credits": "0.00",
       "seatsLeft": "0"
     }
   ],
@@ -15501,61 +15600,6 @@
   "MATH120": [
     {
       "fullTitle": "MATH120: Pre-calculus Mathematics",
-      "section": "03",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
-      "location": "138",
-      "instructor": "Fayyad Galal Ibrahim",
-      "credits": "0.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "MATH120: Pre-calculus Mathematics",
-      "section": "03A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Thursday, 8:30 AM - 10:29 AM",
-      "location": "154",
-      "instructor": "Hager Mohamed Eldaadaa",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH120: Pre-calculus Mathematics",
-      "section": "03B",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
-      "location": "132",
-      "instructor": "Hager Mohamed Eldaadaa",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH120: Pre-calculus Mathematics",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 4:30 PM - 6:29 PM",
-      "location": "F48",
-      "instructor": "Rawhy Ismail Madbouly",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH120: Pre-calculus Mathematics",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Thursday, 2:30 PM - 4:29 PM",
-      "location": "F48",
-      "instructor": "Rawhy Ismail Madbouly",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MATH120: Pre-calculus Mathematics",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -15595,6 +15639,61 @@
       "schedule": "Monday, 4:30 PM - 6:29 PM",
       "location": "F44",
       "instructor": "Zeyad Ahmed Hadhood",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH120: Pre-calculus Mathematics",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Tuesday, 4:30 PM - 6:29 PM",
+      "location": "F48",
+      "instructor": "Rawhy Ismail Madbouly",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH120: Pre-calculus Mathematics",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Thursday, 2:30 PM - 4:29 PM",
+      "location": "F48",
+      "instructor": "Rawhy Ismail Madbouly",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH120: Pre-calculus Mathematics",
+      "section": "03",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 2:30 PM - 4:29 PM",
+      "location": "138",
+      "instructor": "Fayyad Galal Ibrahim",
+      "credits": "0.00",
+      "seatsLeft": "10"
+    },
+    {
+      "fullTitle": "MATH120: Pre-calculus Mathematics",
+      "section": "03A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Thursday, 8:30 AM - 10:29 AM",
+      "location": "154",
+      "instructor": "Hager Mohamed Eldaadaa",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MATH120: Pre-calculus Mathematics",
+      "section": "03B",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
+      "location": "132",
+      "instructor": "Hager Mohamed Eldaadaa",
       "credits": "0.00",
       "seatsLeft": "0"
     }
@@ -15850,17 +15949,6 @@
   "MATH201B": [
     {
       "fullTitle": "MATH201B: Introduction to Probability & Statistics",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 2:30 PM - 5:29 PM",
-      "location": "232",
-      "instructor": "Mahmoud Samy Khaled",
-      "credits": "3.00",
-      "seatsLeft": "28"
-    },
-    {
-      "fullTitle": "MATH201B: Introduction to Probability & Statistics",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -15868,6 +15956,17 @@
       "location": "104",
       "instructor": "Bassant Wahid Farouk",
       "credits": "0.00",
+      "seatsLeft": "28"
+    },
+    {
+      "fullTitle": "MATH201B: Introduction to Probability & Statistics",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Tuesday, 2:30 PM - 5:29 PM",
+      "location": "232",
+      "instructor": "Mahmoud Samy Khaled",
+      "credits": "3.00",
       "seatsLeft": "28"
     }
   ],
@@ -15975,14 +16074,14 @@
   "MATH203": [
     {
       "fullTitle": "MATH203: Differential Equations",
-      "section": "01",
+      "section": "01B",
       "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
-      "location": "350-A",
-      "instructor": "Ethar Ahmed Abdelsalam",
-      "credits": "4.00",
-      "seatsLeft": "18"
+      "subtype": "Tutorial",
+      "schedule": "Saturday, 2:30 PM - 4:29 PM",
+      "location": "306",
+      "instructor": "Eman Khalid Ibrahim",
+      "credits": "0.00",
+      "seatsLeft": "14"
     },
     {
       "fullTitle": "MATH203: Differential Equations",
@@ -16005,6 +16104,17 @@
       "instructor": "Eman Khalid Ibrahim",
       "credits": "0.00",
       "seatsLeft": "7"
+    },
+    {
+      "fullTitle": "MATH203: Differential Equations",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
+      "location": "350-A",
+      "instructor": "Ethar Ahmed Abdelsalam",
+      "credits": "4.00",
+      "seatsLeft": "18"
     },
     {
       "fullTitle": "MATH203: Differential Equations",
@@ -16998,6 +17108,28 @@
   "MGMT201": [
     {
       "fullTitle": "MGMT201: Fundamentals of Management",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 2:30 PM - 5:29 PM",
+      "location": "232",
+      "instructor": "Mostafa Hatem Elbolok",
+      "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MGMT201: Fundamentals of Management",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Sunday, 8:30 AM - 11:29 AM",
+      "location": "233",
+      "instructor": "Laila Sherif Hamdy",
+      "credits": "3.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "MGMT201: Fundamentals of Management",
       "section": "03",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -17039,28 +17171,6 @@
       "instructor": "Maya Mohamed Fahem",
       "credits": "0.00",
       "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MGMT201: Fundamentals of Management",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 2:30 PM - 5:29 PM",
-      "location": "232",
-      "instructor": "Mostafa Hatem Elbolok",
-      "credits": "3.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "MGMT201: Fundamentals of Management",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 8:30 AM - 11:29 AM",
-      "location": "233",
-      "instructor": "Laila Sherif Hamdy",
-      "credits": "3.00",
-      "seatsLeft": "1"
     }
   ],
   "MGMT302": [
