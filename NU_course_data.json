@@ -426,17 +426,6 @@
   "APBI304": [
     {
       "fullTitle": "APBI304: Biosecurity and Research Bioethics",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Thursday, 8:30 AM - 10:29 AM",
-      "location": "350-B",
-      "instructor": "Mariam Mahmoud Gamaledin",
-      "credits": "2.00",
-      "seatsLeft": "28"
-    },
-    {
-      "fullTitle": "APBI304: Biosecurity and Research Bioethics",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -445,6 +434,17 @@
       "instructor": "Mariam Mahmoud Gamaledin",
       "credits": "2.00",
       "seatsLeft": "29"
+    },
+    {
+      "fullTitle": "APBI304: Biosecurity and Research Bioethics",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Thursday, 8:30 AM - 10:29 AM",
+      "location": "350-B",
+      "instructor": "Mariam Mahmoud Gamaledin",
+      "credits": "2.00",
+      "seatsLeft": "28"
     }
   ],
   "APBI307": [
@@ -548,28 +548,6 @@
   "ARC213": [
     {
       "fullTitle": "ARC213: Design Studio II",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 9:30 AM - 3:29 PM",
-      "location": "316",
-      "instructor": "Sara Yasser Abdulhamid, Fatema Mahmoud Elmelegy, Hana Alaa Mohamed, Helen Ragaie Said",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "ARC213: Design Studio II",
-      "section": "02A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Sunday, 9:30 AM - 3:29 PM",
-      "location": "330",
-      "instructor": "Fatema Mahmoud Elmelegy, Hana Alaa Mohamed, Sara Yasser Abdulhamid, Nayera Mohamed Sabet",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "ARC213: Design Studio II",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -588,6 +566,28 @@
       "location": "330",
       "instructor": "Yasmine Khaled Hafez",
       "credits": "4.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "ARC213: Design Studio II",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 9:30 AM - 3:29 PM",
+      "location": "316",
+      "instructor": "Sara Yasser Abdulhamid, Fatema Mahmoud Elmelegy, Hana Alaa Mohamed, Helen Ragaie Said",
+      "credits": "0.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "ARC213: Design Studio II",
+      "section": "02A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Sunday, 9:30 AM - 3:29 PM",
+      "location": "330",
+      "instructor": "Fatema Mahmoud Elmelegy, Hana Alaa Mohamed, Sara Yasser Abdulhamid, Nayera Mohamed Sabet",
+      "credits": "0.00",
       "seatsLeft": "1"
     }
   ],
@@ -791,17 +791,6 @@
   "ARC334": [
     {
       "fullTitle": "ARC334: Theory III:Theory of Modernism",
-      "section": "01A",
-      "session": "Session 01",
-      "subtype": "Tutorial",
-      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
-      "location": "333",
-      "instructor": "Fatema Mahmoud Elmelegy",
-      "credits": "0.00",
-      "seatsLeft": "5"
-    },
-    {
-      "fullTitle": "ARC334: Theory III:Theory of Modernism",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -809,6 +798,17 @@
       "location": "333",
       "instructor": "Israa Mohamed Elmaghraby, Alia Sameh Okasha",
       "credits": "3.00",
+      "seatsLeft": "5"
+    },
+    {
+      "fullTitle": "ARC334: Theory III:Theory of Modernism",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Tutorial",
+      "schedule": "Tuesday, 2:30 PM - 4:29 PM",
+      "location": "333",
+      "instructor": "Fatema Mahmoud Elmelegy",
+      "credits": "0.00",
       "seatsLeft": "5"
     }
   ],
@@ -7578,17 +7578,6 @@
   "EBS111": [
     {
       "fullTitle": "EBS111: Selected Topics in Entrepreneurship",
-      "section": "05",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 2:30 PM - 5:29 PM",
-      "location": "111",
-      "instructor": "Ayman Magd Eldin Hamdy",
-      "credits": "3.00",
-      "seatsLeft": "3"
-    },
-    {
-      "fullTitle": "EBS111: Selected Topics in Entrepreneurship",
       "section": "04",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -7630,53 +7619,20 @@
       "instructor": "Mohamed Abbas Gomaa",
       "credits": "3.00",
       "seatsLeft": "0"
-    }
-  ],
-  "ECE151": [
+    },
     {
-      "fullTitle": "ECE151: Introduction to Programming",
+      "fullTitle": "EBS111: Selected Topics in Entrepreneurship",
       "section": "05",
       "session": "Session 01",
       "subtype": "Lecture",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "106",
-      "instructor": "Zeinab Hassan",
+      "schedule": "Sunday, 2:30 PM - 5:29 PM",
+      "location": "111",
+      "instructor": "Ayman Magd Eldin Hamdy",
       "credits": "3.00",
-      "seatsLeft": "6"
-    },
-    {
-      "fullTitle": "ECE151: Introduction to Programming",
-      "section": "05A",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
-      "location": "138",
-      "instructor": "Aliaa Islam Zayd",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ECE151: Introduction to Programming",
-      "section": "05B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Monday, 10:30 AM - 12:29 PM",
-      "location": "142",
-      "instructor": "Aliaa Islam Zayd",
-      "credits": "0.00",
-      "seatsLeft": "14"
-    },
-    {
-      "fullTitle": "ECE151: Introduction to Programming",
-      "section": "05C",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
-      "location": "138",
-      "instructor": "Malak Abdelmoniem Soliman",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
+      "seatsLeft": "3"
+    }
+  ],
+  "ECE151": [
     {
       "fullTitle": "ECE151: Introduction to Programming",
       "section": "01",
@@ -7850,6 +7806,50 @@
       "schedule": "Tuesday, 4:30 PM - 6:29 PM",
       "location": "7",
       "instructor": "Hanaa Abdulkareem Mahdi",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "106",
+      "instructor": "Zeinab Hassan",
+      "credits": "3.00",
+      "seatsLeft": "6"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 12:30 PM - 2:29 PM",
+      "location": "138",
+      "instructor": "Aliaa Islam Zayd",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Monday, 10:30 AM - 12:29 PM",
+      "location": "142",
+      "instructor": "Aliaa Islam Zayd",
+      "credits": "0.00",
+      "seatsLeft": "14"
+    },
+    {
+      "fullTitle": "ECE151: Introduction to Programming",
+      "section": "05C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Tuesday, 10:30 AM - 12:29 PM",
+      "location": "138",
+      "instructor": "Malak Abdelmoniem Soliman",
       "credits": "0.00",
       "seatsLeft": "0"
     }
@@ -9904,6 +9904,28 @@
   "ECE439": [
     {
       "fullTitle": "ECE439: Mobile Communication",
+      "section": "02B",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 12:30 PM - 1:29 PM",
+      "location": "265",
+      "instructor": "Mariam Salah Kandil",
+      "credits": "0.00",
+      "seatsLeft": "13"
+    },
+    {
+      "fullTitle": "ECE439: Mobile Communication",
+      "section": "02C",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 1:30 PM - 2:29 PM",
+      "location": "265",
+      "instructor": "Mariam Salah Kandil",
+      "credits": "0.00",
+      "seatsLeft": "5"
+    },
+    {
+      "fullTitle": "ECE439: Mobile Communication",
       "section": "01",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -9989,28 +10011,6 @@
       "instructor": "Mariam Salah Kandil",
       "credits": "0.00",
       "seatsLeft": "16"
-    },
-    {
-      "fullTitle": "ECE439: Mobile Communication",
-      "section": "02B",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 12:30 PM - 1:29 PM",
-      "location": "265",
-      "instructor": "Mariam Salah Kandil",
-      "credits": "0.00",
-      "seatsLeft": "13"
-    },
-    {
-      "fullTitle": "ECE439: Mobile Communication",
-      "section": "02C",
-      "session": "Session 01",
-      "subtype": "Lab",
-      "schedule": "Wednesday, 1:30 PM - 2:29 PM",
-      "location": "265",
-      "instructor": "Mariam Salah Kandil",
-      "credits": "0.00",
-      "seatsLeft": "5"
     }
   ],
   "ECE447": [
@@ -12333,94 +12333,6 @@
   "ENGL003": [
     {
       "fullTitle": "ENGL003: English II",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Monday, 1:30 PM - 4:29 PM",
-      "location": "F34",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ENGL003: English II",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Thursday, 1:30 PM - 4:29 PM",
-      "location": "F23",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ENGL003: English II",
-      "section": "03",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Monday, 8:30 AM - 11:29 AM",
-      "location": "F36",
-      "instructor": "Not Assigned",
-      "credits": "0.00",
-      "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "ENGL003: English II",
-      "section": "04",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Tuesday, 1:30 PM - 4:29 PM",
-      "location": "F37",
-      "instructor": "Radwa Ahmed Mubarak",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ENGL003: English II",
-      "section": "05",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Monday",
-          "time": "12:30 PM - 1:29 PM",
-          "location": "F28"
-        },
-        {
-          "day": "Sunday",
-          "time": "10:30 AM - 12:29 PM",
-          "location": "F28"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Hend Mahmoud Ibrahim Elsayed",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ENGL003: English II",
-      "section": "06",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedules": [
-        {
-          "day": "Thursday",
-          "time": "2:30 PM - 3:29 PM",
-          "location": "F28"
-        },
-        {
-          "day": "Wednesday",
-          "time": "12:30 PM - 2:29 PM",
-          "location": "F44"
-        }
-      ],
-      "location": "Not specified",
-      "instructor": "Ayatallah Mahmoud Moheb",
-      "credits": "0.00",
-      "seatsLeft": "0"
-    },
-    {
-      "fullTitle": "ENGL003: English II",
       "section": "07",
       "session": "Session 01",
       "subtype": "Lecture",
@@ -12506,6 +12418,94 @@
       "instructor": "Hend Mahmoud Ibrahim Elsayed",
       "credits": "0.00",
       "seatsLeft": "3"
+    },
+    {
+      "fullTitle": "ENGL003: English II",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Monday, 1:30 PM - 4:29 PM",
+      "location": "F34",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ENGL003: English II",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Thursday, 1:30 PM - 4:29 PM",
+      "location": "F23",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ENGL003: English II",
+      "section": "03",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Monday, 8:30 AM - 11:29 AM",
+      "location": "F36",
+      "instructor": "Not Assigned",
+      "credits": "0.00",
+      "seatsLeft": "1"
+    },
+    {
+      "fullTitle": "ENGL003: English II",
+      "section": "04",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Tuesday, 1:30 PM - 4:29 PM",
+      "location": "F37",
+      "instructor": "Radwa Ahmed Mubarak",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ENGL003: English II",
+      "section": "05",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Monday",
+          "time": "12:30 PM - 1:29 PM",
+          "location": "F28"
+        },
+        {
+          "day": "Sunday",
+          "time": "10:30 AM - 12:29 PM",
+          "location": "F28"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Hend Mahmoud Ibrahim Elsayed",
+      "credits": "0.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "ENGL003: English II",
+      "section": "06",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedules": [
+        {
+          "day": "Thursday",
+          "time": "2:30 PM - 3:29 PM",
+          "location": "F28"
+        },
+        {
+          "day": "Wednesday",
+          "time": "12:30 PM - 2:29 PM",
+          "location": "F44"
+        }
+      ],
+      "location": "Not specified",
+      "instructor": "Ayatallah Mahmoud Moheb",
+      "credits": "0.00",
+      "seatsLeft": "0"
     }
   ],
   "ENGL-101": [
@@ -17151,6 +17151,28 @@
       "instructor": "Saher AbdelMeguid Ali, Rafayel Remon Eshak",
       "credits": "0.00",
       "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MICR201: Microbiology",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Monday, 8:30 AM - 10:29 AM",
+      "location": "350-A",
+      "instructor": "Sameh Heikal Mohamed",
+      "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MICR201: Microbiology",
+      "section": "01A",
+      "session": "Session 01",
+      "subtype": "Lab",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "366",
+      "instructor": "Saher AbdelMeguid Ali, Rafayel Remon Eshak",
+      "credits": "0.00",
+      "seatsLeft": "11"
     }
   ],
   "MICR303": [
@@ -17469,6 +17491,28 @@
   "MNG213": [
     {
       "fullTitle": "MNG213: Mechanics of Materials",
+      "section": "01",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Sunday, 12:30 PM - 2:29 PM",
+      "location": "G26",
+      "instructor": "Tamer Heshmat Kasem",
+      "credits": "3.00",
+      "seatsLeft": "10"
+    },
+    {
+      "fullTitle": "MNG213: Mechanics of Materials",
+      "section": "02",
+      "session": "Session 01",
+      "subtype": "Lecture",
+      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
+      "location": "G26",
+      "instructor": "Tamer Heshmat Kasem",
+      "credits": "3.00",
+      "seatsLeft": "0"
+    },
+    {
+      "fullTitle": "MNG213: Mechanics of Materials",
       "section": "01A",
       "session": "Session 01",
       "subtype": "Tutorial",
@@ -17510,28 +17554,6 @@
       "instructor": "Mariam Khaled Sabry",
       "credits": "0.00",
       "seatsLeft": "1"
-    },
-    {
-      "fullTitle": "MNG213: Mechanics of Materials",
-      "section": "01",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Sunday, 12:30 PM - 2:29 PM",
-      "location": "G26",
-      "instructor": "Tamer Heshmat Kasem",
-      "credits": "3.00",
-      "seatsLeft": "10"
-    },
-    {
-      "fullTitle": "MNG213: Mechanics of Materials",
-      "section": "02",
-      "session": "Session 01",
-      "subtype": "Lecture",
-      "schedule": "Wednesday, 10:30 AM - 12:29 PM",
-      "location": "G26",
-      "instructor": "Tamer Heshmat Kasem",
-      "credits": "3.00",
-      "seatsLeft": "0"
     }
   ],
   "MNG222": [
