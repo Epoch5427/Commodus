@@ -41,7 +41,7 @@ jobs:
         shell: msys2 {0}
         run: bash packaging/windows/build.sh
 
-      - name: Package Archives and Update Manifest
+      - name: Package Zip Archive and Update Manifest
         shell: pwsh
         run: |
           $RawRef = $env:GITHUB_REF_NAME
@@ -53,10 +53,8 @@ jobs:
 
           New-Item -ItemType Directory -Path release_out -Force | Out-Null
           $ZipName = "Commodus-v$Version-windows.zip"
-          $SevenZipName = "Commodus-v$Version-windows.7z"
 
           Compress-Archive -Path "dist\Commodus" -DestinationPath "release_out\$ZipName" -Force
-          & "C:\Program Files\7-Zip\7z.exe" a -t7z -mx=9 "release_out\$SevenZipName" ".\dist\Commodus"
 
           $Sha256 = (Get-FileHash "release_out\$ZipName" -Algorithm SHA256).Hash.ToLower()
           @{
@@ -66,11 +64,11 @@ jobs:
             release_url = "https://github.com/$($env:GITHUB_REPOSITORY)/releases/tag/v$Version"
           } | ConvertTo-Json | Out-File -FilePath "release_out\latest.json" -Encoding utf8
 
-      - name: Upload Build Artifact (for manual/test runs)
+      - name: Upload Test Artifact (manual runs only)
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v7
         with:
-          name: Commodus-windows
-          path: release_out/*
+          path: release_out/*.zip
           archive: false
 
       - name: Publish to GitHub Release
@@ -81,5 +79,4 @@ jobs:
           fail_on_unmatched_files: true
           files: |
             release_out/*.zip
-            release_out/*.7z
             release_out/latest.json
