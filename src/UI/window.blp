@@ -6,16 +6,29 @@ template $CommodusWindow: Adw.ApplicationWindow {
   default-width: 1050;
   default-height: 700;
 
+  Adw.Breakpoint {
+    condition ("max-width: 600sp")
+
+    setters {
+      view_switcher.visible: false;
+      switcher_bar.reveal: true;
+    }
+  }
+
   content: Adw.ToastOverlay toast_overlay {
     Adw.ToolbarView {
       [top]
       Adw.HeaderBar {
         [start]
         ToggleButton show_sidebar_btn {
-          active: bind split_view.show-sidebar;
           icon-name: "sidebar-show-symbolic";
           tooltip-text: _("Toggle Sidebar (Ctrl+S)");
         }
+
+        title-widget: Adw.ViewSwitcher view_switcher {
+          stack: main_view_stack;
+          policy: wide;
+        };
 
         [end]
         MenuButton {
@@ -33,436 +46,772 @@ template $CommodusWindow: Adw.ApplicationWindow {
         revealed: false;
         button-style: suggested;
       }
+      [top]
+      Adw.Banner update_banner {
+        title: _("A new version of Commodus is available.");
+        button-label: _("Update");
+        revealed: false;
+        button-style: suggested;
+      }
 
-      Adw.OverlaySplitView split_view {
-        collapsed: true;
-        show-sidebar: bind show_sidebar_btn.active;
-        min-sidebar-width: 350;
-        max-sidebar-width: 400;
+      content: Adw.ViewStack main_view_stack {
+        vexpand: true;
+        hexpand: true;
 
-        sidebar: Adw.ToolbarView {
-          [top]
-          Adw.HeaderBar {
-            title-widget: Label {
-              label: _("Setup & Filters");
-              styles ["heading"]
-            };
-            show-end-title-buttons: false;
-            show-start-title-buttons: false;
-          }
+        Adw.ViewStackPage {
+          name: "generator";
+          title: _("Generator");
+          icon-name: "work-week-symbolic";
 
-          content: ScrolledWindow {
-            hscrollbar-policy: never;
+          child: Adw.OverlaySplitView split_view {
+            collapsed: true;
+            min-sidebar-width: 350;
+            max-sidebar-width: 400;
 
-            Adw.Clamp {
-              maximum-size: 380;
-              margin-top: 10;
-              margin-bottom: 10;
-              margin-start: 10;
-              margin-end: 10;
+            sidebar: Adw.ToolbarView {
+              [top]
+              Adw.HeaderBar {
+                title-widget: Label {
+                  label: _("Setup & Filters");
+                  styles ["heading"]
+                };
+                show-end-title-buttons: false;
+                show-start-title-buttons: false;
+              }
 
+              content: ScrolledWindow {
+                hscrollbar-policy: never;
+
+                Adw.Clamp {
+                  maximum-size: 380;
+                  margin-top: 10;
+                  margin-bottom: 10;
+                  margin-start: 10;
+                  margin-end: 10;
+
+                  Box {
+                    orientation: vertical;
+                    spacing: 14;
+                    margin-start: 16;
+                    margin-end: 16;
+
+                    // Curriculum Preset Group
+                    Adw.PreferencesGroup {
+                      title: _("Curriculum Preset");
+
+                      Adw.ComboRow major_combo {
+                        title: _("Major");
+                        tooltip-text: _("Select Preset Courses For This Major + Semester");
+                      }
+
+                      Adw.ComboRow semester_combo {
+                        title: _("Semester");
+                        tooltip-text: _("Select Preset Courses For This Major + Semester");
+                        sensitive: false;
+                      }
+                    }
+
+                    // Courses Selection Group
+                    Adw.PreferencesGroup {
+                      title: _("Courses");
+
+                      [header-suffix]
+                      Button update_db_btn {
+                        icon-name: "view-refresh-symbolic";
+                        tooltip-text: "Update Course Database";
+                        styles ["flat"]
+                      }
+
+                      Box {
+                        orientation: horizontal;
+                        halign: fill;
+                        hexpand: true;
+                        margin-bottom: 7;
+                        spacing: 7;
+
+                        SearchEntry searchentry {
+                          placeholder-text: _("Search Courses");
+                          hexpand: true;
+                        }
+
+                        Button clear_sec {
+                          icon-name: "user-trash-symbolic";
+                          tooltip-text: _("Clear Selection");
+                          styles ["flat", "destructive-action"]
+                        }
+                      }
+
+                      ScrolledWindow {
+                        propagate-natural-height: false;
+                        height-request: 220;
+                        hscrollbar-policy: never;
+                        vscrollbar-policy: automatic;
+                        styles ["card"]
+
+                        ListBox listbox {
+                          selection-mode: none;
+                          styles ["boxed-list"]
+                        }
+                      }
+
+                      ProgressBar numcourses {
+                        fraction: 0.0;
+                        text: _("0 Credits");
+                        show-text: true;
+                        margin-top: 14;
+                        tooltip-text: _("Total Credits (Underload)");
+                        styles ["destructive"]
+                      }
+                    }
+
+                    // Constraints Group
+                    Adw.PreferencesGroup {
+                      title: _("Constraints");
+
+                      Adw.ExpanderRow {
+                        title: _("Exclude Days");
+                        show-enable-switch: false;
+                        tooltip-text: _("Generated Schedules Will Not Include Blocks In Any Selected Days");
+
+                        Box {
+                          halign: center;
+                          margin-top: 6;
+                          margin-bottom: 6;
+                          styles ["linked"]
+
+                          ToggleButton checksun { label: _("S"); tooltip-text: _("Sunday"); styles ["circular"] }
+                          ToggleButton checkmon { label: _("M"); tooltip-text: _("Monday"); styles ["circular"] }
+                          ToggleButton checktue { label: _("T"); tooltip-text: _("Tuesday"); styles ["circular"] }
+                          ToggleButton checkwed { label: _("W"); tooltip-text: _("Wednesday"); styles ["circular"] }
+                          ToggleButton checkthu { label: _("T"); tooltip-text: _("Thursday"); styles ["circular"] }
+                          ToggleButton checkfri { label: _("F"); tooltip-text: _("Friday"); styles ["circular"] }
+                          ToggleButton checksat { label: _("S"); tooltip-text: _("Saturday"); styles ["circular"] }
+                        }
+                      }
+
+                      Adw.ExpanderRow time {
+                        title: _("Time Boundary");
+                        show-enable-switch: true;
+                        enable-expansion: false;
+                        tooltip-text: _("Set The Maximum And Minimum Times Blocks Can Occupy");
+
+                        Adw.ActionRow {
+                          title: _("Start Time");
+                          [suffix]
+                          Box {
+                            valign: center;
+                            spacing: 4;
+
+                            SpinButton start_hours {
+                              wrap: true;
+                              tooltip-text: _("In 24H Format");
+                              adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
+                            }
+
+                            Label { label: ":"; }
+
+                            SpinButton start_minutes {
+                              wrap: true;
+                              adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 0; };
+                            }
+                          }
+                        }
+
+                        Adw.ActionRow {
+                          title: _("End Time");
+                          [suffix]
+                          Box {
+                            valign: center;
+                            spacing: 4;
+
+                            SpinButton end_hours {
+                              wrap: true;
+                              tooltip-text: _("In 24H Format");
+                              adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 23; };
+                            }
+
+                            Label { label: ":"; }
+
+                            SpinButton end_minutes {
+                              wrap: true;
+                              adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 59; };
+                            }
+                          }
+                        }
+                      }
+
+                      Adw.ExpanderRow gap_time {
+                        title: _("Specify Gap");
+                        show-enable-switch: true;
+                        enable-expansion: false;
+                        tooltip-text: _("Set A Period Of Time Which Cannot Have Blocks");
+
+                        Adw.ComboRow gap_day {
+                          title: _("Day");
+                          model: StringList {
+                            strings [
+                              "All Days",
+                              "Sunday",
+                              "Monday",
+                              "Tuesday",
+                              "Wednesday",
+                              "Thursday",
+                              "Friday",
+                              "Saturday"
+                            ]
+                          };
+                        }
+
+                        Adw.ActionRow {
+                          title: _("Gap Start");
+                          [suffix]
+                          Box {
+                            valign: center;
+                            spacing: 4;
+
+                            SpinButton gap_start_hours {
+                              wrap: true;
+                              tooltip-text: _("In 24H Format");
+                              adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
+                            }
+
+                            Label { label: ":"; }
+
+                            SpinButton gap_start_minutes {
+                              wrap: true;
+                              adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 0; };
+                            }
+                          }
+                        }
+
+                        Adw.ActionRow {
+                          title: _("Gap End");
+                          [suffix]
+                          Box {
+                            valign: center;
+                            spacing: 4;
+
+                            SpinButton gap_end_hours {
+                              wrap: true;
+                              tooltip-text: _("In 24H Format");
+                              adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
+                            }
+
+                            Label { label: ":"; }
+
+                            SpinButton gap_end_minutes {
+                              wrap: true;
+                              adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 0; };
+                            }
+                          }
+                        }
+                      }
+
+                      Adw.ExpanderRow ls_expander {
+                        title: _("Exclude Full Classes");
+                        show-enable-switch: true;
+                        enable-expansion: false;
+                        expanded: false;
+                        tooltip-text: _("Do Not Include Classes Without Seats In Generation");
+
+                        ListBox ls_listbox {
+                          selection-mode: none;
+                          margin-start: 0;
+                          margin-end: 0;
+                          margin-top: 0;
+                          margin-bottom: 0;
+                          styles ["boxed-list"]
+                        }
+                      }
+                    }
+
+                    // Tuning Group
+                    Adw.PreferencesGroup {
+                      title: _("Optimization");
+
+                      Adw.ComboRow tuner {
+                        title: _("Prioritize");
+                        tooltip-text: _("Sort Schedules Based On One Of The Following Properties");
+                        model: StringList {
+                          strings [
+                            "Compact Days",
+                            "Fewer Days",
+                            "Shorter Days",
+                            "Consistent Days"
+                          ]
+                        };
+                      }
+
+                      Adw.ComboRow sec_tuner {
+                        title: _("Tie-Breaker");
+                        tooltip-text: _("Re-sort Tied Schedules Based On One Of The Following Properties");
+                        model: StringList {
+                          strings [
+                            "None",
+                            "Compact Days",
+                            "Fewer Days",
+                            "Shorter Days",
+                            "Consistent Days"
+                          ]
+                        };
+                      }
+                    }
+                  }
+                }
+              };
+
+              // Pinned Generate Button
+              [bottom]
               Box {
                 orientation: vertical;
-                spacing: 14;
-                margin-start: 16;
-                margin-end: 16;
+                margin-top: 8;
+                margin-bottom: 8;
+                margin-start: 25;
+                margin-end: 25;
 
-                // Curriculum Preset Group
-                Adw.PreferencesGroup {
-                  title: _("Curriculum Preset");
+                Button generate {
+                  label: _("Generate Schedules");
+                  styles ["suggested-action", "pill"]
+                  height-request: 46;
+                }
+              }
+            };
 
-                  Adw.ComboRow major_combo {
-                    title: _("Major");
-                    tooltip-text: _("Select Preset Courses For This Major + Semester");
+            content: Box {
+              orientation: vertical;
+
+              // CenterBox ensures the center widget is strictly centered horizontally
+              CenterBox schedule_toolbar {
+                margin-top: 10;
+                margin-bottom: 10;
+                margin-start: 5;
+                margin-end: 12;
+
+                [start]
+                MenuButton stats_btn {
+                  tooltip-text: _("Schedule Statistics");
+                  styles ["flat"]
+                  sensitive: false;
+
+                  child: Box {
+                    spacing: 6;
+
+                    Image {
+                      icon-name: "info-outline-symbolic";
+                    }
+
+                    Label stats_summary_label {
+                      label: "";
+                      styles ["caption", "heading"]
+                    }
+                  };
+                }
+
+                [center]
+                Box schedule_nav_box {
+                  orientation: horizontal;
+                  spacing: 12;
+
+                  Button prev_btn {
+                    icon-name: "go-previous-symbolic";
+                    tooltip-text: _("Previous Schedule (Left Arrow)");
+                    styles ["circular", "flat"]
+                    sensitive: false;
                   }
 
-                  Adw.ComboRow semester_combo {
-                    title: _("Semester");
-                    tooltip-text: _("Select Preset Courses For This Major + Semester");
+                  Label schedule_counter_label {
+                    label: _("No schedules generated");
+                    styles ["title-4"]
+                  }
+
+                  Button next_btn {
+                    icon-name: "go-next-symbolic";
+                    tooltip-text: _("Next Schedule (Right Arrow)");
+                    styles ["circular", "flat"]
                     sensitive: false;
                   }
                 }
 
-                // Courses Selection Group
-                Adw.PreferencesGroup {
-                  title: _("Courses");
+                [end]
+                Box {
+                  styles ["linked"]
 
-                  [header-suffix]
-
-                  Button update_db_btn {
-                    icon-name: "view-refresh-symbolic";
-                    tooltip-text: "Update Course Database";
-                    styles ["flat"]
+                  Button fav_btn {
+                    icon-name: "non-starred-2-symbolic";
+                    tooltip-text: _("Favorite Schedule");
+                    sensitive: false;
                   }
 
-                  Box {
-                  orientation: horizontal;
-                  halign: fill;
-                  hexpand: true;
-                  margin-bottom: 7;
-                  spacing: 7;
-
-                  SearchEntry searchentry {
-                    placeholder-text: _("Search Courses");
-                    hexpand: true;
-                    }
-
-                  Button clear_sec {
-                    icon-name: "user-trash-symbolic";
-                    tooltip-text: _("Clear Selection");
-                    styles ["flat","destructive-action"]
-                    }
+                  Button copy_btn {
+                    icon-name: "edit-copy-symbolic";
+                    tooltip-text: _("Copy Schedule to Clipboard (Ctrl+C)");
+                    sensitive: false;
                   }
 
-                  ScrolledWindow {
-                    propagate-natural-height: false;
-                    height-request: 220;
-                    hscrollbar-policy: never;
-                    vscrollbar-policy: automatic;
-                    styles ["card"]
-
-                    ListBox listbox {
-                      selection-mode: none;
-                      styles ["boxed-list"]
-                    }
+                  Button branch_btn {
+                    icon-name: "branch-arrow-symbolic";
+                    tooltip-text: _("Branch From Schedule");
+                    sensitive: false;
                   }
 
-                  ProgressBar numcourses {
-                    fraction: 0.0;
-                    text: _("0 Credits");
-                    show-text: true;
-                    margin-top: 14;
-                    tooltip-text: _("Total Credits (Underload)");
-                    styles["destructive"]
-                  }
-                }
-
-                // Constraints Group
-                Adw.PreferencesGroup {
-                  title: _("Constraints");
-
-                  Adw.ExpanderRow {
-                    title: _("Exclude Days");
-                    show-enable-switch: false;
-                    tooltip-text: _("Generated Schedules Will Not Include Blocks In Any Selected Days");
-
-                    Box {
-                      halign: center;
-                      margin-top: 6;
-                      margin-bottom: 6;
-                      styles ["linked"]
-
-                      ToggleButton checksun { label: _("S"); tooltip-text: _("Sunday"); styles ["circular"] }
-                      ToggleButton checkmon { label: _("M"); tooltip-text: _("Monday"); styles ["circular"] }
-                      ToggleButton checktue { label: _("T"); tooltip-text: _("Tuesday"); styles ["circular"] }
-                      ToggleButton checkwed { label: _("W"); tooltip-text: _("Wednesday"); styles ["circular"] }
-                      ToggleButton checkthu { label: _("T"); tooltip-text: _("Thursday"); styles ["circular"] }
-                      ToggleButton checkfri { label: _("F"); tooltip-text: _("Friday"); styles ["circular"] }
-                      ToggleButton checksat { label: _("S"); tooltip-text: _("Saturday"); styles ["circular"] }
-                    }
-                  }
-
-                  Adw.ExpanderRow time {
-                    title: _("Time Boundary");
-                    show-enable-switch: true;
-                    enable-expansion: false;
-                    tooltip-text: _("Set The Maximum And Minimum Times Blocks Can Occupy");
-
-                    Adw.ActionRow {
-                      title: _("Start Time");
-                      [suffix]
-                      Box {
-                        valign: center;
-                        spacing: 4;
-
-                        SpinButton start_hours {
-                          wrap: true;
-                          tooltip-text: _("In 24H Format");
-                          adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
-                        }
-
-                        Label { label: ":"; }
-
-                        SpinButton start_minutes {
-                          wrap: true;
-                          adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 0; };
-                        }
-                      }
-                    }
-
-                    Adw.ActionRow {
-                      title: _("End Time");
-                      [suffix]
-                      Box {
-                        valign: center;
-                        spacing: 4;
-
-                        SpinButton end_hours {
-                          wrap: true;
-                          tooltip-text: _("In 24H Format");
-                          adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 23; };
-                        }
-
-                        Label { label: ":"; }
-
-                        SpinButton end_minutes {
-                          wrap: true;
-                          adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 59; };
-                        }
-                      }
-                    }
-                  }
-
-                  Adw.ExpanderRow gap_time {
-                    title: _("Specify Gap");
-                    show-enable-switch: true;
-                    enable-expansion: false;
-                    tooltip-text: _("Set A Period Of Time Which Cannot Have Blocks");
-
-                    Adw.ComboRow gap_day {
-                      title: _("Day");
-                      model: StringList {
-                        strings [
-                          "All Days",
-                          "Sunday",
-                          "Monday",
-                          "Tuesday",
-                          "Wednesday",
-                          "Thursday",
-                          "Friday",
-                          "Saturday"
-                        ]
-                      };
-                    }
-
-                    Adw.ActionRow {
-                      title: _("Gap Start");
-                      [suffix]
-                      Box {
-                        valign: center;
-                        spacing: 4;
-
-                        SpinButton gap_start_hours {
-                          wrap: true;
-                          tooltip-text: _("In 24H Format");
-                          adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
-                        }
-
-                        Label { label: ":"; }
-
-                        SpinButton gap_start_minutes {
-                          wrap: true;
-                          adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 0; };
-                        }
-                      }
-                    }
-
-                    Adw.ActionRow {
-                      title: _("Gap End");
-                      [suffix]
-                      Box {
-                        valign: center;
-                        spacing: 4;
-
-                        SpinButton gap_end_hours {
-                          wrap: true;
-                          tooltip-text: _("In 24H Format");
-                          adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 0; };
-                        }
-
-                        Label { label: ":"; }
-
-                        SpinButton gap_end_minutes {
-                          wrap: true;
-                          adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 0; };
-                        }
-                      }
-                    }
-                  }
-
-                  Adw.ExpanderRow ls_expander {
-                    title: _("Exclude Full Classes");
-                    show-enable-switch: true;
-                    enable-expansion: false;
-                    expanded: false;
-                    tooltip-text: _("Do Not Include Classes Without Seats In Generation");
-
-                    ListBox ls_listbox {
-                      selection-mode: none;
-                      margin-start: 0;
-                      margin-end: 0;
-                      margin-top: 0;
-                      margin-bottom: 0;
-                      styles ["boxed-list"]
-                    }
-                  }
-                }
-
-                // Tuning Group
-                Adw.PreferencesGroup {
-                  title: _("Optimization");
-
-                  Adw.ComboRow tuner {
-                    title: _("Prioritize");
-                    tooltip-text: _("Sort Schedules Based On One Of The Following Properties");
-                    model: StringList {
-                      strings [
-                        "Compact Days",
-                        "Fewer Days",
-                        "Shorter Days",
-                        "Consistent Days"
-                      ]
-                    };
-                  }
-
-                  Adw.ComboRow sec_tuner {
-                    title: _("Tie-Breaker");
-                    tooltip-text: _("Re-sort Tied Schedules Based On One Of The Following Properties");
-                    model: StringList {
-                      strings [
-                        "None",
-                        "Compact Days",
-                        "Fewer Days",
-                        "Shorter Days",
-                        "Consistent Days"
-                      ]
-                    };
+                  Button import_btn {
+                    icon-name: "folder-download-symbolic";
+                    tooltip-text: _("Import Schedule");
                   }
                 }
               }
-            }
-          };
 
-          // Pinned Generate Button
-          [bottom]
-          Box {
-            orientation: vertical;
-            margin-top: 8;
-            margin-bottom: 8;
-            margin-start: 25;
-            margin-end: 25;
+              ScrolledWindow schedule_scroll {
+                hexpand: true;
+                vexpand: true;
 
-            Button generate {
-              label: _("Generate Schedules");
-              styles ["suggested-action", "pill"]
-              height-request: 46;
-            }
-          }
-        };
+                Box schedule_content_box {
+                  orientation: vertical;
+                  hexpand: true;
+                  vexpand: true;
 
-        content: Box {
-          orientation: vertical;
+                  Adw.StatusPage schedule_status {
+                    title: _("No Schedules Yet");
+                    description: _("Select your courses and constraints, then click Generate Schedules.");
+                    icon-name: "work-week-symbolic";
+                    hexpand: true;
+                    vexpand: true;
+                  }
 
-          // CenterBox ensures the center widget is strictly centered horizontally
-          CenterBox schedule_toolbar {
-            margin-top: 10;
-            margin-bottom: 10;
-            margin-start: 5;
-            margin-end: 12;
-
-            [start]
-            MenuButton stats_btn {
-              tooltip-text: _("Schedule Statistics");
-              styles ["flat"]
-              sensitive: false;
-
-              child: Box {
-                spacing: 6;
-
-                Image {
-                  icon-name: "info-outline-symbolic";
+                  Grid schedule {
+                    visible: false;
+                    margin-top: 0;
+                    margin-bottom: 12;
+                    margin-end: 12;
+                    margin-start: 12;
+                    focusable: false;
+                  }
                 }
+              }
+            };
+          };
+        }
 
-                Label stats_summary_label {
+        Adw.ViewStackPage {
+          name: "common_slots";
+          title: _("Free Slots");
+          icon-name: "preferences-system-time-symbolic";
+
+          child: Adw.OverlaySplitView cs_split_view {
+            collapsed: true;
+            min-sidebar-width: 350;
+            max-sidebar-width: 400;
+
+            sidebar: Adw.ToolbarView {
+              [top]
+              Adw.HeaderBar {
+                title-widget: Label {
+                  label: _("Schedules & Filters");
+                  styles ["heading"]
+                };
+                show-end-title-buttons: false;
+                show-start-title-buttons: false;
+              }
+
+              content: ScrolledWindow {
+                hscrollbar-policy: never;
+
+                Adw.Clamp {
+                  maximum-size: 380;
+                  margin-top: 10;
+                  margin-bottom: 10;
+                  margin-start: 10;
+                  margin-end: 10;
+
+                  Box {
+                    orientation: vertical;
+                    spacing: 14;
+                    margin-start: 16;
+                    margin-end: 16;
+
+                    Adw.PreferencesGroup {
+                      title: _("Imported Schedules");
+
+                      [header-suffix]
+                      Button cs_clear_btn {
+                        icon-name: "user-trash-symbolic";
+                        tooltip-text: _("Clear All Schedules");
+                        sensitive: false;
+                        styles ["flat", "destructive-action"]
+                      }
+
+                      Box {
+                        orientation: horizontal;
+                        spacing: 6;
+                        homogeneous: true;
+
+                        Button cs_import_pdf_btn {
+                          tooltip-text: _("Import Self-Service PDF(s) or Text Files");
+
+                          child: Box {
+                            spacing: 6;
+                            halign: center;
+                            Image { icon-name: "folder-download-symbolic"; }
+                            Label { label: _("PDF"); }
+                          };
+                        }
+
+                        Button cs_paste_btn {
+                          tooltip-text: _("Paste Commodus or Self-Service Schedule");
+
+                          child: Box {
+                            spacing: 6;
+                            halign: center;
+                            Image { icon-name: "edit-paste-symbolic"; }
+                            Label { label: _("Paste"); }
+                          };
+                        }
+
+                        Button cs_use_current_btn {
+                          tooltip-text: _("Add Currently Viewed Generator Schedule");
+                          sensitive: false;
+
+                          child: Box {
+                            spacing: 6;
+                            halign: center;
+                            Image { icon-name: "work-week-symbolic"; }
+                            Label { label: _("Current"); }
+                          };
+                        }
+                      }
+
+                      ListBox cs_schedules_listbox {
+                        visible: false;
+                        margin-top: 10;
+                        selection-mode: none;
+                        styles ["boxed-list"]
+                      }
+                    }
+
+                    Adw.PreferencesGroup {
+                      title: _("Slot Filters");
+
+                      Adw.ComboRow cs_min_duration_combo {
+                        title: _("Minimum Slot");
+                        tooltip-text: _("Only show common free slots at least this long");
+                        selected: 2;
+                        model: StringList {
+                          strings [
+                            "Any (≥ 1 min)",
+                            "15 minutes",
+                            "30 minutes",
+                            "45 minutes",
+                            "1 hour",
+                            "1.5 hours",
+                            "2 hours",
+                            "3 hours"
+                          ]
+                        };
+                      }
+
+                      Adw.ExpanderRow cs_days_expander {
+                        title: _("Exclude Days");
+                        subtitle: _("None");
+                        show-enable-switch: false;
+
+                        Box {
+                          halign: center;
+                          margin-top: 6;
+                          margin-bottom: 6;
+                          styles ["linked"]
+
+                          ToggleButton cs_checksun { label: _("S"); tooltip-text: _("Sunday"); styles ["circular"] }
+                          ToggleButton cs_checkmon { label: _("M"); tooltip-text: _("Monday"); styles ["circular"] }
+                          ToggleButton cs_checktue { label: _("T"); tooltip-text: _("Tuesday"); styles ["circular"] }
+                          ToggleButton cs_checkwed { label: _("W"); tooltip-text: _("Wednesday"); styles ["circular"] }
+                          ToggleButton cs_checkthu { label: _("T"); tooltip-text: _("Thursday"); styles ["circular"] }
+                          ToggleButton cs_checkfri { label: _("F"); tooltip-text: _("Friday"); styles ["circular"] }
+                          ToggleButton cs_checksat { label: _("S"); tooltip-text: _("Saturday"); styles ["circular"] }
+                        }
+                      }
+
+                      Adw.ExpanderRow cs_time_expander {
+                        title: _("Active Hours");
+                        subtitle: _("08:30 – 20:30");
+                        show-enable-switch: false;
+
+                        Adw.ActionRow {
+                          title: _("From");
+                          [suffix]
+                          Box {
+                            valign: center;
+                            spacing: 4;
+
+                            SpinButton cs_start_hours {
+                              wrap: true;
+                              tooltip-text: _("In 24H Format");
+                              adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 8; };
+                            }
+
+                            Label { label: ":"; }
+
+                            SpinButton cs_start_minutes {
+                              wrap: true;
+                              adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 30; };
+                            }
+                          }
+                        }
+
+                        Adw.ActionRow {
+                          title: _("To");
+                          [suffix]
+                          Box {
+                            valign: center;
+                            spacing: 4;
+
+                            SpinButton cs_end_hours {
+                              wrap: true;
+                              tooltip-text: _("In 24H Format");
+                              adjustment: Adjustment { lower: 0; upper: 23; step-increment: 1; value: 20; };
+                            }
+
+                            Label { label: ":"; }
+
+                            SpinButton cs_end_minutes {
+                              wrap: true;
+                              adjustment: Adjustment { lower: 0; upper: 59; step-increment: 15; value: 30; };
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              };
+            };
+
+            content: Box {
+              orientation: vertical;
+
+              CenterBox {
+                margin-top: 10;
+                margin-bottom: 10;
+                margin-start: 12;
+                margin-end: 12;
+
+                [start]
+                Label cs_summary_label {
                   label: "";
                   styles ["caption", "heading"]
                 }
-              };
-            }
 
-            [center]
-            Box schedule_nav_box {
-              orientation: horizontal;
-              spacing: 12;
+                [center]
+                Box {
+                  styles ["linked"]
 
-              Button prev_btn {
-                icon-name: "go-previous-symbolic";
-                tooltip-text: _("Previous Schedule (Left Arrow)");
-                styles ["circular", "flat"]
-                sensitive: false;
+                  ToggleButton cs_grid_view_btn {
+                    label: _("Grid");
+                    active: true;
+                  }
+
+                  ToggleButton cs_list_view_btn {
+                    label: _("List");
+                    group: cs_grid_view_btn;
+                  }
+                }
+
+                [end]
+                Box {
+                  styles ["linked"]
+
+                  ToggleButton cs_show_busy_btn {
+                    label: _("Show Busy");
+                    active: true;
+                    tooltip-text: _("Show busy blocks alongside free slots");
+                  }
+
+                  Button cs_copy_btn {
+                    icon-name: "edit-copy-symbolic";
+                    tooltip-text: _("Copy Common Free Slots (Ctrl+C)");
+                    sensitive: false;
+                  }
+                }
               }
 
-              Label schedule_counter_label {
-                label: _("No schedules generated");
-                styles ["title-4"]
-              }
-
-              Button next_btn {
-                icon-name: "go-next-symbolic";
-                tooltip-text: _("Next Schedule (Right Arrow)");
-                styles ["circular", "flat"]
-                sensitive: false;
-              }
-            }
-
-            [end]
-            Box {
-              styles ["linked"]
-
-              Button fav_btn {
-                icon-name: "non-starred-2-symbolic";
-                tooltip-text: _("Favorite Schedule");
-                sensitive: false;
-              }
-
-              Button copy_btn {
-                icon-name: "edit-copy-symbolic";
-                tooltip-text: _("Copy Schedule to Clipboard (Ctrl+C)");
-                sensitive: false;
-              }
-
-              Button branch_btn {
-                icon-name: "branch-arrow-symbolic";
-                tooltip-text: _("Branch From Schedule");
-                sensitive: false;
-              }
-
-              Button import_btn {
-                icon-name: "folder-download-symbolic";
-                tooltip-text: _("Import Schedule");
-              }
-            }
-          }
-
-          ScrolledWindow schedule_scroll {
-            hexpand: true;
-            vexpand: true;
-
-
-            Box schedule_content_box {
-              orientation: vertical;
-              hexpand: true;
-              vexpand: true;
-
-              Adw.StatusPage schedule_status {
-                title: _("No Schedules Yet");
-                description: _("Select your courses and constraints, then click Generate Schedules.");
-                icon-name: "work-week-symbolic";
+              ScrolledWindow {
                 hexpand: true;
                 vexpand: true;
-              }
 
-              Grid schedule {
-                visible: false;
-                margin-top: 0;
-                margin-bottom: 12;
-                margin-end: 12;
-                margin-start: 12;
-                focusable: false;
+                Stack cs_content_stack {
+                  hexpand: true;
+                  vexpand: true;
+                  hhomogeneous: false;
+                  vhomogeneous: false;
+
+                  StackPage {
+                    name: "empty";
+                    child: Adw.StatusPage cs_status_page {
+                      title: _("Find Common Free Slots");
+                      description: _("Import two or more schedules from Commodus or Self-Service PDFs to find when everyone is free.");
+                      icon-name: "preferences-system-time-symbolic";
+                      hexpand: true;
+                      vexpand: true;
+
+                      child: Box {
+                        halign: center;
+                        spacing: 10;
+
+                        Button cs_status_pdf_btn {
+                          label: _("Import PDF(s)");
+                          styles ["suggested-action", "pill"]
+                        }
+
+                        Button cs_status_paste_btn {
+                          label: _("Paste Schedule");
+                          styles ["pill"]
+                        }
+
+                        Button cs_status_current_btn {
+                          label: _("Use Current");
+                          sensitive: false;
+                          styles ["pill"]
+                        }
+                      };
+                    };
+                  }
+
+                  StackPage {
+                    name: "grid";
+                    child: Grid cs_grid {
+                      margin-top: 0;
+                      margin-bottom: 12;
+                      margin-end: 12;
+                      margin-start: 12;
+                      focusable: false;
+                    };
+                  }
+
+                  StackPage {
+                    name: "list";
+                    child: Adw.Clamp {
+                      maximum-size: 680;
+
+                      Box cs_list_container {
+                        orientation: vertical;
+                        spacing: 16;
+                        margin-top: 12;
+                        margin-bottom: 24;
+                        margin-start: 16;
+                        margin-end: 16;
+                      }
+                    };
+                  }
+                }
               }
-            }
-          }
-        };
+            };
+          };
+        }
+      };
+
+      [bottom]
+      Adw.ViewSwitcherBar switcher_bar {
+        stack: main_view_stack;
+        reveal: false;
       }
     }
   };
@@ -615,18 +964,17 @@ Adw.PreferencesDialog prefs_dialog {
         show-enable-switch: true;
         expanded: false;
 
-
-      Adw.ActionRow {
-        title: _("Load JSON File");
-        [suffix]
-        Button fpickerbutton {
-          label: _("Browse");
-          tooltip-text: _("Do NOT Click If You Don't Know What You Are Doing");
-          valign: center;
-          sensitive: false;
-          styles ["pill"]
+        Adw.ActionRow {
+          title: _("Load JSON File");
+          [suffix]
+          Button fpickerbutton {
+            label: _("Browse");
+            tooltip-text: _("Do NOT Click If You Don't Know What You Are Doing");
+            valign: center;
+            sensitive: false;
+            styles ["pill"]
+          }
         }
-      }
       }
     }
   }

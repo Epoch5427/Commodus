@@ -1,0 +1,85 @@
+name: Build and Publish Windows Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup MSYS2 (UCRT64)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-toolchain
+            mingw-w64-ucrt-x86_64-meson
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-pkgconf
+            mingw-w64-ucrt-x86_64-gtk4
+            mingw-w64-ucrt-x86_64-libadwaita
+            mingw-w64-ucrt-x86_64-adwaita-icon-theme
+            mingw-w64-ucrt-x86_64-blueprint-compiler
+            mingw-w64-ucrt-x86_64-python
+            mingw-w64-ucrt-x86_64-python-gobject
+            mingw-w64-ucrt-x86_64-python-certifi
+            mingw-w64-ucrt-x86_64-pyinstaller
+            mingw-w64-ucrt-x86_64-gettext-tools
+
+      - name: Build Portable Bundle
+        shell: msys2 {0}
+        run: bash packaging/windows/build.sh
+
+      - name: Package Archives and Update Manifest
+        shell: pwsh
+        run: |
+          $RawRef = $env:GITHUB_REF_NAME
+          if ($RawRef -match '^v(.+)$') {
+            $Version = $Matches[1]
+          } else {
+            $Version = "dev-$($env:GITHUB_SHA.Substring(0, 7))"
+          }
+
+          New-Item -ItemType Directory -Path release_out -Force | Out-Null
+          $ZipName = "Commodus-v$Version-windows.zip"
+          $SevenZipName = "Commodus-v$Version-windows.7z"
+
+          Compress-Archive -Path "dist\Commodus" -DestinationPath "release_out\$ZipName" -Force
+          & "C:\Program Files\7-Zip\7z.exe" a -t7z -mx=9 "release_out\$SevenZipName" ".\dist\Commodus"
+
+          $Sha256 = (Get-FileHash "release_out\$ZipName" -Algorithm SHA256).Hash.ToLower()
+          @{
+            version     = $Version
+            url         = "https://github.com/$($env:GITHUB_REPOSITORY)/releases/download/v$Version/$ZipName"
+            sha256      = $Sha256
+            release_url = "https://github.com/$($env:GITHUB_REPOSITORY)/releases/tag/v$Version"
+          } | ConvertTo-Json | Out-File -FilePath "release_out\latest.json" -Encoding utf8
+
+      - name: Upload Build Artifact (for manual/test runs)
+        uses: actions/upload-artifact@v7
+        with:
+          name: Commodus-windows
+          path: release_out/*
+          archive: false
+
+      - name: Publish to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v3
+        with:
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            release_out/*.zip
+            release_out/*.7z
+            release_out/latest.json

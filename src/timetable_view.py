@@ -1,5 +1,3 @@
-# timetable_view.py
-
 import re
 from typing import Dict, List
 from gi.repository import Adw, Gtk, GLib, Pango, Gdk

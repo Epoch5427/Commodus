@@ -4,7 +4,7 @@ using Adw 1;
 template $CommodusImportDialog : Adw.Dialog {
   title: _("Import Schedule");
   content-width: 655;
-  content-height: 460;
+  content-height: 480;
 
   Adw.ToolbarView {
     [top]
@@ -37,15 +37,34 @@ template $CommodusImportDialog : Adw.Dialog {
         margin-start: 16;
         margin-end: 16;
 
+        Adw.PreferencesGroup name_group {
+          title: _("Schedule Details");
+          visible: false;
+
+          Adw.EntryRow name_row {
+            title: _("Person / Label");
+          }
+        }
+
         Adw.PreferencesGroup {
           title: _("Schedule Summary Text");
 
           [header-suffix]
-          Button paste_btn {
-            icon-name: "edit-paste-symbolic";
-            tooltip-text: _("Paste from Clipboard");
+          Box {
+            spacing: 4;
             valign: center;
-            styles ["flat"]
+
+            Button open_file_btn {
+              icon-name: "folder-download-symbolic";
+              tooltip-text: _("Load from PDF or Text File");
+              styles ["flat"]
+            }
+
+            Button paste_btn {
+              icon-name: "edit-paste-symbolic";
+              tooltip-text: _("Paste from Clipboard");
+              styles ["flat"]
+            }
           }
 
           Frame {
@@ -68,14 +87,14 @@ template $CommodusImportDialog : Adw.Dialog {
         }
 
         ScrolledWindow {
-        vscrollbar-policy: never;
+          vscrollbar-policy: never;
 
-        Label status_label {
-          margin-bottom: 20;
-          label: _("Paste exported schedule text above.");
-          halign: start;
-          styles ["dim-label", "caption"]
-        }
+          Label status_label {
+            margin-bottom: 20;
+            label: _("Paste Commodus or Self-Service schedule text above, or load a file.");
+            halign: start;
+            styles ["dim-label", "caption"]
+          }
         }
       }
     };

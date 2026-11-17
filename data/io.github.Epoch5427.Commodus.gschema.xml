@@ -2,6 +2,22 @@
 <schemalist gettext-domain="commodus">
   <schema id="io.github.Epoch5427.Commodus" path="/io/github/Epoch5427/Commodus/">
 
+    <!-- Navigation & Layout -->
+    <key name="active-view" type="s">
+      <choices>
+        <choice value='generator'/>
+        <choice value='common_slots'/>
+      </choices>
+      <default>'generator'</default>
+      <summary>Active View</summary>
+      <description>Currently visible view in the headerbar view switcher.</description>
+    </key>
+    <key name="show-sidebar" type="b">
+      <default>false</default>
+      <summary>Sidebar Visible</summary>
+      <description>Shared visibility state for the sidebar toggle and split views.</description>
+    </key>
+
     <!-- Dynamic / Course State -->
     <key name="selected-courses" type="as">
       <default>[]</default>
@@ -129,6 +145,48 @@
     <key name="checkthu" type="b"><default>false</default></key>
     <key name="checkfri" type="b"><default>false</default></key>
     <key name="checksat" type="b"><default>false</default></key>
+
+    <!-- Common Free Slots View -->
+    <key name="cs-schedules" type="s">
+      <default>'[]'</default>
+      <summary>Imported Schedules for Free Slots</summary>
+      <description>Serialized JSON list of imported schedules.</description>
+    </key>
+    <key name="cs-min-duration" type="i">
+      <default>2</default>
+      <summary>Minimum free slot duration index</summary>
+    </key>
+    <key name="cs-start-hours" type="i">
+      <default>8</default>
+      <summary>Free slots active hours start hour</summary>
+    </key>
+    <key name="cs-start-minutes" type="i">
+      <default>30</default>
+      <summary>Free slots active hours start minute</summary>
+    </key>
+    <key name="cs-end-hours" type="i">
+      <default>20</default>
+      <summary>Free slots active hours end hour</summary>
+    </key>
+    <key name="cs-end-minutes" type="i">
+      <default>30</default>
+      <summary>Free slots active hours end minute</summary>
+    </key>
+    <key name="cs-show-busy" type="b">
+      <default>true</default>
+      <summary>Show busy blocks alongside free slots</summary>
+    </key>
+    <key name="cs-grid-view" type="b">
+      <default>true</default>
+      <summary>Show grid view in Free Slots</summary>
+    </key>
+    <key name="cs-checksun" type="b"><default>false</default></key>
+    <key name="cs-checkmon" type="b"><default>false</default></key>
+    <key name="cs-checktue" type="b"><default>false</default></key>
+    <key name="cs-checkwed" type="b"><default>false</default></key>
+    <key name="cs-checkthu" type="b"><default>false</default></key>
+    <key name="cs-checkfri" type="b"><default>false</default></key>
+    <key name="cs-checksat" type="b"><default>false</default></key>
 
   </schema>
 </schemalist>

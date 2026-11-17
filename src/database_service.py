@@ -40,7 +40,11 @@ class DatabaseService(GObject.Object):
     def _get_ssl_context():
         if os.name == 'nt':
             import ssl
-            return ssl._create_unverified_context()
+            try:
+                import certifi
+                return ssl.create_default_context(cafile=certifi.where())
+            except ImportError:
+                return ssl.create_default_context()
         return None
 
     def _atomic_write(self, target_path: str, content: str):

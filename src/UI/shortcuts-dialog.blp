@@ -21,13 +21,18 @@ Adw.ShortcutsDialog shortcuts_dialog {
     }
 
     Adw.ShortcutsItem {
+      title: C_("shortcut window", "Toggle Side Bar");
+      accelerator: "<Primary>S";
+    }
+
+    Adw.ShortcutsItem {
       title: C_("shortcut window", "Go Back");
       accelerator: "Escape";
     }
   }
 
   Adw.ShortcutsSection {
-    title: _("Schedule View");
+    title: _("Schedule Generator");
 
     Adw.ShortcutsItem {
       title: C_("shortcut window", "Generate Schedule");
@@ -55,11 +60,6 @@ Adw.ShortcutsDialog shortcuts_dialog {
     }
 
     Adw.ShortcutsItem {
-      title: C_("shortcut window", "Toggle Side Bar");
-      accelerator: "<Primary>S";
-    }
-
-    Adw.ShortcutsItem {
       title: C_("shortcut window", "Copy Schedule");
       accelerator: "<Primary>C";
     }
@@ -67,6 +67,15 @@ Adw.ShortcutsDialog shortcuts_dialog {
     Adw.ShortcutsItem {
       title: C_("shortcut window", "Cycle Secondary Info");
       accelerator: "<Primary>I";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Free Slots View");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut window", "Copy Common Free Slots");
+      accelerator: "<Primary>C";
     }
   }
 }

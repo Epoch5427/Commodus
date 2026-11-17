@@ -75,6 +75,10 @@ commodus_sources = [
   'scheduler_runner.py',
   'timetable_view.py',
   'database_service.py',
+  'common_slots_view.py',
+  'schedule_parser.py',
+  'version.py',
+  'updater_service.py'
 ]
 
 install_data(commodus_sources, install_dir: moduledir)
