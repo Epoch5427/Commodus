@@ -1,4 +1,3 @@
-# updater_service.py
 import hashlib
 import json
 import os
@@ -125,20 +124,42 @@ class WindowsUpdaterService(GObject.Object):
 
         threading.Thread(target=task, daemon=True).start()
 
+    def _fetch_release_notes(self, ctx: ssl.SSLContext, version: str) -> str:
+        urls = [
+            f"https://api.github.com/repos/{REPO}/releases/tags/v{version}",
+            RELEASES_LATEST_API,
+        ]
+        for api_url in urls:
+            try:
+                req = urllib.request.Request(api_url, headers={"User-Agent": "Commodus-App"})
+                with urllib.request.urlopen(req, context=ctx, timeout=5) as resp:
+                    rel = json.loads(resp.read().decode("utf-8"))
+                    body = (rel.get("body") or "").replace("\r\n", "\n").strip()
+                    if body:
+                        return body
+            except Exception:
+                continue
+        return ""
+
     def _fetch_update_info(self, ctx: ssl.SSLContext) -> Optional[Dict]:
         # 1. Prefer CDN-served latest.json attached to the release (no API rate limit)
         try:
             req = urllib.request.Request(MANIFEST_URL, headers={"User-Agent": "Commodus-App"})
             with urllib.request.urlopen(req, context=ctx, timeout=10) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
-                ver = str(data.get("version", "")).strip()
+                ver = str(data.get("version", "")).strip().lstrip("vV")
                 url = str(data.get("url", "")).strip()
                 if ver and url:
+                    manifest_notes = (data.get("notes") or "").replace("\r\n", "\n").strip()
+                    notes = manifest_notes
+                    if is_newer_version(ver, APP_VERSION):
+                        # Prefer live GitHub Release body (reflects UI edits), fallback to manifest notes
+                        notes = self._fetch_release_notes(ctx, ver) or manifest_notes
                     return self._enrich_update_info({
-                        "version": ver.lstrip("vV"),
+                        "version": ver,
                         "url": url,
                         "sha256": str(data.get("sha256", "")).strip().lower(),
-                        "notes": data.get("notes", ""),
+                        "notes": notes,
                         "release_url": data.get("release_url") or RELEASES_LATEST_WEB,
                     })
         except urllib.error.HTTPError as e:
@@ -181,7 +202,7 @@ class WindowsUpdaterService(GObject.Object):
             "version": rel.get("tag_name", latest_tag).lstrip("vV"),
             "url": chosen.get("browser_download_url", "") if chosen else "",
             "sha256": sha,
-            "notes": rel.get("body", ""),
+            "notes": (rel.get("body") or "").replace("\r\n", "\n").strip(),
             "release_url": rel.get("html_url", RELEASES_LATEST_WEB),
         })
 
@@ -312,7 +333,7 @@ class WindowsUpdaterService(GObject.Object):
         return None
 
     def launch_swapper_and_prepare_exit(self):
-        """Spawns a detached PowerShell swapper in %TEMP% and returns True if launched."""
+        """Spawns a detached PowerShell swapper in %TEMP%."""
         if not self._prepared_payload_dir or not self._prepared_staging_root:
             raise RuntimeError("No staged update ready to apply.")
 
