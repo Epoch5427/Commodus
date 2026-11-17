@@ -47,10 +47,7 @@ if os.path.exists(gresource_path):
     resource = Gio.Resource.load(gresource_path)
     Gio.resources_register(resource)
 
-try:
-    from commodus.version import APP_VERSION
-except ImportError:
-    APP_VERSION = "1.3.0"
+from commodus.version import APP_VERSION
 
 from commodus.main import main
 

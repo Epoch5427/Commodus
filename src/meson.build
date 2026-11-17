@@ -65,6 +65,14 @@ configure_file(
   install_mode: 'rwxr-xr-x'
 )
 
+configure_file(
+  input: 'version.py.in',
+  output: 'version.py',
+  configuration: conf,
+  install: true,
+  install_dir: moduledir,
+)
+
 commodus_sources = [
   '__init__.py',
   'main.py',
@@ -77,8 +85,7 @@ commodus_sources = [
   'database_service.py',
   'common_slots_view.py',
   'schedule_parser.py',
-  'version.py',
-  'updater_service.py'
+  'updater_service.py',
 ]
 
 install_data(commodus_sources, install_dir: moduledir)
